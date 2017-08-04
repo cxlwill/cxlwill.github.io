@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="之前的教程基本都是面向初学者的，然而我相信读者中不乏有代码好手，更有对 HASS 已经研究颇深的朋友。本篇简短教程姑且一步登天，和各位程序猿（媛）讨论如何利用 HA 中强大的 command-line 以快速实现期望功能。 ##初学乍练HA 之中接入一个设备往往需要经由 平台——组件 这一流程，过程十分繁琐，有时我们只是想运行一些简单的 Python 代码，或者只是想测试一下效果，因此完全没有必要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="活用 Command Line">
+<meta property="og:url" content="http://yoursite.com/2017/08/04/活用-Command-Line/index.html">
+<meta property="og:site_name" content="墨澜技术站">
+<meta property="og:description" content="之前的教程基本都是面向初学者的，然而我相信读者中不乏有代码好手，更有对 HASS 已经研究颇深的朋友。本篇简短教程姑且一步登天，和各位程序猿（媛）讨论如何利用 HA 中强大的 command-line 以快速实现期望功能。 ##初学乍练HA 之中接入一个设备往往需要经由 平台——组件 这一流程，过程十分繁琐，有时我们只是想运行一些简单的 Python 代码，或者只是想测试一下效果，因此完全没有必要">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-07-31-Jietu20170731-190013%402x.jpg">
+<meta property="og:updated_time" content="2017-08-04T08:07:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="活用 Command Line">
+<meta name="twitter:description" content="之前的教程基本都是面向初学者的，然而我相信读者中不乏有代码好手，更有对 HASS 已经研究颇深的朋友。本篇简短教程姑且一步登天，和各位程序猿（媛）讨论如何利用 HA 中强大的 command-line 以快速实现期望功能。 ##初学乍练HA 之中接入一个设备往往需要经由 平台——组件 这一流程，过程十分繁琐，有时我们只是想运行一些简单的 Python 代码，或者只是想测试一下效果，因此完全没有必要">
+<meta name="twitter:image" content="http://oeoj44yho.bkt.clouddn.com/2017-07-31-Jietu20170731-190013%402x.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/04/活用-Command-Line/"/>
+
+
+
+
+
+  <title>活用 Command Line | 墨澜技术站</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">墨澜技术站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Female Geek</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/04/活用-Command-Line/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cxlwill">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="墨澜技术站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">活用 Command Line</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-04T16:05:00+08:00">
+                2017-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HA/" itemprop="url" rel="index">
+                    <span itemprop="name">Home Assistant</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前的教程基本都是面向初学者的，然而我相信读者中不乏有代码好手，更有对 HASS 已经研究颇深的朋友。本篇简短教程姑且一步登天，和各位程序猿（媛）讨论如何利用 HA 中强大的 command-line 以快速实现期望功能。</p>
+<p>##初学乍练<br>HA 之中接入一个设备往往需要经由 平台——组件 这一流程，过程十分繁琐，有时我们只是想运行一些简单的 Python 代码，或者只是想测试一下效果，因此完全没有必要特别去创建平台。</p>
+<p>HA 为此特别提供了名为 “Command Line” 的传感器组件，这个强无敌的组件能让你在 HA 中运行任何支持该平台的命令，还可以显示指令结果。</p>
+<p>同其他传感器组件一样，使用 Command-Line，只需在<code>configuration.yaml</code>中添加如下配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attr">sensor:</span></div><div class="line"><span class="attr">  - platform:</span> <span class="string">command_line</span></div><div class="line"><span class="attr">    command:</span> <span class="string">SENSOR_COMMAND</span></div></pre></td></tr></table></figure>
+<p>HA 官方给出了一些简单的应用例子，我们不妨来看一下：</p>
+<ol>
+<li>显示 CPU 温度<br>我们知道在树莓派终端中输入 <code>cat /sys/class/thermal/thermal_zone0/temp</code> 指令便可以获取 CPU 温度的千倍值，想让 HA 运行指令只需将其写入配置文件中。</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="attr">sensor:</span></div><div class="line"><span class="attr">  - platform:</span> <span class="string">command_line</span></div><div class="line"><span class="attr">    name:</span> <span class="string">CPU</span> <span class="string">Temperature</span></div><div class="line"><span class="attr">    command:</span> <span class="string">"cat /sys/class/thermal/thermal_zone0/temp"</span></div><div class="line"><span class="attr">    unit_of_measurement:</span> <span class="string">"°C"</span></div><div class="line"><span class="attr">    value_template:</span> <span class="string">'<span class="template-variable">&#123;&#123; value | multiply(0.001) &#125;&#125;</span>'</span></div></pre></td></tr></table></figure>
+<p>重启 HA 后，HA 便会添加一个 sensor.CPU_Temerature 的传感器，之后就和其他组件一样，可以对其随意个性化配置。</p>
+<ol>
+<li>抓取 HA 最新版本信息<br>HA 的包上传在 PyPI 上，自然版本信息也包括在内，通过抓取便可轻易获得。</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">sensor:</span></div><div class="line"><span class="attr">  - platform:</span> <span class="string">command_line</span></div><div class="line"><span class="attr">    command:</span> <span class="string">python3</span> <span class="bullet">-c</span> <span class="string">"import requests; print(requests.get('https://pypi.python.org/pypi/homeassistant/json').json()['info']['version'])"</span></div><div class="line"><span class="attr">    name:</span> <span class="string">HA</span> <span class="string">release</span></div></pre></td></tr></table></figure>
+<p>同理，HA 内会生成名为 sensor.HA_release 的传感器组件。</p>
+<p>该例中，我们简单涉及了一些数据抓取的技巧，在 HA 内其实提供了一个特别的用于数据抓取的组件：Scrape Sensor，这里也简单介绍一下。</p>
+<h2 id="渐入佳境"><a href="#渐入佳境" class="headerlink" title="渐入佳境"></a>渐入佳境</h2><p>Scrape Sensor 组件顾名思义是用来抓取（刮削）数据的，但是实测下来，效果有限。</p>
+<p>基本配置如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">sensor:</span></div><div class="line"><span class="attr">  - platform:</span> <span class="string">scrape</span></div><div class="line"><span class="attr">    resource:</span> <span class="attr">https://home-assistant.io</span></div><div class="line"><span class="attr">    select:</span> <span class="string">".current-version h1"</span></div></pre></td></tr></table></figure>
+<p>稍有前端基础的朋友应该很快就可以明白其意，最后的 select 可以设定需要抓取的类或者是对象。</p>
+<p>比如你是 IFTTT 的重度患者，想要在 HA 前端显示所用的 Applets 的情况，就可以这样配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">sensor:</span></div><div class="line"><span class="attr">  - platform:</span> <span class="string">scrape</span></div><div class="line"><span class="attr">    resource:</span> <span class="attr">http://status.ifttt.com/</span></div><div class="line"><span class="attr">    name:</span> <span class="string">IFTTT</span> <span class="string">status</span></div><div class="line"><span class="attr">    select:</span> <span class="string">'.component-status'</span></div></pre></td></tr></table></figure>
+<p>摸清楚原理，我们很快就会意识到 Scrape 只能用来刮削结构简单的静态网页，一旦网页稍微复杂一些，数据根本无法被 select 出。</p>
+<h2 id="小试牛刀"><a href="#小试牛刀" class="headerlink" title="小试牛刀"></a>小试牛刀</h2><p>说了那么多官方示例，现在轮到我们自己动手实践了。</p>
+<p>Commadn Line 的本质还是辅助性组件，想要指望其运行复杂的代码显然是不切实际的。个人认为该组件的重点在于信息展示上，因此也不难理解官方给出的例子都与数据抓取多多少少有一些关系。</p>
+<p>HA 是建立在 Python 之上的，配合各类库的使用，Python 的数据抓取能力十分强大。Command Line 既然是 HA 里的小终端，那么自然支持运行外置代码文件。</p>
+<p>作为长在海边的孩子，自己对潮汐情况比较关注。HA 的部分天气组件提供了潮汐数据，但涉及汉化、挑选和适配传感器，操作起来十分麻烦。于是我想到直接写一小段 Python 代码抓取潮汐数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</div><div class="line"><span class="keyword">import</span> requests</div><div class="line"><span class="keyword">import</span> time</div><div class="line"></div><div class="line"><span class="comment">#日期格式化</span></div><div class="line">d = time.strftime(<span class="string">"%Y-%m-%d"</span>, time.localtime())</div><div class="line"></div><div class="line"><span class="comment">#港口代码，前往 http://www.chinaports.com/chaoxi/ 取得</span></div><div class="line">port_code = <span class="number">122</span></div><div class="line">port_code = str(port_code)</div><div class="line"></div><div class="line"><span class="comment">#获取数据</span></div><div class="line">html = requests.get(<span class="string">"http://www.chinaports.com/chaoxi/"</span> + d + <span class="string">"/"</span> + port_code).content</div><div class="line">soup = BeautifulSoup(html, <span class="string">"html5lib"</span>, from_encoding=<span class="string">"utf-8"</span>)</div><div class="line">result = soup.find(<span class="string">"table"</span>, class_=<span class="string">"tidaltable"</span>)</div><div class="line">detail = result(<span class="string">"td"</span>)</div><div class="line"></div><div class="line"><span class="comment">#打印数据</span></div><div class="line">count = len(detail)</div><div class="line"><span class="keyword">if</span> count == <span class="number">8</span>:</div><div class="line">    first_height = int(detail[<span class="number">5</span>].string)</div><div class="line">    second_height = int(detail[<span class="number">6</span>].string)</div><div class="line">    <span class="keyword">if</span> first_height &gt; second_height:</div><div class="line">        <span class="keyword">print</span> (<span class="string">"涨潮："</span> + detail[<span class="number">1</span>].string + <span class="string">" "</span> + detail[<span class="number">3</span>].string + <span class="string">"；退潮："</span> + detail[<span class="number">2</span>].string)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">print</span> (<span class="string">"涨潮："</span> + detail[<span class="number">2</span>].string + <span class="string">" "</span> + <span class="string">"；退潮： "</span> + detail[<span class="number">1</span>].string + <span class="string">" "</span> + detail[<span class="number">3</span>].string)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">    first_height = int(detail[<span class="number">6</span>].string)</div><div class="line">    second_height = int(detail[<span class="number">7</span>].string)</div><div class="line">    <span class="keyword">if</span> first_height &gt; second_height:</div><div class="line">        <span class="keyword">print</span> (<span class="string">"涨潮："</span> + detail[<span class="number">2</span>].string + <span class="string">" "</span> + detail[<span class="number">4</span>].string + <span class="string">"；退潮："</span> + detail[<span class="number">1</span>].string + detail[<span class="number">3</span>].string)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">print</span> (<span class="string">"涨潮："</span> + detail[<span class="number">1</span>].string + <span class="string">" "</span> + detail[<span class="number">3</span>].string + <span class="string">"；退潮："</span> + detail[<span class="number">2</span>].string + detail[<span class="number">4</span>].string)</div></pre></td></tr></table></figure>
+<p>该段代码使用了 BeautifulSoup4 库，比起 Scrape Senso 抓取、整理数据的能力自然强多了。</p>
+<p>然后将该 tide.py 文件存放在任意文件夹内，再配置 <code>configuration.yaml</code> 文件即可：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#潮汐</span></div><div class="line"><span class="attr">sensor:</span></div><div class="line"><span class="attr">  - platform:</span> <span class="string">command_line</span></div><div class="line"><span class="attr">    name:</span> <span class="string">Tide</span></div><div class="line"><span class="attr">    command:</span> <span class="string">"python3 /home/pi/Downloads/tide.py"</span></div><div class="line">    </div><div class="line"><span class="comment">#个性化</span></div><div class="line"><span class="attr">homeassistant:</span></div><div class="line"><span class="attr">    customize:</span></div><div class="line">        <span class="string">sensor.tide:</span></div><div class="line"><span class="attr">        friendly_name:</span> <span class="string">潮汐</span></div><div class="line"><span class="attr">        icon:</span> <span class="attr">mdi:waves</span></div></pre></td></tr></table></figure>
+<p>重启 HA，潮汐时间就出现在主界面了：<br><img src="http://oeoj44yho.bkt.clouddn.com/2017-07-31-Jietu20170731-190013%402x.jpg" alt=""></p>
+<p>看过这个小例子，相信各位程序员已经摩拳擦掌了。由于精力有限，我没有测试其他语言的代码在 Command Line 组件中的运行情况。但是可以肯定，该组件大大提升了 HA 的广度和深度，令人不禁想好好玩弄一番呢~</p>
+<p>期待各位派友运用 Command Line 实现新颖的功能，欢迎留言分享与讨论。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/04/First/" rel="next" title="First">
+                <i class="fa fa-chevron-left"></i> First
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTk3Ni82NTQx"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="cxlwill" />
+          <p class="site-author-name" itemprop="name">cxlwill</p>
+           
+              <p class="site-description motion-element" itemprop="description">From rookie to master</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/cxlwill" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://sspai.com/user/721317/posts" target="_blank" title="少数派">
+                  
+                    <i class="fa fa-fw fa-scribd"></i>
+                  
+                    
+                      少数派
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#渐入佳境"><span class="nav-number">1.</span> <span class="nav-text">渐入佳境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小试牛刀"><span class="nav-number">2.</span> <span class="nav-text">小试牛刀</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cxlwill</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
