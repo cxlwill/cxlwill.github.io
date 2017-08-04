@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="之前的教程基本都是面向初学者的，然而我相信读者中不乏有代码好手，更有对 HASS 已经研究颇深的朋友。本篇简短教程姑且一步登天，和各位程序猿（媛）讨论如何利用 HA 中强大的 command-line 以快速实现期望功能。 ##初学乍练HA 之中接入一个设备往往需要经由 平台——组件 这一流程，过程十分繁琐，有时我们只是想运行一些简单的 Python 代码，或者只是想测试一下效果，因此完全没有必要">
+<meta name="description" content="之前的教程基本都是面向初学者的，然而我相信读者中不乏有代码好手，更有对 HASS 已经研究颇深的朋友。本篇简短教程姑且一步登天，和各位程序猿（媛）讨论如何利用 HA 中强大的 command-line 以快速实现期望功能。 初学乍练HA 之中接入一个设备往往需要经由 平台——组件 这一流程，过程十分繁琐，有时我们只是想运行一些简单的 Python 代码，或者只是想测试一下效果，因此完全没有必要特别">
 <meta property="og:type" content="article">
 <meta property="og:title" content="活用 Command Line">
 <meta property="og:url" content="http://yoursite.com/2017/08/04/活用-Command-Line/index.html">
 <meta property="og:site_name" content="墨澜技术站">
-<meta property="og:description" content="之前的教程基本都是面向初学者的，然而我相信读者中不乏有代码好手，更有对 HASS 已经研究颇深的朋友。本篇简短教程姑且一步登天，和各位程序猿（媛）讨论如何利用 HA 中强大的 command-line 以快速实现期望功能。 ##初学乍练HA 之中接入一个设备往往需要经由 平台——组件 这一流程，过程十分繁琐，有时我们只是想运行一些简单的 Python 代码，或者只是想测试一下效果，因此完全没有必要">
+<meta property="og:description" content="之前的教程基本都是面向初学者的，然而我相信读者中不乏有代码好手，更有对 HASS 已经研究颇深的朋友。本篇简短教程姑且一步登天，和各位程序猿（媛）讨论如何利用 HA 中强大的 command-line 以快速实现期望功能。 初学乍练HA 之中接入一个设备往往需要经由 平台——组件 这一流程，过程十分繁琐，有时我们只是想运行一些简单的 Python 代码，或者只是想测试一下效果，因此完全没有必要特别">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-07-31-Jietu20170731-190013%402x.jpg">
-<meta property="og:updated_time" content="2017-08-04T08:07:18.000Z">
+<meta property="og:updated_time" content="2017-08-04T08:10:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="活用 Command Line">
-<meta name="twitter:description" content="之前的教程基本都是面向初学者的，然而我相信读者中不乏有代码好手，更有对 HASS 已经研究颇深的朋友。本篇简短教程姑且一步登天，和各位程序猿（媛）讨论如何利用 HA 中强大的 command-line 以快速实现期望功能。 ##初学乍练HA 之中接入一个设备往往需要经由 平台——组件 这一流程，过程十分繁琐，有时我们只是想运行一些简单的 Python 代码，或者只是想测试一下效果，因此完全没有必要">
+<meta name="twitter:description" content="之前的教程基本都是面向初学者的，然而我相信读者中不乏有代码好手，更有对 HASS 已经研究颇深的朋友。本篇简短教程姑且一步登天，和各位程序猿（媛）讨论如何利用 HA 中强大的 command-line 以快速实现期望功能。 初学乍练HA 之中接入一个设备往往需要经由 平台——组件 这一流程，过程十分繁琐，有时我们只是想运行一些简单的 Python 代码，或者只是想测试一下效果，因此完全没有必要特别">
 <meta name="twitter:image" content="http://oeoj44yho.bkt.clouddn.com/2017-07-31-Jietu20170731-190013%402x.jpg">
 
 
@@ -354,7 +354,7 @@
 
       
         <p>之前的教程基本都是面向初学者的，然而我相信读者中不乏有代码好手，更有对 HASS 已经研究颇深的朋友。本篇简短教程姑且一步登天，和各位程序猿（媛）讨论如何利用 HA 中强大的 command-line 以快速实现期望功能。</p>
-<p>##初学乍练<br>HA 之中接入一个设备往往需要经由 平台——组件 这一流程，过程十分繁琐，有时我们只是想运行一些简单的 Python 代码，或者只是想测试一下效果，因此完全没有必要特别去创建平台。</p>
+<h2 id="初学乍练"><a href="#初学乍练" class="headerlink" title="初学乍练"></a>初学乍练</h2><p>HA 之中接入一个设备往往需要经由 平台——组件 这一流程，过程十分繁琐，有时我们只是想运行一些简单的 Python 代码，或者只是想测试一下效果，因此完全没有必要特别去创建平台。</p>
 <p>HA 为此特别提供了名为 “Command Line” 的传感器组件，这个强无敌的组件能让你在 HA 中运行任何支持该平台的命令，还可以显示指令结果。</p>
 <p>同其他传感器组件一样，使用 Command-Line，只需在<code>configuration.yaml</code>中添加如下配置：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attr">sensor:</span></div><div class="line"><span class="attr">  - platform:</span> <span class="string">command_line</span></div><div class="line"><span class="attr">    command:</span> <span class="string">SENSOR_COMMAND</span></div></pre></td></tr></table></figure>
@@ -609,7 +609,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#渐入佳境"><span class="nav-number">1.</span> <span class="nav-text">渐入佳境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小试牛刀"><span class="nav-number">2.</span> <span class="nav-text">小试牛刀</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#初学乍练"><span class="nav-number">1.</span> <span class="nav-text">初学乍练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渐入佳境"><span class="nav-number">2.</span> <span class="nav-text">渐入佳境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小试牛刀"><span class="nav-number">3.</span> <span class="nav-text">小试牛刀</span></a></li></ol></div>
             
 
           </div>
