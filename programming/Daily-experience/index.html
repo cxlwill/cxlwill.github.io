@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="墨澜技术站">
 <meta property="og:description" content="日常不定时分享生活小技。今天是 macOS 快速登录树莓派以及部署 Hexo 踩的坑。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-06T11:29:57.000Z">
+<meta property="og:updated_time" content="2017-08-06T13:58:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="灵光一现">
 <meta name="twitter:description" content="日常不定时分享生活小技。今天是 macOS 快速登录树莓派以及部署 Hexo 踩的坑。">
@@ -363,7 +363,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  0 字
+                  420 字
                 </span>
               
 
@@ -379,7 +379,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  2 分钟
                 </span>
               
             </div>
@@ -404,7 +404,17 @@
       
 
       
-        
+        <p>首先是快速连接树莓派，我受了 SSH 连接输密码的罪 N 个月了，昨天终于忍不下去了，突然想到这个世界不是有一个叫做<code>alias</code>的快捷键的东西吗？于是在终端输入：<code>alias pi=&quot;ssh pi@192.168.xx.xx</code>后，世界和平了。</p>
+<p>当然这是建立在我已经配置了 SSH 公钥的前提下。这就扯到部署 Hexo 的部分了。之前已经在 GitHub 上存放了公钥，可是不知道为什么把密钥部署到 Coding.net 后，居然失效了。没办法，干脆重新生成公钥 <code>ssh-keygen -t rsa</code>，然后一口气把树莓派、Coding.net 和 Github 上的公钥都更新了。果然整完以后，<code>hexo d</code> 也不出错了，配合上面的快捷键，爽翻天~</p>
+<p>虽然之前有建站的经验，但是 Hexo 的部署还是遇到一些小障碍，好在都通过搜索大法和浅显的前端知识储备解决了。包括但不限于：</p>
+<ul>
+<li>deploy 后境外 IP 域名跳转失败。添加 <code>CNAME</code> 文件后解决</li>
+<li>缺少 iOS 设备“添加至主屏幕”生成图标。添加 ios-touch-icon 后解决。</li>
+<li>增加字数统计后，分类与统计黏一起了。通过修改 layout 文件解决。</li>
+</ul>
+<p>现在觉得 Hexo 比 Wordpress 不知道高到哪里去了啊~ 果然爱折腾爱捣鼓爱代码的人更适合 Hexo，不过生活博客之类的还是 WP 的支持比较丰富啊。</p>
+<p>另外今天成功抓取了上海地铁各线路的运行情况，未来打算做 HA 和 MagicMirror 的插件。Python 真的是伟大的语言啊~</p>
+
       
     </div>
     
