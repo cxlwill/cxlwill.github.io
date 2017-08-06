@@ -101,22 +101,22 @@
 
 
 
-<meta name="description" content="（本文已发表至 少数派） 通过之前的篇章，相信大家已经能够较舒适地使用 HA 这个平台了。然而，人往往是不安于现状的。作为积极向上的好青年，我们想让 HA 看起来更美观大方，特别是面对乱码一般的默认设备名称，大家的内心想必是凌乱的。 为了拯救各位强迫症患者，本期教程将向大家提供个性化配置的支持。 特别提醒：Yaml 特别重视语法格式，之前很多派友出错也是因为格式不正确，请大家在配置时务必额外注意缩">
+<meta name="description" content="通过之前的篇章，相信大家已经能够较舒适地使用 HA 这个平台了。为了拯救各位强迫症患者，本期教程将向大家提供个性化配置的支持。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HA系列之个性化配置">
+<meta property="og:title" content="HA系列提高篇之个性化配置">
 <meta property="og:url" content="http://cxlwill.cn/HA/Custom-Setup/index.html">
 <meta property="og:site_name" content="墨澜技术站">
-<meta property="og:description" content="（本文已发表至 少数派） 通过之前的篇章，相信大家已经能够较舒适地使用 HA 这个平台了。然而，人往往是不安于现状的。作为积极向上的好青年，我们想让 HA 看起来更美观大方，特别是面对乱码一般的默认设备名称，大家的内心想必是凌乱的。 为了拯救各位强迫症患者，本期教程将向大家提供个性化配置的支持。 特别提醒：Yaml 特别重视语法格式，之前很多派友出错也是因为格式不正确，请大家在配置时务必额外注意缩">
+<meta property="og:description" content="通过之前的篇章，相信大家已经能够较舒适地使用 HA 这个平台了。为了拯救各位强迫症患者，本期教程将向大家提供个性化配置的支持。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cdn.sspai.com/2017/08/06/71cc8b6e9e61084be6089d116f8d2fe6.png">
 <meta property="og:image" content="https://cdn.sspai.com/2017/08/06/6b3cd176331bfe0cce0d3c6ab1bb75dc.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/08/06/cf3566b42d0c68197202042da59ecb70.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/08/06/2f54f18ed48d459582bb5690005af800.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/08/06/ee5089786aad57fe2e36008436faf3ba.jpg">
-<meta property="og:updated_time" content="2017-08-06T09:54:41.000Z">
+<meta property="og:updated_time" content="2017-08-06T11:21:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HA系列之个性化配置">
-<meta name="twitter:description" content="（本文已发表至 少数派） 通过之前的篇章，相信大家已经能够较舒适地使用 HA 这个平台了。然而，人往往是不安于现状的。作为积极向上的好青年，我们想让 HA 看起来更美观大方，特别是面对乱码一般的默认设备名称，大家的内心想必是凌乱的。 为了拯救各位强迫症患者，本期教程将向大家提供个性化配置的支持。 特别提醒：Yaml 特别重视语法格式，之前很多派友出错也是因为格式不正确，请大家在配置时务必额外注意缩">
+<meta name="twitter:title" content="HA系列提高篇之个性化配置">
+<meta name="twitter:description" content="通过之前的篇章，相信大家已经能够较舒适地使用 HA 这个平台了。为了拯救各位强迫症患者，本期教程将向大家提供个性化配置的支持。">
 <meta name="twitter:image" content="https://cdn.sspai.com/2017/08/06/71cc8b6e9e61084be6089d116f8d2fe6.png">
 
 
@@ -152,7 +152,7 @@
 
 
 
-  <title>HA系列之个性化配置 | 墨澜技术站</title>
+  <title>HA系列提高篇之个性化配置 | 墨澜技术站</title>
   
 
 
@@ -302,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">HA系列之个性化配置</h1>
+          <h1 class="post-title" itemprop="name headline">HA系列提高篇之个性化配置</h1>
         
 
         <div class="post-meta">
@@ -391,6 +391,10 @@
             </div>
           
 
+          
+              <div class="post-description">
+                  通过之前的篇章，相信大家已经能够较舒适地使用 HA 这个平台了。为了拯救各位强迫症患者，本期教程将向大家提供个性化配置的支持。
+              </div>
           
 
         </div>
@@ -498,6 +502,35 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>始终坚持原创，您的支持是我的最大动力，谢谢各位老板！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="cxlwill WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="cxlwill Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
 
@@ -522,8 +555,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/other/Welcome/" rel="prev" title="Welcome">
-                Welcome <i class="fa fa-chevron-right"></i>
+              <a href="/programming/Daily-experience/" rel="prev" title="灵光一现">
+                灵光一现 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -641,7 +674,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -696,6 +729,20 @@
         
 
         
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http:// cxlwill.com/" title="墨澜生活站" target="_blank">墨澜生活站</a>
+                </li>
+              
+            </ul>
+          </div>
         
 
         
