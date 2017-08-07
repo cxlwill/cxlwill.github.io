@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content=" 墨澜, 技术" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="相信大家通过之前的『安装篇』已经成功安装了 Home Assistant 和 Homebridge，在这篇文章中，我将带领大家接入智能家居设备。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HA系列基础篇 - 接入设备篇">
+<meta property="og:url" content="http://cxlwill.cn/HA/HA-Device-Access/index.html">
+<meta property="og:site_name" content="墨澜技术站">
+<meta property="og:description" content="相信大家通过之前的『安装篇』已经成功安装了 Home Assistant 和 Homebridge，在这篇文章中，我将带领大家接入智能家居设备。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.sspai.com/2017/07/19/47e7e98415e250b485839cedc5773fad.jpg">
+<meta property="og:image" content="https://cdn.sspai.com/2017/07/30/a12570a56afa72143ea842790a4dbcb3.jpg">
+<meta property="og:image" content="https://cdn.sspai.com/2017/07/30/769d4a78065db8ce46fdf7e546d6b21d.jpg">
+<meta property="og:image" content="https://cdn.sspai.com/2017/07/19/9da22ed3c7e53ae1d939888e292f4ef2.jpg">
+<meta property="og:image" content="https://cdn.sspai.com/2017/07/26/a03014830a2fb8e4341d130c87ad0171.jpeg">
+<meta property="og:updated_time" content="2017-08-07T03:25:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HA系列基础篇 - 接入设备篇">
+<meta name="twitter:description" content="相信大家通过之前的『安装篇』已经成功安装了 Home Assistant 和 Homebridge，在这篇文章中，我将带领大家接入智能家居设备。">
+<meta name="twitter:image" content="https://cdn.sspai.com/2017/07/19/47e7e98415e250b485839cedc5773fad.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://cxlwill.cn/HA/HA-Device-Access/"/>
+
+
+
+
+
+  <title>HA系列基础篇 - 接入设备篇 | 墨澜技术站</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c34717c16e439796d326594220d41d47";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">墨澜技术站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Female Geek</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://cxlwill.cn/HA/HA-Device-Access/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cxlwill">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="墨澜技术站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HA系列基础篇 - 接入设备篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-07T11:22:15+08:00">
+                2017-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HA/" itemprop="url" rel="index">
+                    <span itemprop="name">Home Assistant</span>
+                  </a>
+                </span>
+
+                
+                
+              
+              <span class="post-meta-divider">|</span>
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,967 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  7 分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  相信大家通过之前的『安装篇』已经成功安装了 Home Assistant 和 Homebridge，在这篇文章中，我将带领大家接入智能家居设备。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>相信大家通过之前的 <a href="https://sspai.com/post/38849" target="_blank" rel="external">安装篇</a> 已经成功安装了 Home Assistant (HASS) 和 Homebridge，在这篇文章中，我将带领大家接入智能家居设备。</p>
+<p>大多数人初接触 HASS 的时候经常一头雾水，原因是 HASS 的配置体系十分混乱，一个设备的完美接入需要涉及多个配置文件。实际上，系统架构不清晰也是 HASS 的最大缺点，因此，在开始配置教程前，我先帮助大家捋一捋 HASS 的配置框架。</p>
+<h2 id="HASS-配置框架"><a href="#HASS-配置框架" class="headerlink" title="HASS 配置框架"></a>HASS 配置框架</h2><p>HASS 的核心配置围绕 <code>configuration.yaml</code> 文件展开, 在这里你可以进行时区、度量单位、开发者模式、主题选择等等基础配置。当然，最为重要的，你将在该文件内完成所有设备的接入。这也是<strong>本篇教程的重点</strong>。</p>
+<p>HASS 的运行依赖于一个个相对独立的功能组件(Components），比如小米米家平台就可以视作一个组件。有些时候，部分设备或者功能仍未得到 HASS 的官方支持，你必须在主目录下新建自定义组件<code>custom_components</code>文件夹，添加相关的设备支持文件。</p>
+<p>完成上述的文件修改，加上 HB 的配置，你就可以自如控制所有智能家居设备了。</p>
+<p>然而，使用一段时间后，你可能会觉得设备太多显示凌乱，想给界面换个风格，或者<code>configuration.yaml</code>文件看起来要炸了。此时，你会考虑把部分配置剥离出去形成独立的文件，以满足你的强迫症。例如你开启了“设备追踪功能”（Device Tracker），那么 HASS 将在主文件下自动生成 <code>known_devices.yaml</code>文件，你将在这里配置需要追踪的设备。<strong>本篇教程也将涉及相关内容</strong>。至于主题设置、群组设置等其他非功能性设置，我将在之后的”个性化配置“中详细介绍。</p>
+<h2 id="主文件设置"><a href="#主文件设置" class="headerlink" title="主文件设置"></a>主文件设置</h2><p>上一篇教程中我们已经打开了树莓派的 SMB 服务，现在我们通过 SMB 打开 HASS 主目录。</p>
+<p>（macOS 在 FInder 左侧栏“共享的”接入，Windows 在 计算机-地址栏 里直接输入 <code>//树莓派地址</code> 即可跳转)</p>
+<p>打开<code>configuration.yaml</code>，文件默认包含如下内容，我们按需修改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">homeassistant:</div><div class="line">  #经纬度</div><div class="line">  latitude: 32.87336</div><div class="line">  longitude: 117.22743</div><div class="line">  #海拔</div><div class="line">  elevation: 430</div><div class="line">  #度量单位，默认米</div><div class="line">  unit_system: metric</div><div class="line">  #时区</div><div class="line">  time_zone: Asia/Shanghai</div><div class="line">  #系统昵称，显示在主界面顶部</div><div class="line">  name: Home</div></pre></td></tr></table></figure>
+<p>正常情况下，剩下的部分便无须变动了。现在添加雅虎天气服务小试牛刀一下吧：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">weather:</div><div class="line">  - platform: yweather</div><div class="line">     woeid: 2151849</div></pre></td></tr></table></figure>
+<p>其中，woeid是城市代码，打开雅虎天气官网输入城市后搜索，url的最后几位数字便是</p>
+<p><img src="https://cdn.sspai.com/2017/07/19/47e7e98415e250b485839cedc5773fad.jpg" alt="woeid"></p>
+<p>保存，重启 HASS。</p>
+<p>恭喜你，接入了第一个 HASS 组件~ 现在你大概明白 HASS 是怎么个操作原理了，HASS 支持上千款智能家居设备，你可以<a href="https://home-assistant.io/components/" target="_blank" rel="external">到此</a>寻找你的设备按上述方法接入。</p>
+<p>如果你是果家用户，需要 Homekit 服务，那么我们还需要转到 Homebridge 进行相关设置。</p>
+<hr>
+<h2 id="Homebridge-设置"><a href="#Homebridge-设置" class="headerlink" title="Homebridge 设置"></a>Homebridge 设置</h2><p>执行指令前，请保证曾经运行过一次 Homebridge。<strong>注意：如果添加了开机自启任务，勿重复运行 Homebridge，否则会出现端口占用错误。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">cd /var/homebridge/</div><div class="line"></div><div class="line">sudo nano config.json</div><div class="line"></div><div class="line">&#123;</div><div class="line"></div><div class="line">&quot;bridge&quot;: &#123;</div><div class="line"></div><div class="line">&quot;name&quot;: &quot;Homebridge&quot;,</div><div class="line"></div><div class="line">&quot;username&quot;: &quot;CC:22:3D:E3:CE:30（树莓派MAC地址）&quot;,</div><div class="line"></div><div class="line">&quot;port&quot;: 51826,</div><div class="line"></div><div class="line">&quot;pin&quot;: &quot;123-45-678（连接密码，自行设定）&quot;</div><div class="line"></div><div class="line">&#125;,</div><div class="line"></div><div class="line">&quot;platforms&quot;: [</div><div class="line"></div><div class="line">&#123;</div><div class="line"></div><div class="line">&quot;platform&quot;: &quot;HomeAssistant&quot;,</div><div class="line"></div><div class="line">&quot;name&quot;: &quot;HomeAssistant&quot;,</div><div class="line"></div><div class="line">&quot;host&quot;: &quot;http://树莓派地址:8123&quot;,</div><div class="line"></div><div class="line">&quot;password&quot;: &quot;raspberry&quot;, #此处为 HA 中的 api_password，如有设置请添加</div><div class="line"></div><div class="line">&quot;supported_types&quot;: [&quot;fan&quot;, &quot;binary_sensor&quot;, &quot;sensor&quot;, &quot;garage_door&quot;, &quot;input_boolean&quot;, &quot;light&quot;, &quot;lock&quot;, &quot;media_player&quot;, &quot;rollershutter&quot;, &quot;scene&quot;, &quot;switch&quot;]</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">]</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>ctrl+x，y，回车。之后清除 Homebridge 的缓存：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">sudo rm -rf /home/pi/.homebridge/persist/</div></pre></td></tr></table></figure>
+<p><strong>请大家记住此步指令，今后若出现重新配置 HA、HB 导致 iOS 设备无法识别新设备或树莓派的，大部分情况均可以使用此指令解决。</strong></p>
+<p>这样我们就完成了 Homebridge 的设置，重启Homebridge。</p>
+<p>经过上述设置，我相信你的智能家居设备已经在 HASS 里稳定运转了，现在不妨尝试使用 Siri 操控你的设备。</p>
+<hr>
+<h2 id="鹬蚌相争？"><a href="#鹬蚌相争？" class="headerlink" title="鹬蚌相争？"></a>鹬蚌相争？</h2><p>在之前的 <a href="https://sspai.com/post/38849" target="_blank" rel="external">安装篇</a> 中我们知道 Homebridge 本身可以通过安装插件的方式将智能设备接入 Apple Home 平台，有的时候设备同时支持 HASS 和 Apple Home 2 个平台，这时我们就面临平台选择。</p>
+<p>首先，这个问题只存在 iOS 以及未来的 macOS 用户身上，因为只有你们可以使用 Siri，才可以痛并快乐着。 对于其他终端系统的用户而言，要么和设备厂家的 app 斗智斗勇，要么享受 HASS 网页操控的快感，至于语音控制，就还需等待了。</p>
+<p>其次，以米家设备为例，同是网关，HASS 可以控制夜灯功能，获取光感数据，Homekit 则不能；而针对扫地机器人，HASS 的接入方法十分复杂，且现阶段只能实现开关功能，HB 的插件安装配置更为容易，且可以控制吸力……可以说两个平台之间没有绝对的胜者，都需要具体情况具体分析。个人认为大多数情况下，HASS 对设备的支持更好，并且基于社群支持，跟进速度也更快。</p>
+<p>在这里再次提醒初学者：<strong>二者必取其一</strong>，同一设备请通过一个平台接入，否则将产生冲突。</p>
+<hr>
+<p>对于已经将设备通过 HB 接入，但想转入 HASS 平台的派友，这里提供如下兼容方案：</p>
+<ol>
+<li><p>在 HASS 接入相关设备，详见上文。</p>
+</li>
+<li><p>在 HASS 主页面侧边栏，点击下方 “&lt;&gt;”，获取设备的 entity ID：</p>
+</li>
+</ol>
+<p><img src="https://cdn.sspai.com/2017/07/30/a12570a56afa72143ea842790a4dbcb3.jpg" alt="States 面板"></p>
+<ol>
+<li>在 HASS <code>configuration.yaml</code> 配置文件中添加如下设置：</li>
+</ol>
+<p><img src="https://cdn.sspai.com/2017/07/30/769d4a78065db8ce46fdf7e546d6b21d.jpg" alt="设备个性化"></p>
+<p>则该设备将在 Homebridge 中被隐藏，重启后不会被 家庭 App 重复识别添加。</p>
+<p>此时，你可以通过 Apple Homekit 和 Hass 平台同时控制该设备。</p>
+<hr>
+<h2 id="设备追踪设置"><a href="#设备追踪设置" class="headerlink" title="设备追踪设置"></a>设备追踪设置</h2><p>HASS 可以追踪同一路由器内网设备联网状态，我们转换一下思路，便可以利用这个系统判断家人是否在家等，非常方便。</p>
+<p><img src="https://cdn.sspai.com/2017/07/19/9da22ed3c7e53ae1d939888e292f4ef2.jpg" alt="家人追踪"></p>
+<p>我的路由器是 ASUS AC66U-B1，HASS 原生支持大部分品牌的路由器，包括小米路由器、TP-LINK 等。不同的路由器对应配置方法不同，具体请大家前往 <a href="https://home-assistant.io/components/" target="_blank" rel="external">官网</a> 查询。设置前需要<strong>打开路由器的 SSH 模式</strong>，请大家设置好密码等，保护数据安全。建议设置仅限 LAN 用户拥有 SSH 权限。</p>
+<p>打开<code>configuration.yaml</code>文件，末尾添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">device_tracker:</div><div class="line"></div><div class="line">  - platform: asuswrt （按需填写，小米为“xiaomi”，Netgear为“netgear”，TP-LINK为“tplink”）</div><div class="line"></div><div class="line">    host: 192.168.xx.1 #路由器Ip</div><div class="line"></div><div class="line">    username: ***** #管理员账号</div><div class="line"></div><div class="line">    password: ****** #管理员密码</div><div class="line"></div><div class="line">    track_new_devices: no #是否自动添加新设备</div></pre></td></tr></table></figure>
+<p>不出意外，重启 HASS 后，主文件夹下便会自动生成 <code>known_devices.yaml</code> 文件，打开之后你会发现，系统已经自动为嗅探到的连接到路由器的设备添加了默认配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">devicename: </div><div class="line">  name: Friendly Name #昵称</div><div class="line">  mac: EA:AA:55:E7:C6:94 #mac地址</div><div class="line">  picture: https://home-assistant.io/images/favicon-192x192.png #图片</div><div class="line">  icon: mdi:human-female #图标，和图片取一个设置</div><div class="line">  track: yes #是否追踪</div><div class="line">  hide_if_away: no #离开后是否自动隐藏</div></pre></td></tr></table></figure>
+<hr>
+<p>在接下来的教程中，我将指导大家如何进行自动化配置，真正实现人工智能，摆脱遥控的束缚、更换主题，展现个性、设置简洁大方的控制面板等等等等</p>
+<p><img src="https://cdn.sspai.com/2017/07/26/a03014830a2fb8e4341d130c87ad0171.jpeg" alt="HADashboard"></p>
+<p>敬请期待~</p>
+<hr>
+<p>欢迎继续阅读系列其他文章：</p>
+<p><a href="https://sspai.com/post/40113" target="_blank" rel="external">小米设备特别篇</a></p>
+<p><a href="https://sspai.com/post/40272" target="_blank" rel="external">个性化配置篇</a></p>
+<hr>
+<h2 id="Changelog"><a href="#Changelog" class="headerlink" title="Changelog"></a>Changelog</h2><ul>
+<li>8.5 更改 config.json 设置路径，增加删除 HB 缓存方法。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>始终坚持原创，您的支持是我的最大动力，谢谢各位老板！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="cxlwill WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="cxlwill Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/HA/HA-Xiaomi/" rel="next" title="HA 系列基础篇 - 小米特别篇">
+                <i class="fa fa-chevron-left"></i> HA 系列基础篇 - 小米特别篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/other/Welcome/" rel="prev" title="Welcome">
+                Welcome <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTk3Ni82NTQx"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="cxlwill" />
+          <p class="site-author-name" itemprop="name">cxlwill</p>
+           
+              <p class="site-description motion-element" itemprop="description">From rookie to master</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/cxlwill" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://sspai.com/user/721317/posts" target="_blank" title="少数派">
+                  
+                    <i class="fa fa-fw fa-scribd"></i>
+                  
+                    
+                      少数派
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http:// cxlwill.com/" title="墨澜生活站" target="_blank">墨澜生活站</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HASS-配置框架"><span class="nav-number">1.</span> <span class="nav-text">HASS 配置框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主文件设置"><span class="nav-number">2.</span> <span class="nav-text">主文件设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Homebridge-设置"><span class="nav-number">3.</span> <span class="nav-text">Homebridge 设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#鹬蚌相争？"><span class="nav-number">4.</span> <span class="nav-text">鹬蚌相争？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设备追踪设置"><span class="nav-number">5.</span> <span class="nav-text">设备追踪设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Changelog"><span class="nav-number">6.</span> <span class="nav-text">Changelog</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-gavel"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cxlwill</span>
+</div>
+
+
+
+        
+
+        
+        <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
