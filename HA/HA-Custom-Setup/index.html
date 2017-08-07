@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content=" 墨澜, 技术" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="通过之前的篇章，相信大家已经能够较舒适地使用 HA 这个平台了。为了拯救各位强迫症患者，本期教程将向大家提供个性化配置的支持。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HA系列提高篇 - 个性化配置">
+<meta property="og:url" content="http://cxlwill.cn/HA/HA-Custom-Setup/index.html">
+<meta property="og:site_name" content="墨澜技术站">
+<meta property="og:description" content="通过之前的篇章，相信大家已经能够较舒适地使用 HA 这个平台了。为了拯救各位强迫症患者，本期教程将向大家提供个性化配置的支持。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.sspai.com/2017/08/06/71cc8b6e9e61084be6089d116f8d2fe6.png">
+<meta property="og:image" content="https://cdn.sspai.com/2017/08/06/6b3cd176331bfe0cce0d3c6ab1bb75dc.jpg">
+<meta property="og:image" content="https://cdn.sspai.com/2017/08/06/cf3566b42d0c68197202042da59ecb70.jpg">
+<meta property="og:image" content="https://cdn.sspai.com/2017/08/06/2f54f18ed48d459582bb5690005af800.jpg">
+<meta property="og:image" content="https://cdn.sspai.com/2017/08/06/ee5089786aad57fe2e36008436faf3ba.jpg">
+<meta property="og:updated_time" content="2017-08-07T03:14:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HA系列提高篇 - 个性化配置">
+<meta name="twitter:description" content="通过之前的篇章，相信大家已经能够较舒适地使用 HA 这个平台了。为了拯救各位强迫症患者，本期教程将向大家提供个性化配置的支持。">
+<meta name="twitter:image" content="https://cdn.sspai.com/2017/08/06/71cc8b6e9e61084be6089d116f8d2fe6.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://cxlwill.cn/HA/HA-Custom-Setup/"/>
+
+
+
+
+
+  <title>HA系列提高篇 - 个性化配置 | 墨澜技术站</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c34717c16e439796d326594220d41d47";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">墨澜技术站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Female Geek</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://cxlwill.cn/HA/HA-Custom-Setup/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cxlwill">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="墨澜技术站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HA系列提高篇 - 个性化配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-06T16:27:10+08:00">
+                2017-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HA/" itemprop="url" rel="index">
+                    <span itemprop="name">Home Assistant</span>
+                  </a>
+                </span>
+
+                
+                
+              
+              <span class="post-meta-divider">|</span>
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,916 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  7 分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  通过之前的篇章，相信大家已经能够较舒适地使用 HA 这个平台了。为了拯救各位强迫症患者，本期教程将向大家提供个性化配置的支持。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>（本文已发表至 <a href="https://sspai.com/post/40272" target="_blank" rel="external">少数派</a>）</p>
+<p>通过之前的篇章，相信大家已经能够较舒适地使用 HA 这个平台了。然而，人往往是不安于现状的。作为积极向上的好青年，我们想让 HA 看起来更美观大方，特别是面对乱码一般的默认设备名称，大家的内心想必是凌乱的。</p>
+<p>为了拯救各位强迫症患者，本期教程将向大家提供个性化配置的支持。</p>
+<p><strong>特别提醒：Yaml 特别重视语法格式，之前很多派友出错也是因为格式不正确，请大家在配置时务必额外注意缩进、冒号、短横线的使用。</strong></p>
+<hr>
+<h2 id="页面结构"><a href="#页面结构" class="headerlink" title="页面结构"></a>页面结构</h2><p>开始具体配置教程前，我们需要先了解一下 HA 主页的页面构成，方便之后更快理解配置指向对象。由于我已修改硬核代码更改主题，再进行恢复较麻烦，这里使用 HA 公开的参考配置截图作说明：</p>
+<p><img src="https://cdn.sspai.com/2017/08/06/71cc8b6e9e61084be6089d116f8d2fe6.png" alt="HA 默认 UI"></p>
+<p>由图可知，HA 主页面的左侧栏集中了所有面板的入口，默认主页即“State（状态）”面板。 该面板中又上至下依次包括工具栏，标签页，徽章栏及由设备卡片及灰色空白区组成的主区域。</p>
+<p>当我们新接入一个设备，如果是带有开关属性可控制的、监控摄像头、媒体播放器等设备，HA 会自动为其生成一张卡片；而其他仅有信息展示属性的设备（比如温度、湿度、人体传感器、设备在线状态等）则会生成徽章集中在头部。</p>
+<p>HA 提供了以上所有元素的个性化配置，本篇教程将重点讲述设备、组群、主题三项配置方法，能满足大部分的用户浅层的配置需求。</p>
+<h2 id="设备自定义"><a href="#设备自定义" class="headerlink" title="设备自定义"></a>设备自定义</h2><p>在本文开头提到的那些看起来乱码的名称，其实是 HA 中的 entity ID，该 ID 具有唯一性，是 HA 系统区别设备的代号。点击侧边栏左下 “&lt; &gt;” 进入开发者 States 面板，便可以获得所有接入设备的 Entity ID。</p>
+<p><img src="https://cdn.sspai.com/2017/08/06/6b3cd176331bfe0cce0d3c6ab1bb75dc.jpg" alt="&lt; &gt; panel"></p>
+<p>当然，代号是给计算机读的，并不适合展示于人，接下来我们就来学习如何对设备进行基本配置，解决乱糟糟的界面。</p>
+<p>对设备进行自定义设置，请在 <code>homeassistant：</code>下新增 <code>customize:</code> 块，请特别注意代码的层级。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">homeassistant:</span></div><div class="line"></div><div class="line"><span class="attr">  name:</span> <span class="string">Home</span></div><div class="line"></div><div class="line"><span class="attr">  unit_system:</span> <span class="string">metric</span></div><div class="line"></div><div class="line"><span class="attr">  customize:</span></div><div class="line"></div><div class="line">    <span class="string">thermostat.family_room:</span> <span class="comment">#entity_ID</span></div><div class="line"></div><div class="line"><span class="attr">      entity_picture:</span> <span class="attr">https://example.com/images/nest.jpg</span> <span class="comment">#图片</span></div><div class="line"></div><div class="line"><span class="attr">      icon:</span> <span class="attr">mdi:kettle</span> <span class="comment">#图标，来自 https://materialdesignicons.com/</span></div><div class="line"></div><div class="line">      <span class="comment">#图标和图片只能选择一个配置</span></div><div class="line"></div><div class="line"><span class="attr">      friendly_name:</span> <span class="string">Nest</span> <span class="comment">#昵称，显示在主页面</span></div><div class="line"></div><div class="line"><span class="attr">      hidden:</span> <span class="literal">true</span> <span class="comment">#是否隐藏</span></div><div class="line"></div><div class="line"><span class="attr">      homebridge_hidden:</span> <span class="literal">true</span> <span class="comment">#是否在 Homebridge中隐藏，避免 HB 重复添加设备</span></div></pre></td></tr></table></figure>
+<p>以上是设备所需最常见的属性设置，更多设置请参考<a href="https://home-assistant.io/docs/configuration/customizing-devices/" target="_blank" rel="external">官方文档</a>。</p>
+<p>初步设置后，相信你的界面已经有了不少改变。</p>
+<hr>
+<h2 id="组群管理"><a href="#组群管理" class="headerlink" title="组群管理"></a>组群管理</h2><p>随着更多的设备接入，我们不难发现主页面开始渐失逻辑性和层次性，这时候就需要引入组群管理。</p>
+<p>顾名思义，组群管理就是将一系列的设备、场景等（后续教程将会涉及）组合在一起形成群组（Group）。比如，可将卧室内的所有设备集中为“卧室”群组，或者将所有灯集中为“灯”群组。通过配置组群，可以让我们的 HA 界面清晰明了，方便操作。</p>
+<p>同样我们在<code>configuration.yaml</code>文件中添加如下配置，<strong>注意与 <code>homeassistant</code>平级</strong>。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">homeassistant:</span> <span class="comment">#此项为展示平级用，勿照搬</span></div><div class="line"></div><div class="line"><span class="attr">  name:</span> <span class="string">Home</span></div><div class="line"></div><div class="line"><span class="attr">  unit_system:</span> <span class="string">metric</span></div><div class="line"></div><div class="line"><span class="attr">group:</span></div><div class="line"></div><div class="line"><span class="attr">  default_view:</span> <span class="comment">#群组名称，必须为英文，空格使用 _ 代替</span></div><div class="line"></div><div class="line"><span class="attr">    name:</span> <span class="string">Climate</span> <span class="comment">#昵称，可中文</span></div><div class="line"></div><div class="line"><span class="attr">    view:</span> <span class="literal">yes</span> <span class="comment">#是否以标签页形式展示，默认为是</span></div><div class="line"></div><div class="line"><span class="attr">    icon:</span> <span class="attr">mdi:home</span> <span class="comment">#图标</span></div><div class="line"></div><div class="line"><span class="attr">    entities:</span> <span class="comment">#组内设备</span></div><div class="line"></div><div class="line"><span class="bullet">      -</span> <span class="string">group.kitchen</span></div><div class="line"></div><div class="line"><span class="bullet">      -</span> <span class="string">group.awesome_people</span></div><div class="line"></div><div class="line"><span class="bullet">      -</span> <span class="string">group.climate</span></div><div class="line"></div><div class="line"><span class="attr">    control:</span> <span class="comment">#当群组内有多个可控制设备时，是否显示总控制开关</span></div></pre></td></tr></table></figure>
+<p>我们通过群组管理，可以将非控制类设备<strong>由徽章转化为卡片内项</strong>，避免了主页面一排徽章的窘境。</p>
+<hr>
+<h2 id="代码整洁"><a href="#代码整洁" class="headerlink" title="代码整洁"></a>代码整洁</h2><p>我们在进行个性化配置中，满足了界面的简洁需求，但是同时也应该注意到随着设置的不断增多，<code>configuration.yaml</code>的内容也不断增加，整个文件显得十分臃肿。这时候我们需要内外兼修，将设备个性化等较长的配置独立出来，形成文件，再接入 <code>configuration.yaml</code>。</p>
+<p>比如，我们在 HA 配置文件夹内新建 <code>customize.yaml</code> 和 <code>group.yaml</code> 文件，把对应内容复制进去：</p>
+<ul>
+<li><code>customize.yaml</code>：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="string">thermostat.family_room:</span> <span class="comment">#entity_ID</span></div><div class="line"></div><div class="line"><span class="attr">      entity_picture:</span> <span class="attr">https://example.com/images/nest.jpg</span> <span class="comment">#图片</span></div><div class="line"></div><div class="line"><span class="attr">      icon:</span> <span class="attr">mdi:kettle</span> <span class="comment">#图标，来自 https://materialdesignicons.com/</span></div><div class="line"></div><div class="line">      <span class="comment">#图标和图片只能选择一个配置</span></div><div class="line"></div><div class="line"><span class="attr">      friendly_name:</span> <span class="string">Nest</span> <span class="comment">#昵称，显示在主页面</span></div><div class="line"></div><div class="line"><span class="attr">      hidden:</span> <span class="literal">true</span> <span class="comment">#是否隐藏</span></div><div class="line"></div><div class="line"><span class="attr">      homebridge_hidden:</span> <span class="literal">true</span> <span class="comment">#是否在 Homebridge中隐藏，避免 HB 重复添加设备</span></div></pre></td></tr></table></figure>
+<ul>
+<li><code>group.yaml</code>:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">default_view: #群组名称，必须为英文，空格使用 _ 代替</div><div class="line"></div><div class="line">    name: Climate #昵称，可中文</div><div class="line"></div><div class="line">    view: yes #是否以标签页形式展示，默认为是</div><div class="line"></div><div class="line">    icon: mdi:home #图标</div><div class="line"></div><div class="line">    entities: #组内设备</div><div class="line"></div><div class="line">      - group.kitchen</div><div class="line"></div><div class="line">      - group.awesome_people</div><div class="line"></div><div class="line">      - group.climate</div><div class="line"></div><div class="line">    control: #当群组内有多个可控制设备时，是否显示总控制开关</div></pre></td></tr></table></figure>
+<p>注意直接复制内容，无须 group 或 cunstomize 前缀，顶格写起。</p>
+<p>之后在<code>configuration.yaml</code>使用<code>!include xxxx.yaml</code>进行调用：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">homeassistant:</span></div><div class="line"></div><div class="line"><span class="attr">  customize:</span> <span class="string">!include</span> <span class="string">customize.yaml</span></div><div class="line"></div><div class="line"><span class="attr">group:</span> <span class="string">!include</span> <span class="string">group.yaml</span></div></pre></td></tr></table></figure>
+<p> 这样我们就能保持配置文件的整洁和逻辑性。</p>
+<hr>
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p>主题是 HA 在 0.49.2 更新中加入的功能，支持配置大部分 UI 中的字体、颜色等 CSS 值。遗憾的是，由于缺少主背景色和卡片背景色的接口，因此目前想要实现夜间模式必须修改硬核代码，相信不久后的版本更新中将解决这个问题。</p>
+<p>配置主题需要两个步骤，一为添加配置文件，二位调用主题。</p>
+<p>首先是添加配置文件，主题应在 <code>frontend</code>块内进行配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">frontend:</span></div><div class="line"></div><div class="line"><span class="attr">  themes:</span></div><div class="line"></div><div class="line"><span class="attr">    night:</span> <span class="comment">#主题名称，英文</span></div><div class="line"></div><div class="line"><span class="attr">      dark-primary-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      backgroud-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      primary-background-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      primary-text-color:</span> <span class="string">white</span></div><div class="line"></div><div class="line"><span class="attr">      primary-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      paper-card-background-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      paper-listbox-background-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      divider-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      paper-slider-container-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      text-primary-color:</span> <span class="string">white</span></div><div class="line"></div><div class="line"><span class="attr">      paper-grey-200:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      disabled-text-color:</span> <span class="string">white</span></div></pre></td></tr></table></figure>
+<p>具体可设置的对象有数十个，恕我无法一一列举及解释，有待大家自己调试，对象列表请参考<a href="https://github.com/home-assistant/home-assistant-polymer/blob/master/src/resources/ha-style.html" target="_blank" rel="external">此处</a>。</p>
+<p>主题配置后就是调用了，这里有 2 种方法：</p>
+<ul>
+<li>手动调用：打开左下角 Service 面板，由上之下依次选择<code>frontend</code> - <code>set_theme</code>，之后填入<code>{&quot;name&quot;:&quot;主题名称&quot;}</code>，最后点击 <code>call_service</code>。</li>
+</ul>
+<p><img src="https://cdn.sspai.com/2017/08/06/cf3566b42d0c68197202042da59ecb70.jpg" alt="Services Panel"></p>
+<p><strong>PS：在这里，我们也可以进行 Home Assistant 的重启。</strong></p>
+<ul>
+<li>自动调用：这里预习一下将要学习的自动化知识吧~</li>
+</ul>
+<p>在 <code>configuration.yaml</code> 文件中添加如下配置，<strong>注意与 <code>homeassistant</code>平级</strong>：</p>
+<pre><code class="yaml">
+<span class="attr">automation:</span>
+
+<span class="attr">  - alias:</span> <span class="string">'Set theme at startup'</span>
+
+<span class="attr">    initial_state:</span> <span class="string">'on'</span>
+
+<span class="attr">    trigger:</span>
+
+<span class="attr">     - platform:</span> <span class="string">homeassistant</span>
+
+<span class="attr">       event:</span> <span class="string">start</span>
+
+<span class="attr">    action:</span>
+
+<span class="attr">      service:</span> <span class="string">frontend.set_theme</span>
+
+<span class="attr">      data:</span>
+
+<span class="attr">        name:</span> <span class="string">happy</span> <span class="comment">#主题名称</span>
+</code></pre>
+<p>相信到这里，大家的 HA 界面已经楚楚动人了，赶紧把 HA 拿出去秀一下吧~</p>
+<p><img src="https://cdn.sspai.com/2017/08/06/2f54f18ed48d459582bb5690005af800.jpg" alt="配合魔镜的全黑背景"></p>
+<hr>
+<p>HA 除了预设的个性化配置甚至还提供了自定义卡片、自定义面板等等接口，你可以在卡片中显示徽章，可以使用全文字面板控制设备甚至可以修改硬核代码实现夜间模式……简直是促使程序员们大开脑洞啊，更多的详细教程欢迎关注接下来的高级篇。</p>
+<p>…………</p>
+<p>吊个胃口，比如一个具有交互性并且实时更新的“活点地图”？</p>
+<p><img src="https://cdn.sspai.com/2017/08/06/ee5089786aad57fe2e36008436faf3ba.jpg" alt="房间互动平面图"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>始终坚持原创，您的支持是我的最大动力，谢谢各位老板！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="cxlwill WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="cxlwill Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/HA/HA-Command-line/" rel="next" title="HA系列高级篇 - 活用 Command Line">
+                <i class="fa fa-chevron-left"></i> HA系列高级篇 - 活用 Command Line
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/programming/Daily-experience/" rel="prev" title="灵光一现">
+                灵光一现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTk3Ni82NTQx"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="cxlwill" />
+          <p class="site-author-name" itemprop="name">cxlwill</p>
+           
+              <p class="site-description motion-element" itemprop="description">From rookie to master</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/cxlwill" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://sspai.com/user/721317/posts" target="_blank" title="少数派">
+                  
+                    <i class="fa fa-fw fa-scribd"></i>
+                  
+                    
+                      少数派
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http:// cxlwill.com/" title="墨澜生活站" target="_blank">墨澜生活站</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#页面结构"><span class="nav-number">1.</span> <span class="nav-text">页面结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设备自定义"><span class="nav-number">2.</span> <span class="nav-text">设备自定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组群管理"><span class="nav-number">3.</span> <span class="nav-text">组群管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码整洁"><span class="nav-number">4.</span> <span class="nav-text">代码整洁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题"><span class="nav-number">5.</span> <span class="nav-text">主题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-gavel"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cxlwill</span>
+</div>
+
+
+
+        
+
+        
+        <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
