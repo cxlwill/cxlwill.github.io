@@ -84,7 +84,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-12-%E6%A1%86%E6%9E%B6_meitu_3.jpg">
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-12-01.jpg">
-<meta property="og:updated_time" content="2017-08-12T05:49:39.000Z">
+<meta property="og:updated_time" content="2017-08-12T05:52:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HA系列基础篇 - 安装篇">
 <meta name="twitter:description" content="本系列教程将介绍智能家居平台 Home Assistant 的安装及配置方法，由浅入深，欢迎大家持续关注。">
@@ -355,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  3,020 字
+                  3,011 字
                 </span>
               
 
@@ -417,12 +417,14 @@
 <p>以上 3 种方法从性能上来说并无二异，均能实现 HASS 全部功能，Hassbian 实际上亦基于 Raspbian ，唯一需要纳入考虑的是图形化操作界面的需求。由于树莓派基金会官方尚未公开单独安装图形化操作界面的方法，在当下，如果有该需求，只能通过官方图形化操作系统 Raspbian with Desktop 实现。</p>
 <p>对于刚入门的新手和想摆脱大量代码的朋友，方法推荐度依次为：3 &gt; 2 &gt; 1。</p>
 <p>下述教程将讲解方法 1 及 方法 2 的安装方法，方法 3 的具体安装方法欢迎参考 『<a href="http://cxlwill.cn/HA/HA-Hass-io/">Hass.io 特别篇</a>』。</p>
+<hr>
 <h3 id="方法-1-（Raspbian）"><a href="#方法-1-（Raspbian）" class="headerlink" title="方法 1 （Raspbian）"></a>方法 1 （Raspbian）</h3><p>安装前，请参考其他教程对树莓派进行初始基础设置，重点关注地区、WiFi、源替换的内容，这里不再展开。特别注意：2016 年 11 月后的官方系统默认关闭 SSH 功能，请务必打开。</p>
 <p>使用任何方法连接到树莓派终端，输入以下安装代码，请整段复制粘贴：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -O https://raw.githubusercontent.com/home-assistant/fabric-home-assistant/master/hass_rpi_installer.sh &amp;&amp; sudo chown pi:pi hass_rpi_installer.sh &amp;&amp; bash hass_rpi_installer.sh</div></pre></td></tr></table></figure>
 <p>注意：不要以 sudo 运行，然后泡杯茶，做点别的事情，等待程序跑完。安装时间根据网络情况不等，大约需要 1 - 2 个小时，国内网络环境请大家自行改善。</p>
 <p>如果你是使用此方法安装 HASS 的话，未来更新指令如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo su -s /bin/bash homeassistant</div><div class="line">source /srv/homeassistant/homeassistant_venv/bin/activate</div><div class="line">pip3 install --upgrade homeassistant -i https://pypi.mirrors.ustc.edu.cn/simple/ </div><div class="line">exit</div></pre></td></tr></table></figure>
+<hr>
 <h3 id="方法-2-（Hassbian）"><a href="#方法-2-（Hassbian）" class="headerlink" title="方法 2 （Hassbian）"></a>方法 2 （Hassbian）</h3><p>首先参考其他教程使用 Etcher 刷入官方最新固件镜像。感谢少数派友 DJ 千辛万苦地搬运至度娘盘（password: 2e98）</p>
 <p>要注意的是，Hassbian 初次启动时需要联网进行原始设置，由于无法在初次启动前设置无线网络，因此务必将树莓派与电脑或者路由器有线连接起来，以保证树莓派在有网环境下顺利设置。</p>
 <p>官方教程告知初次启动需要等待 5 分钟左右，基于国内的网络环境，我这里测试多次，都需要等待近 10 分钟方可，所以大家不要焦躁，可以看部番剧或者往下研究一下此篇文章以便接下来顺利进展。</p>
@@ -431,7 +433,7 @@
 <p>如果使用此方法，未来更新指令如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sudo systemctl stop home-assistant@homeassistant.service</div><div class="line">sudo su -s /bin/bash homeassistant</div><div class="line">source /srv/homeassistant/bin/activate</div><div class="line">pip3 install --upgrade homeassistant -i https://pypi.mirrors.ustc.edu.cn/simple/ </div><div class="line">exit</div><div class="line">sudo systemctl start home-assistant@homeassistant.service</div></pre></td></tr></table></figure>
 <hr>
-<p>等待过后，在其他设备的浏览器输入：<a href="http://树莓派的ip地址:8123（查找树莓派" target="_blank" rel="external">http://树莓派的ip地址:8123（查找树莓派</a> IP 地址可以直接前往路由器界面）</p>
+<p>等待过后，在其他设备的浏览器输入：<a href="http://树莓派的ip地址:8123" target="_blank" rel="external"></a>（查找树莓派 IP 地址可以直接前往路由器界面）</p>
 <p>如果出现类似下图，则表示初始安装完成；如若没有出现界面，或者无法连接，有很大可能是尚未安装完毕，不要着急再等等。（注意地址冒号为英文字符，请勿输入中文冒号）。</p>
 <p>特别提醒：请确保出现以下界面后，再进行后续操作，否则你的一切工作都是前功尽弃。初次启动时，勿进行任何额外操作，保持树莓派通电、联网、静置状态！非常重要！</p>
 <p><img src="http://oeoj44yho.bkt.clouddn.com/2017-08-12-01.jpg" alt=""></p>
@@ -576,42 +578,27 @@
 
     <div class="post-spread">
       
-        
-  <div class="bdsharebuttonbox">
-    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
-    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
-    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
-    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
-    <a href="#" class="bds_more" data-cmd="more"></a>
-    <a class="bds_count" data-cmd="count"></a>
-  </div>
-  <script>
-    window._bd_share_config = {
-      "common": {
-        "bdText": "",
-        "bdMini": "2",
-        "bdMiniList": false,
-        "bdPic": ""
-      },
-      "share": {
-        "bdSize": "16",
-        "bdStyle": "0"
-      },
-      "image": {
-        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
-        "viewText": "分享到：",
-        "viewSize": "16"
-      }
-    }
-  </script>
-
-<script>
-  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
 </script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
 
       
     </div>
