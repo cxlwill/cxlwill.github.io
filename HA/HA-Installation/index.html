@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content=" 墨澜, 技术" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="本系列教程将介绍智能家居平台 Home Assistant 的安装及配置方法，由浅入深，欢迎大家持续关注。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HA系列基础篇 - 安装篇">
+<meta property="og:url" content="http://cxlwill.cn/HA/HA-Installation/index.html">
+<meta property="og:site_name" content="墨澜技术站">
+<meta property="og:description" content="本系列教程将介绍智能家居平台 Home Assistant 的安装及配置方法，由浅入深，欢迎大家持续关注。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-12-%E6%A1%86%E6%9E%B6_meitu_3.jpg">
+<meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-12-01.jpg">
+<meta property="og:updated_time" content="2017-08-12T05:42:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HA系列基础篇 - 安装篇">
+<meta name="twitter:description" content="本系列教程将介绍智能家居平台 Home Assistant 的安装及配置方法，由浅入深，欢迎大家持续关注。">
+<meta name="twitter:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-12-%E6%A1%86%E6%9E%B6_meitu_3.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://cxlwill.cn/HA/HA-Installation/"/>
+
+
+
+
+
+  <title>HA系列基础篇 - 安装篇 | 墨澜技术站</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-96172439-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c34717c16e439796d326594220d41d47";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1263484509&web_id=1263484509" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">墨澜技术站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Female Geek</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://cxlwill.cn/HA/HA-Installation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cxlwill">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="墨澜技术站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HA系列基础篇 - 安装篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-01T13:12:25+08:00">
+                2017-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HA/" itemprop="url" rel="index">
+                    <span itemprop="name">Home Assistant</span>
+                  </a>
+                </span>
+
+                
+                
+              
+              <span class="post-meta-divider">|</span>
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3,056 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  12 分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  本系列教程将介绍智能家居平台 Home Assistant 的安装及配置方法，由浅入深，欢迎大家持续关注。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>（本篇教程已发布至 <a href="https://sspai.com/post/38849" target="_blank" rel="external">少数派</a> ）</p>
+<p>本系列教程将介绍智能家居平台 Home Assistant 的安装及配置方法，由浅入深，欢迎大家持续关注。</p>
+<p>Home Assistant 是一个成熟完整的基于 Python 的智能家居系统，设备支持度高，支持自动化（Automation)、群组化（Group）、UI 客制化（Theme) 等等高度定制化设置。背后又有庞大的社群基础，且不断在更新。最重要的是我们可以通过 Homeassistant-homebridge 插件打通两个平台，同样实现设备的 Siri 控制。整套体系的框架如下：</p>
+<p><img src="http://oeoj44yho.bkt.clouddn.com/2017-08-12-%E6%A1%86%E6%9E%B6_meitu_3.jpg" alt="基本框架"></p>
+<p> 可以看出，Home Assistant 作为接入所有智能家居设备的「平台」，通过 Homebridge 这一「桥梁」，最终实现 iOS 及 macOS 设备对智能家居的设置。</p>
+<p>我们知道 Homebridge 本身可以接入部分原生不支持 Apple Homekit 的设备，但由于 Homekit 本身的局限性，“桥梁”再强大，也无法逾越其极限。</p>
+<p>打个比方来说，每个人都能单独过桥到对岸，但是速度始终有限，如果我们把人装进车里一起运送过桥，效率则更高，同时多了车内这么一个空间。这里的“车”就可以看作是 HASS。</p>
+<p>HASS 本身作为一个独立的平台，有能力集成大量量产或 DIY 的智能家居设备，并且拥有独立的控制前端，在层级上来说是和 Appple Home 平台平起平坐的大 Boss。换言之，通过 HB 接入 Homekit 只是这个平台应用的一部分，对于其他非 Apple 生态用户，HASS 也同样给予其完整丰富的智能家居体验。</p>
+<p>本系列将围绕安装、配置、开发等内容，详细介绍 HASS 平台的方方面面，同时针对 HASS 与 HB 兼容与选择，自动化配置方法等等问题给出自己的观点和探索，希望可以给大家玩转智能家居带来新的启发和收获。</p>
+<p>HASS 支持大部分平台，包括 Docker、macOS、Linux、Windows等。简而言之，只要你的主机能跑 Python，基本就能安装 HASS。配合「魔镜」项目，以及便捷性的考虑，我选择的平台是树莓派 3，本系列教程也将基于树莓派展开。</p>
+<h2 id="初始安装"><a href="#初始安装" class="headerlink" title="初始安装"></a>初始安装</h2><p>在树莓派安装 HASS，有 3 种方法供选择：</p>
+<ol>
+<li><p>以其他操作系统（这里以树莓派官方系统 Raspbian 为例）为根系统，再通过指令安装；</p>
+</li>
+<li><p>直接安装集成了 HASS 的 Hassbian 操作系统；</p>
+</li>
+<li><p>直接安装最新高度集成系统 Hass.io。</p>
+</li>
+</ol>
+<p>以上 3 种方法从性能上来说并无二异，均能实现 HASS 全部功能，Hassbian 实际上亦基于 Raspbian ，唯一需要纳入考虑的是图形化操作界面的需求。由于树莓派基金会官方尚未公开单独安装图形化操作界面的方法，在当下，如果有该需求，只能通过官方图形化操作系统 Raspbian with Desktop 实现。</p>
+<p>对于刚入门的新手和想摆脱大量代码的朋友，方法推荐度依次为：3 &gt; 2 &gt; 1。</p>
+<p>下述教程将讲解方法 1 及 方法 2 的安装方法，方法 3 的具体安装方法欢迎参考 『<a href="http://cxlwill.cn/HA/HA-Hass-io/">Hass.io 特别篇</a>』。</p>
+<h3 id="方法-1-（Raspbian）"><a href="#方法-1-（Raspbian）" class="headerlink" title="方法 1 （Raspbian）"></a>方法 1 （Raspbian）</h3><p>安装前，请参考其他教程对树莓派进行初始基础设置，重点关注地区、WiFi、源替换的内容，这里不再展开。特别注意：2016 年 11 月后的官方系统默认关闭 SSH 功能，请务必打开。</p>
+<p>使用任何方法连接到树莓派终端，输入以下安装代码，请整段复制粘贴：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -O https://raw.githubusercontent.com/home-assistant/fabric-home-assistant/master/hass_rpi_installer.sh &amp;&amp; sudo chown pi:pi hass_rpi_installer.sh &amp;&amp; bash hass_rpi_installer.sh</div></pre></td></tr></table></figure>
+<p>注意：不要以 sudo 运行，然后泡杯茶，做点别的事情，等待程序跑完。安装时间根据网络情况不等，大约需要 1 - 2 个小时，国内网络环境请大家自行改善。</p>
+<p>如果你是使用此方法安装 HASS 的话，未来更新指令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo su -s /bin/bash homeassistant</div><div class="line">source /srv/homeassistant/homeassistant_venv/bin/activate</div><div class="line">pip3 install --upgrade homeassistant -i https://pypi.mirrors.ustc.edu.cn/simple/ </div><div class="line">exit</div></pre></td></tr></table></figure>
+<h3 id="方法-2-（Hassbian）"><a href="#方法-2-（Hassbian）" class="headerlink" title="方法 2 （Hassbian）"></a>方法 2 （Hassbian）</h3><p>首先参考其他教程使用 Etcher 刷入官方最新固件镜像。感谢少数派友 DJ 千辛万苦地搬运至度娘盘（password: 2e98）</p>
+<p>要注意的是，Hassbian 初次启动时需要联网进行原始设置，由于无法在初次启动前设置无线网络，因此务必将树莓派与电脑或者路由器有线连接起来，以保证树莓派在有网环境下顺利设置。</p>
+<p>官方教程告知初次启动需要等待 5 分钟左右，基于国内的网络环境，我这里测试多次，都需要等待近 10 分钟方可，所以大家不要焦躁，可以看部番剧或者往下研究一下此篇文章以便接下来顺利进展。</p>
+<p>如果等待时间过久却没有出现初始界面，可尝试使用以下命令强制初始安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo systemctl enable install_homeassistant.service</div><div class="line">sudo systemctl start install_homeassistant.service</div></pre></td></tr></table></figure>
+<p>如果使用此方法，未来更新指令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sudo systemctl stop home-assistant@homeassistant.service</div><div class="line">sudo su -s /bin/bash homeassistant</div><div class="line">source /srv/homeassistant/bin/activate</div><div class="line">pip3 install --upgrade homeassistant -i https://pypi.mirrors.ustc.edu.cn/simple/ </div><div class="line">exit</div><div class="line">sudo systemctl start home-assistant@homeassistant.service</div></pre></td></tr></table></figure>
+<hr>
+<p>等待过后，在其他设备的浏览器输入：<a href="http://树莓派的ip地址:8123（查找树莓派" target="_blank" rel="external">http://树莓派的ip地址:8123（查找树莓派</a> IP 地址可以直接前往路由器界面）</p>
+<p>如果出现类似下图，则表示初始安装完成；如若没有出现界面，或者无法连接，有很大可能是尚未安装完毕，不要着急再等等。（注意地址冒号为英文字符，请勿输入中文冒号）。</p>
+<p>特别提醒：请确保出现以下界面后，再进行后续操作，否则你的一切工作都是前功尽弃。初次启动时，勿进行任何额外操作，保持树莓派通电、联网、静置状态！非常重要！</p>
+<p><img src="http://oeoj44yho.bkt.clouddn.com/2017-08-12-01.jpg" alt=""></p>
+<h2 id="附加功能安装"><a href="#附加功能安装" class="headerlink" title="附加功能安装"></a>附加功能安装</h2><h3 id="SMB（-强烈建议）"><a href="#SMB（-强烈建议）" class="headerlink" title="SMB（ 强烈建议）"></a>SMB（ 强烈建议）</h3><p>SMB 可以帮助我们开启树莓派的网盘模式，方便未来文件传输。</p>
+<p>通用安装指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install samba </div><div class="line">sudo smbpasswd -a homeassistant -n</div><div class="line">sudo nano /etc/samba/smb.conf</div></pre></td></tr></table></figure>
+<p>复制粘贴以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">[global]</div><div class="line">netbios name = raspberrypi</div><div class="line">server string = The Pi File Center</div><div class="line">workgroup = WORKGROUP</div><div class="line">hosts allow =</div><div class="line">remote announce =</div><div class="line">remote browse sync =</div><div class="line"></div><div class="line">[HOME ASSISTANT]</div><div class="line">path = /home/homeassistant/.homeassistant</div><div class="line">comment = No comment</div><div class="line">browsable = yes</div><div class="line">read only = no</div><div class="line">valid users =</div><div class="line">writable = yes</div><div class="line">guest ok = yes</div><div class="line">public = yes</div><div class="line">create mask = 0777</div><div class="line">directory mask = 0777</div><div class="line">force user = homeassistant</div><div class="line">force create mode = 0777</div><div class="line">force directory mode = 0777</div><div class="line">hosts allow =</div></pre></td></tr></table></figure>
+<p>Ctrl+X，Y，回车。保存配置，之后再重启 smb 服务。</p>
+<p><code>sudo service samba restart</code></p>
+<hr>
+<p>Hassbian 提供了一个附加功能工具包 hassbian-config ，这使我们的安装更加简便。使用工具包安装原则上已经自动配置好一切，建议大家还是修改一下权限和密码。</p>
+<p>注意：Hassbian工具包仅限使用 Hassian 用户使用。（下同）</p>
+<p>安装指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo hassbian-config install samba</div><div class="line">sudo smbpasswd -a pi</div></pre></td></tr></table></figure>
+<p>重启服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl restart home-assistant@homeassistant.service</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="MQTT-amp-OpenZWave"><a href="#MQTT-amp-OpenZWave" class="headerlink" title="MQTT &amp; OpenZWave"></a>MQTT &amp; OpenZWave</h3><p>MQTT 是基于二进制消息的发布、订阅编程模式的消息协议，广泛用于物联网部署中。同样 Z-wave 也是普遍用于物联网中的短距离无线通信技术。部分智能家居设备需要 MQTT 和 Z-Wave 传输信息。</p>
+<p>46.0 版本后的 HA 已经自带 Z-Wave 支持，因此无需重复安装。使用 46.0 之前版本的用户需要自行手动安装。其中方法 2 的安装指令也已经安装了 MQTT 和 OpenZwave 服务，故无需重复安装。<strong>因此仅使用 Hassbian 安装 46.0 及之前版本 HA 的用户需要手动安装。</strong></p>
+<p>同样，我们使用 Hassbian 工具包进行安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo hassbian-config install mosquitto</div><div class="line">sudo hassbian-config install openzwave-pip</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="Homebridge-安装"><a href="#Homebridge-安装" class="headerlink" title="Homebridge 安装"></a>Homebridge 安装</h3><p>该步骤仅适用于 Apple 生态链用户，特别是想要通过 家庭 app 及 Siri 控制智能家居设备的用户。其他平台用户可跳过。</p>
+<p>在文章开头，我已经简要介绍了 HASS 和 HB 的区别。我们在这里安装 HB 的目的在于通过 HB 打通 HASS 和 Apple Home 两大平台，实现联动。</p>
+<p>我们知道 HB 本身可通过安装插件的方式接入部分设备，有时候同个设备同时支持 HB 插件和 HASS，也有部分用户已经配置好了 HB 但现在想转入 HASS，因此产生质疑。</p>
+<p>这里我做一个说明：桥梁和平台分工不同，不可能产生冲突，也就是原有 HB 配置当然可以保留。但是仅使用 HB 就是将设备直接接入 Apple Home 这个平台，而如果设备同时接入了同样是平台的 HASS，那么平台之间就会产生冲突，导致设备被重复识别添加。当然，我们可以进行进一步的设置避免这一点，我将在未来的 『设备接入篇』 中详细介绍。</p>
+<p>对于初学者，我建议一个设备仅连接一个平台使用，即要么单接入 HASS，要么通过安装 HB 插件的方式单接入 Apple Home。</p>
+<p>HB 的详细安装流程我就不多言了，欢迎大家参考其他教程。这里我根据之前指导他人的经验简单概括一下：</p>
+<p>HB 提供一行安装指令：<code>sudo npm install -g --unsafe-perm homebridge</code>，但是安装成功率比较低，推荐大家使用下面的手动安装指令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install git make</div><div class="line">sudo apt-get install g++</div><div class="line">curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -</div><div class="line">sudo apt-get install -y nodejs</div><div class="line">sudo apt-get install libavahi-compat-libdnssd-dev</div><div class="line">sudo npm install -g --unsafe-perm homebridge hap-nodejs node-gyp</div><div class="line">cd /usr/local/lib/node_modules/homebridge/</div><div class="line">（注意这里如果显示不存在文件夹，替换成 cd /usr/lib/node_modules/homebridge/)</div><div class="line">sudo npm install --unsafe-perm bignum</div><div class="line">cd /usr/local/lib/node_modules/hap-nodejs/node_modules/mdns</div><div class="line">（注意这里如果显示不存在文件夹，替换成 cd /usr/lib/node_modules/hap-nodejs/node_modules/mdns）</div><div class="line">sudo node-gyp BUILDTYPE=Release rebuild</div></pre></td></tr></table></figure>
+<p>安装完成后，建议大家直接输入<code>homebridge</code>运行一次 HB，以生成示例配置文件，然后 Ctrl + C 退出。</p>
+<p>接着，安装 <code>Homeassistant-homebridge</code> 插件，实现平台联动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo npm install -g homebridge-homeassistant</div></pre></td></tr></table></figure>
+<p>TIP：</p>
+<p>其实这是在制作魔镜过程中得到的经验，但是适用于此场景，因此一并发出。</p>
+<p>由于某些原因，国内连接 npmjs.org 会十分缓慢，我们可以用淘宝npm镜像来代替：</p>
+<p>输入下列指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</div></pre></td></tr></table></figure>
+<p>之后，所有安装流程一致，只需把指令中的npm替换为cnpm即可。</p>
+<p>另外国内加载默认 pip 源的速度亦较慢，可在 <code>pip install xxx</code> 命令后添加 <code>-i https://pypi.mirrors.ustc.edu.cn/simple/</code> 切换为中科大源提速。</p>
+<hr>
+<h3 id="添加自启任务"><a href="#添加自启任务" class="headerlink" title="添加自启任务"></a>添加自启任务</h3><p>忙活了那么久，即将大功告成了。HASS 在安装过程中已经自行添加了自启任务，现在我们只需要把 HB 添加至树莓派开机任务中，这样每次启动后就会自动运行上述 2 个进程。</p>
+<p>注意：配置 HB 前程序会运行错误，提示缺少配置文件，可先不理会。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">cd /</div><div class="line">sudo useradd --system homebridge</div><div class="line">sudo mkdir /var/homebridge</div><div class="line">sudo cp ~/.homebridge/config.json /var/homebridge/</div><div class="line">sudo cp -r ~/.homebridge/persist /var/homebridge</div><div class="line">sudo chmod -R 0777 /var/homebridge</div><div class="line">cd /etc/default</div><div class="line">sudo nano homebridge</div></pre></td></tr></table></figure>
+<p>复制粘贴</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># Homebridge默认配置选项</div><div class="line"># 下列设定指明了 config.json 和 persist 信息（配对信息等）的存放位置 </div><div class="line">HOMEBRIDGE_OPTS=-U /var/homebridge</div><div class="line"># 在自启设定中，我们已经将设置文件复制至/var/homebridge 文件夹，默认在 /home/pi/.homebridge/ 文件夹中</div><div class="line"># 取消下列指令注释显示进程日志</div><div class="line"># journalctl -f -u homebridge</div><div class="line"># DEBUG=*</div></pre></td></tr></table></figure>
+<p>Ctrl+X，Y，回车</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /etc/systemd/system</div><div class="line">sudo nano homebridge.service</div></pre></td></tr></table></figure>
+<p>复制粘贴</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[Unit]</div><div class="line">Description=Node.js HomeKit Server </div><div class="line">After=syslog.target network-online.target</div><div class="line">[Service]</div><div class="line">Type=simple</div><div class="line">User=homebridge</div><div class="line">EnvironmentFile=/etc/default/homebridge</div><div class="line">ExecStart=/usr/lib/node_modules/homebridge/bin/homebridge $HOMEBRIDGE_OPTS</div><div class="line">Restart=on-failure</div><div class="line">RestartSec=10</div><div class="line">KillMode=process</div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div></pre></td></tr></table></figure>
+<p>Ctrl+X，Y，回车</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd /</div><div class="line">sudo systemctl daemon-reload</div><div class="line">sudo systemctl enable homebridge</div><div class="line">sudo systemctl start homebridge</div><div class="line">sudo systemctl status homebridge</div><div class="line">sudo systemctl enable mosquitto</div></pre></td></tr></table></figure>
+<p>最后重启：<code>sudo reboot</code></p>
+<p>OK，重启过后，一切就绪。</p>
+<p>我将在下一篇「<a href="http://cxlwill.cn/HA/HA-Device-Access/">设备接入篇</a>」中继续介绍如何将智能家居设备接入 HASS 。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechatpublic.jpg" alt="cxlwill wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎扫码订阅“墨澜工作室”公众号，获取最新文章推送。</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>始终坚持原创，您的支持是我的最大动力，谢谢各位老板！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="cxlwill WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="cxlwill Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/HA/HA-Device-Access/" rel="prev" title="HA系列基础篇 - 接入设备篇">
+                HA系列基础篇 - 接入设备篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTk3Ni82NTQx"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="cxlwill" />
+          <p class="site-author-name" itemprop="name">cxlwill</p>
+           
+              <p class="site-description motion-element" itemprop="description">From rookie to master</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/cxlwill" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://sspai.com/user/721317/posts" target="_blank" title="少数派">
+                  
+                    <i class="fa fa-fw fa-scribd"></i>
+                  
+                    
+                      少数派
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://cxlwill.com/" title="墨澜生活站" target="_blank">墨澜生活站</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始安装"><span class="nav-number">1.</span> <span class="nav-text">初始安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-1-（Raspbian）"><span class="nav-number">1.1.</span> <span class="nav-text">方法 1 （Raspbian）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-2-（Hassbian）"><span class="nav-number">1.2.</span> <span class="nav-text">方法 2 （Hassbian）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附加功能安装"><span class="nav-number">2.</span> <span class="nav-text">附加功能安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SMB（-强烈建议）"><span class="nav-number">2.1.</span> <span class="nav-text">SMB（ 强烈建议）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MQTT-amp-OpenZWave"><span class="nav-number">2.2.</span> <span class="nav-text">MQTT & OpenZWave</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Homebridge-安装"><span class="nav-number">2.3.</span> <span class="nav-text">Homebridge 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加自启任务"><span class="nav-number">2.4.</span> <span class="nav-text">添加自启任务</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-gavel"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cxlwill</span>
+</div>
+
+
+
+        
+
+        
+        <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
