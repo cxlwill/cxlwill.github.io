@@ -85,7 +85,7 @@
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/30/8b2559b1d7e5f80029d0f6c7219f87c5.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/30/557d7884398458ccecee17cce5799840.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/19/6f3c1b863d30a3edd004b7eb7c4d9c1d.jpg">
-<meta property="og:updated_time" content="2017-08-13T05:48:52.000Z">
+<meta property="og:updated_time" content="2017-08-13T05:49:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HA系列基础篇 - 小米特别篇">
 <meta name="twitter:description" content="本篇教程将介绍将小米设备接入 HASS 和 通过 Hombridge 接入 Apple Home 两大平台的方法，具体选择哪个方案，大家各取所需，有关平台选择和区别详见本系列之前的文章。">
@@ -356,7 +356,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  2,559 字
+                  2,560 字
                 </span>
               
 
@@ -414,7 +414,7 @@
 <p>打开米家 app，连接设置多功能网关，点击进入网关页面，点击右上角「…」，进入「设置」。点击第二行「关于」，狂点空白处，便会跳出「局域网通信协议」以及「网关信息」。进入「局域网通信协议」，打开开关，记录下密码，这就是之后待填的<strong>「key」</strong>。回到上级页面，进入「网关信息」，记录下 mac 地址，这就是之后待填的<strong>「sid 或 mac」</strong>。</p>
 <h3 id="HASS-50-0-及之后"><a href="#HASS-50-0-及之后" class="headerlink" title="HASS 50.0 及之后"></a>HASS 50.0 及之后</h3><p>HASS 50.0 已经添加对米家平台的官方支持，我们只需要直接配置即可。<strong>如果之前有复制 custom_componets 文件夹的同学，升级后请删除该文件夹。</strong>通过 SMB 链接至树莓派，在 HASS 主目录打开 <code>configuration.yaml</code> 文件，在最后添加如下字段：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">xiaomi:</span></div><div class="line"></div><div class="line"><span class="attr">  gateways:</span></div><div class="line"></div><div class="line"><span class="attr">      - mac:</span> <span class="string">MAC</span> <span class="string">地址</span> <span class="string">（地址中「-」随意可加可不加，最前面的「-」必须保留）</span></div><div class="line"></div><div class="line"><span class="attr">        key:</span> <span class="string">通讯密码</span></div></pre></td></tr></table></figure>
-<p>（注意：字母全部大写）</p>
+<p>（注意：字母大小写皆可）</p>
 <p>如果你有多个网关，则按以下格式设定：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">xiaomi:</span></div><div class="line"><span class="attr">  gateways:</span></div><div class="line"><span class="attr">    - mac:</span> <span class="string">xxxxxxxxxxxx</span></div><div class="line"><span class="attr">      key:</span> <span class="string">xxxxxxxxxxxxxxxx</span></div><div class="line"><span class="attr">    - mac:</span> <span class="string">xxxxxxxxxxxx</span></div><div class="line"><span class="attr">      key:</span> <span class="string">xxxxxxxxxxxxxxxx</span></div></pre></td></tr></table></figure>
 <p>之后重启 HASS 即可识别小米智能家居设备。</p>
