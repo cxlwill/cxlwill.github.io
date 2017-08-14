@@ -83,9 +83,9 @@
 <meta property="og:description" content="本篇教程将介绍将小米设备接入 HASS 和 通过 Hombridge 接入 Apple Home 两大平台的方法，具体选择哪个方案，大家各取所需，有关平台选择和区别详见本系列之前的文章。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/30/8b2559b1d7e5f80029d0f6c7219f87c5.jpg">
-<meta property="og:image" content="https://cdn.sspai.com/2017/07/30/557d7884398458ccecee17cce5799840.jpg">
+<meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-14-Jietu20170814-132022%402x.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/19/6f3c1b863d30a3edd004b7eb7c4d9c1d.jpg">
-<meta property="og:updated_time" content="2017-08-14T04:27:53.000Z">
+<meta property="og:updated_time" content="2017-08-14T05:41:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HA系列基础篇 - 小米特别篇">
 <meta name="twitter:description" content="本篇教程将介绍将小米设备接入 HASS 和 通过 Hombridge 接入 Apple Home 两大平台的方法，具体选择哪个方案，大家各取所需，有关平台选择和区别详见本系列之前的文章。">
@@ -406,7 +406,7 @@
 <p>类似的标准也适用于 Homeridge，homebridge-mi-aqara 插件正常情况下只支持 Zigbee 设备，其他设备需要另安装插件。</p>
 <p><strong>本篇教程将介绍将小米设备接入 HASS 和 通过 Hombridge 接入 Apple Home 两大平台的方法，具体选择哪个方案，大家各取所需，有关平台选择和区别详见本系列之前的文章。</strong></p>
 <p>下图是我自己整理的小米生态链设备支持列表：</p>
-<p><img src="https://cdn.sspai.com/2017/07/30/557d7884398458ccecee17cce5799840.jpg" alt="支持列表 7.30"></p>
+<p><img src="http://oeoj44yho.bkt.clouddn.com/2017-08-14-Jietu20170814-132022%402x.jpg" alt="支持列表 8.14"></p>
 <p>表格使用 <a href="https://docs.google.com/spreadsheets/d/1LI0n_aK-9TuKXrz-PPOAbVuaN8JUj70s5F0MyK8FtsM/edit?usp=sharing" target="_blank" rel="external">Google SpreadSheet</a> 编辑，国内用户请通过 <a href="http://note.youdao.com/noteshare?id=84e800902f163f8d6a624b3f038649f3" target="_blank" rel="external">有道云笔记</a> 访问，列表将会不断更新，也欢迎各位派友向我提供支持信息，直接表格内评论即可。</p>
 <p>下面我们以<strong>传输协议</strong>为划分标准，分别介绍小米设备接入智能家居系统的方法：</p>
 <h2 id="Zigbee-设备（小米多功能网关）"><a href="#Zigbee-设备（小米多功能网关）" class="headerlink" title="Zigbee 设备（小米多功能网关）"></a>Zigbee 设备（小米多功能网关）</h2><p>小米多功能网关（第二代）是大部分米家及 绿米（Aqara） Zigbee 设备的联动基础，也是整个米家智能家居系统的核心。</p>
@@ -469,7 +469,7 @@
 <li><p>在 <code>configuration.yaml</code> 文件中填入下列设置：</p>
 </li>
 </ol>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">vacuum:</span></div><div class="line"><span class="attr">   - platform:</span> <span class="string">xiaomi</span></div><div class="line"><span class="attr">      name:</span> <span class="string">'***'</span>               <span class="comment">#昵称</span></div><div class="line"><span class="attr">      host:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.2</span>         <span class="comment">#ip</span></div><div class="line"><span class="attr">      token:</span> <span class="number">111111111111</span>       <span class="comment">#token</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vacuum:</div><div class="line">   - platform: xiaomi</div><div class="line">      name: &apos;***&apos;               #昵称</div><div class="line">      host: 192.168.1.2         #ip</div><div class="line">      token: 111111111111       #token</div></pre></td></tr></table></figure>
 <h3 id="HB-1"><a href="#HB-1" class="headerlink" title="HB"></a>HB</h3><ol>
 <li>安装扫地机器人插件</li>
 </ol>
@@ -696,7 +696,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
