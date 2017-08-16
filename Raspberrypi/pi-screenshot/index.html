@@ -75,17 +75,17 @@
 
 
 
-<meta name="description" content="日常不定时分享生活小技。今天是 macOS 快速登录树莓派以及部署 Hexo 踩的坑。">
+<meta name="description" content="绕来绕去装那么多软件，不如按个键盘截图来得快。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="灵光一现">
-<meta property="og:url" content="http://cxlwill.cn/programming/Daily-experience/index.html">
+<meta property="og:title" content="树莓派截图">
+<meta property="og:url" content="http://cxlwill.cn/Raspberrypi/pi-screenshot/index.html">
 <meta property="og:site_name" content="墨澜技术站">
-<meta property="og:description" content="日常不定时分享生活小技。今天是 macOS 快速登录树莓派以及部署 Hexo 踩的坑。">
+<meta property="og:description" content="绕来绕去装那么多软件，不如按个键盘截图来得快。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-11T02:20:26.000Z">
+<meta property="og:updated_time" content="2017-08-16T10:25:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="灵光一现">
-<meta name="twitter:description" content="日常不定时分享生活小技。今天是 macOS 快速登录树莓派以及部署 Hexo 踩的坑。">
+<meta name="twitter:title" content="树莓派截图">
+<meta name="twitter:description" content="绕来绕去装那么多软件，不如按个键盘截图来得快。">
 
 
 
@@ -114,13 +114,13 @@
 
 
 
-  <link rel="canonical" href="http://cxlwill.cn/programming/Daily-experience/"/>
+  <link rel="canonical" href="http://cxlwill.cn/Raspberrypi/pi-screenshot/"/>
 
 
 
 
 
-  <title>灵光一现 | 墨澜技术站</title>
+  <title>树莓派截图 | 墨澜技术站</title>
   
 
 
@@ -268,7 +268,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://cxlwill.cn/programming/Daily-experience/">
+    <link itemprop="mainEntityOfPage" href="http://cxlwill.cn/Raspberrypi/pi-screenshot/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cxlwill">
@@ -285,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">灵光一现</h1>
+          <h1 class="post-title" itemprop="name headline">树莓派截图</h1>
         
 
         <div class="post-meta">
@@ -297,8 +297,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-06T19:25:39+08:00">
-                2017-08-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-16T18:10:34+08:00">
+                2017-08-16
               </time>
             
 
@@ -320,8 +320,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
+                  <a href="/categories/Raspberrypi/" itemprop="url" rel="index">
+                    <span itemprop="name">Raspberrypi</span>
                   </a>
                 </span>
 
@@ -352,7 +352,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  420 字
+                  182 字
                 </span>
               
 
@@ -368,7 +368,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  1 分钟
                 </span>
               
             </div>
@@ -376,7 +376,7 @@
 
           
               <div class="post-description">
-                  日常不定时分享生活小技。今天是 macOS 快速登录树莓派以及部署 Hexo 踩的坑。
+                  绕来绕去装那么多软件，不如按个键盘截图来得快。
               </div>
           
 
@@ -393,16 +393,11 @@
       
 
       
-        <p>首先是快速连接树莓派，我受了 SSH 连接输密码的罪 N 个月了，昨天终于忍不下去了，突然想到这个世界不是有一个叫做<code>alias</code>的快捷键的东西吗？于是在终端输入：<code>alias pi=&quot;ssh pi@192.168.xx.xx</code>后，世界和平了。</p>
-<p>当然这是建立在我已经配置了 SSH 公钥的前提下。这就扯到部署 Hexo 的部分了。之前已经在 GitHub 上存放了公钥，可是不知道为什么把密钥部署到 Coding.net 后，居然失效了。没办法，干脆重新生成公钥 <code>ssh-keygen -t rsa</code>，然后一口气把树莓派、Coding.net 和 Github 上的公钥都更新了。果然整完以后，<code>hexo d</code> 也不出错了，配合上面的快捷键，爽翻天~</p>
-<p>虽然之前有建站的经验，但是 Hexo 的部署还是遇到一些小障碍，好在都通过搜索大法和浅显的前端知识储备解决了。包括但不限于：</p>
-<ul>
-<li>deploy 后境外 IP 域名跳转失败。添加 <code>CNAME</code> 文件后解决</li>
-<li>缺少 iOS 设备“添加至主屏幕”生成图标。添加 ios-touch-icon 后解决。</li>
-<li>增加字数统计后，分类与统计黏一起了。通过修改 layout 文件解决。</li>
-</ul>
-<p>现在觉得 Hexo 比 Wordpress 不知道高到哪里去了啊~ 果然爱折腾爱捣鼓爱代码的人更适合 Hexo，不过生活博客之类的还是 WP 的支持比较丰富啊。</p>
-<p>另外今天成功抓取了上海地铁各线路的运行情况，未来打算做 HA 和 MagicMirror 的插件。Python 真的是伟大的语言啊~</p>
+        <p>最近写教程要用魔镜的界面做图例，被迫要在树莓派上截图，又不想通过 VNC 再使用电脑的截屏工具，偷懒就想一劳永逸。</p>
+<p>大部分教程都是推荐安装 <code>scrot</code>：<code>sudo apt-get install scrot</code></p>
+<p>然而，开启了全屏魔镜，实在不方便在树莓派的终端操作，想了半天看看键盘瞬间顿悟。</p>
+<p>这个世界上还有一个叫作<code>PrtSc</code>的截屏键啊，没有的话，也可以通过 <code>Fn + Insert</code> 按出来。果然用惯了 Macbook 的键盘，对 PC 的键盘配列忘得一干二净。</p>
+<p>于是，小手一按，什么事情都解决了。自己总是把简单的事情复杂化了。</p>
 
       
     </div>
@@ -464,8 +459,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/HA/HA-Command-line/" rel="next" title="HA系列高级篇 - 活用 Command Line">
-                <i class="fa fa-chevron-left"></i> HA系列高级篇 - 活用 Command Line
+              <a href="/HA/HA-add01/" rel="next" title="HA系列补充篇-01">
+                <i class="fa fa-chevron-left"></i> HA系列补充篇-01
               </a>
             
           </div>
@@ -474,8 +469,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/HA/HA-add01/" rel="prev" title="HA系列补充篇-01">
-                HA系列补充篇-01 <i class="fa fa-chevron-right"></i>
+              <a href="/other/Welcome/" rel="prev" title="Welcome">
+                Welcome <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
