@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-06-hassio8.png">
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-06-hassio5.jpg">
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-06-hassio6-1.jpg">
-<meta property="og:updated_time" content="2017-08-09T04:45:25.000Z">
+<meta property="og:updated_time" content="2017-08-17T08:04:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HA系列基础篇 - Hass.io 篇">
 <meta name="twitter:description" content="响应群众号召，我制作了 Hass.io 的特别篇，希望帮助之前对 HASS 望而却步的朋友快速打造自己的智能家居集成平台。">
@@ -361,7 +361,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,694 字
+                  1,697 字
                 </span>
               
 
@@ -408,7 +408,7 @@
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Hass.io 是 HA 官方与 ReinOS 合作推出的系统，既然是“系统”，安装方法就和其他树莓派系统一致。下载 Hass.io 镜像文件（我将镜像搬运到了<a href="https://pan.baidu.com/s/1eRNXQAQ" target="_blank" rel="external">度盘</a>，code: 7mvb ），使用 Etcher 等应用将系统烧录至内存卡，将卡插入树莓派中，保证树莓派处于联网状态。由于安装资源需要全程连接『外网』下载，请大家务必调试好『网络环境』，这将决定你的安（抓）装（狂）进度。</p>
 <p>如要设置 WIFI 连接，请打开存储卡目录下 <code>system-connections/resin-sample</code> 文件，使用编译器编辑：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="string">[connection]</span></div><div class="line"><span class="string">id=resin-wifi</span></div><div class="line"><span class="string">type=wifi</span></div><div class="line"></div><div class="line"><span class="string">[wifi]</span></div><div class="line"><span class="string">hidden=true</span></div><div class="line"><span class="string">mode=infrastructure</span></div><div class="line"><span class="string">ssid=你的WIFI</span> <span class="string">SSID</span></div><div class="line"></div><div class="line"><span class="string">[ipv4]</span></div><div class="line"><span class="string">method=auto</span></div><div class="line"></div><div class="line"><span class="string">[ipv6]</span></div><div class="line"><span class="string">addr-gen-mode=stable-privacy</span></div><div class="line"><span class="string">method=auto</span></div><div class="line"></div><div class="line"><span class="string">[wifi-security]</span></div><div class="line"><span class="string">auth-alg=open</span></div><div class="line"><span class="string">key-mgmt=wpa-psk</span></div><div class="line"><span class="string">psk=你的</span> <span class="string">WIFI</span> <span class="string">密码</span></div></pre></td></tr></table></figure>
-<p>等待大约 10 - 20 分钟后，使用内网内其他终端设备打开网页 <a href="http://hassio.local:8123" target="_blank" rel="external"></a> ，可以看到系统提示正在初始安装：</p>
+<p>等待大约 10 - 20 分钟后，使用内网内其他终端设备打开网页 <a href="http://hassio.local:8123" target="_blank" rel="external">http://hassio.local:8123</a> ，可以看到系统提示正在初始安装：</p>
 <p><img src="http://oeoj44yho.bkt.clouddn.com/2017-07-30-hass.io.jpg" alt=""></p>
 <p>接下来请泡杯茶，煮包泡面，吃泡面，出去走一走…… 因为，不要被 “up to 20 min” 欺骗了，20分钟这种事只会发生在童话里，实测耗时半天。</p>
 <p>安装成功后，我们就会见到初始界面，还是熟悉的配方，还是熟悉的味道：</p>
@@ -421,7 +421,7 @@
 <p>下面我们使用操作面板安装 Samba 功能，实现 HASS 和电脑的文件共享。</p>
 <h3 id="SMB"><a href="#SMB" class="headerlink" title="SMB"></a>SMB</h3><p>SMB 如此重要，自然 Hass.io 原生内置了安装入口。在插件安装面板下拉找到 Samba Share，点击进入安装界面，而后再点击 Install，等到小圈不转了，一切就大功告成啦，是不是很迅猛？</p>
 <p><img src="http://oeoj44yho.bkt.clouddn.com/2017-08-06-hassio3.jpg" alt=""></p>
-<p>安装成功后，我们会出现 Info 和 Options 卡片。（什么，还不知道卡片是什么？快去看看最新的个性化设置篇教程吧）</p>
+<p>安装成功后，便会出现 Info 和 Options 卡片。（什么，还不知道卡片是什么？快去看看最新的<a href="http://cxlwill.cn/HA/HA-Custom-Setup/">个性化设置篇</a>教程吧）</p>
 <p>首先，建议在 Info 中打开自动更新。接着我们来详细看看 Options 中的配置。</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="string">&#123;</span></div><div class="line"><span class="attr">  "workgroup":</span> <span class="string">"WORKGROUP"</span><span class="string">,</span></div><div class="line"><span class="attr">  "name":</span> <span class="string">"hassio"</span><span class="string">,</span></div><div class="line"><span class="attr">  "guest":</span> <span class="literal">true</span><span class="string">,</span></div><div class="line"><span class="attr">  "map":</span> <span class="string">&#123;</span></div><div class="line"><span class="attr">    "config":</span> <span class="literal">true</span><span class="string">,</span></div><div class="line"><span class="attr">    "addons":</span> <span class="literal">true</span><span class="string">,</span></div><div class="line"><span class="attr">    "ssl":</span> <span class="literal">false</span><span class="string">,</span></div><div class="line"><span class="attr">    "share":</span> <span class="literal">true</span><span class="string">,</span></div><div class="line"><span class="attr">    "backup":</span> <span class="literal">true</span></div><div class="line">  <span class="string">&#125;,</span></div><div class="line"><span class="attr">  "username":</span> <span class="string">""</span><span class="string">,</span></div><div class="line"><span class="attr">  "password":</span> <span class="string">""</span><span class="string">,</span></div><div class="line"><span class="attr">  "interface":</span> <span class="string">"eth0"</span></div><div class="line"><span class="string">&#125;</span></div></pre></td></tr></table></figure>
 <p>变量说明：（汉化官方文档，原文<a href="https://home-assistant.io/addons/samba/" target="_blank" rel="external">地址</a>）</p>
