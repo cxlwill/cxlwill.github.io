@@ -85,9 +85,9 @@
 <meta property="og:image" content="https://cdn.sspai.com/2017/08/06/71cc8b6e9e61084be6089d116f8d2fe6.png">
 <meta property="og:image" content="https://cdn.sspai.com/2017/08/06/6b3cd176331bfe0cce0d3c6ab1bb75dc.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/08/06/cf3566b42d0c68197202042da59ecb70.jpg">
-<meta property="og:image" content="https://cdn.sspai.com/2017/08/06/2f54f18ed48d459582bb5690005af800.jpg">
-<meta property="og:image" content="https://cdn.sspai.com/2017/08/06/ee5089786aad57fe2e36008436faf3ba.jpg">
-<meta property="og:updated_time" content="2017-08-17T08:48:17.000Z">
+<meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-16-%E4%B8%BB%E9%A2%98.jpg">
+<meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-18-Jietu20170818-164013%402x.jpg">
+<meta property="og:updated_time" content="2017-08-18T08:59:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HA系列提高篇 - 个性化配置篇">
 <meta name="twitter:description" content="通过之前的篇章，相信大家已经能够较舒适地使用 HA 这个平台了。为了拯救各位强迫症患者，本期教程将向大家提供个性化配置的支持。">
@@ -358,7 +358,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,916 字
+                  2,106 字
                 </span>
               
 
@@ -374,7 +374,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  7 分钟
+                  8 分钟
                 </span>
               
             </div>
@@ -438,17 +438,21 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">homeassistant:</span></div><div class="line"></div><div class="line"><span class="attr">  customize:</span> <span class="string">!include</span> <span class="string">customize.yaml</span></div><div class="line"></div><div class="line"><span class="attr">group:</span> <span class="string">!include</span> <span class="string">group.yaml</span></div></pre></td></tr></table></figure>
 <p> 这样我们就能保持配置文件的整洁和逻辑性。</p>
 <hr>
-<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p>主题是 HA 在 0.49.2 更新中加入的功能，支持配置大部分 UI 中的字体、颜色等 CSS 值。遗憾的是，由于缺少主背景色和卡片背景色的接口，因此目前想要实现夜间模式必须修改硬核代码，相信不久后的版本更新中将解决这个问题。</p>
-<p>配置主题需要两个步骤，一为添加配置文件，二位调用主题。</p>
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p>主题是 HA 在 0.49.2 更新中加入的功能，支持配置大部分 UI 中的字体、颜色等 CSS 值。最新 0.51.2 版本中已经添加对背景色替换的支持，也意味着黑暗模式终于得以实现。</p>
+<p>配置主题需要两个步骤，一为添加配置文件，二为调用主题。</p>
 <p>首先是添加配置文件，主题应在 <code>frontend</code>块内进行配置：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">frontend:</span></div><div class="line"></div><div class="line"><span class="attr">  themes:</span></div><div class="line"></div><div class="line"><span class="attr">    night:</span> <span class="comment">#主题名称，英文</span></div><div class="line"></div><div class="line"><span class="attr">      dark-primary-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      backgroud-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      primary-background-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      primary-text-color:</span> <span class="string">white</span></div><div class="line"></div><div class="line"><span class="attr">      primary-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      paper-card-background-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      paper-listbox-background-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      divider-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      paper-slider-container-color:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      text-primary-color:</span> <span class="string">white</span></div><div class="line"></div><div class="line"><span class="attr">      paper-grey-200:</span> <span class="string">black</span></div><div class="line"></div><div class="line"><span class="attr">      disabled-text-color:</span> <span class="string">white</span></div></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">frontend:</span></div><div class="line"></div><div class="line"><span class="attr">  themes:</span></div><div class="line"></div><div class="line"><span class="attr">    night:</span> <span class="comment">#主题名称，英文</span></div><div class="line"></div><div class="line">    <span class="comment"># 主界面 #</span></div><div class="line"></div><div class="line"><span class="attr">      primary-color:</span> <span class="string">"#1DE9B6"</span> <span class="comment"># 主 UI 字体颜色</span></div><div class="line"></div><div class="line"><span class="attr">      primary-background-color:</span> <span class="string">"#303030"</span> <span class="comment"># 其他部件背景色 (dialogs, e.t.c)</span></div><div class="line"></div><div class="line"><span class="attr">      secondary-background-color:</span> <span class="string">"#303030"</span> <span class="comment"># 主 UI 背景颜色</span></div><div class="line"></div><div class="line"><span class="attr">      paper-card-background-color:</span> <span class="string">"#424242"</span> <span class="comment"># 卡片背景颜色</span></div><div class="line"></div><div class="line"><span class="attr">      paper-item-icon-color:</span> <span class="string">"#1DE9B6"</span> <span class="comment"># Icon colour</span></div><div class="line"></div><div class="line"><span class="attr">      primary-text-color:</span> <span class="string">"#FFFFFF"</span> <span class="comment"># 首选字体颜色</span></div><div class="line"></div><div class="line"><span class="attr">      secondary-text-color:</span> <span class="string">"rgba(255, 255, 255, 0.7)"</span> <span class="comment"># 次字体颜色</span></div><div class="line"></div><div class="line"><span class="attr">      disabled-text-color:</span> <span class="string">"rgba(255, 255, 255, 0.5)"</span> <span class="comment"># Disabled text colour</span></div><div class="line"></div><div class="line"><span class="attr">      divider-color:</span> <span class="string">"rgba(255, 255, 255, 0.12)"</span> <span class="comment"># Divider colour</span></div><div class="line"></div><div class="line"><span class="attr">      paper-card-header-color:</span> <span class="string">"#FFFFFF"</span> <span class="comment"># 卡片标题颜色</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">      <span class="comment"># 侧边栏 #</span></div><div class="line"></div><div class="line"><span class="attr">      paper-listbox-background-color:</span> <span class="string">"#424242"</span> <span class="comment"># 背景色</span></div><div class="line"></div><div class="line"><span class="attr">      paper-listbox-color:</span> <span class="string">"#FFFFFF"</span> <span class="comment"># 字体色</span></div><div class="line"></div><div class="line"><span class="attr">      paper-grey-200:</span> <span class="string">"#616161"</span> <span class="comment"># 选中项背景色</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">      <span class="comment"># 开关 #</span></div><div class="line"></div><div class="line"><span class="attr">      paper-toggle-button-checked-ink-color:</span> <span class="string">"#1DE9B6"</span></div><div class="line"></div><div class="line"><span class="attr">      paper-toggle-button-checked-button-color:</span> <span class="string">"#1DE9B6"</span></div><div class="line"></div><div class="line"><span class="attr">      paper-toggle-button-checked-bar-color:</span> <span class="string">"#1DE9B6"</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">      <span class="comment"># Sliders #</span></div><div class="line"></div><div class="line"><span class="attr">      paper-slider-knob-color:</span> <span class="string">"#1DE9B6"</span></div><div class="line"></div><div class="line"><span class="attr">      paper-slider-knob-start-color:</span> <span class="string">"#1DE9B6"</span></div><div class="line"></div><div class="line"><span class="attr">      paper-slider-pin-color:</span> <span class="string">"#1DE9B6"</span></div><div class="line"></div><div class="line"><span class="attr">      paper-slider-active-color:</span> <span class="string">"#1DE9B6"</span></div><div class="line"></div><div class="line"><span class="attr">      paper-slider-secondary-color:</span> <span class="string">"#33F2D8"</span></div></pre></td></tr></table></figure>
 <p>具体可设置的对象有数十个，恕我无法一一列举及解释，有待大家自己调试，对象列表请参考<a href="https://github.com/home-assistant/home-assistant-polymer/blob/master/src/resources/ha-style.html" target="_blank" rel="external">此处</a>。</p>
-<p>主题配置后就是调用了，这里有 2 种方法：</p>
+<p>以上主题源自 HA 官方论坛的网友分享，原文地址<a href="https://community.home-assistant.io/t/dark-theme-or-night-mode-theme/446/37" target="_blank" rel="external">见此</a>。</p>
+<p>主题配置后就是调用了，这里有 3 种方法：</p>
 <ul>
-<li>手动调用：打开左下角 Service 面板，由上之下依次选择<code>frontend</code> - <code>set_theme</code>，之后填入<code>{&quot;name&quot;:&quot;主题名称&quot;}</code>，最后点击 <code>call_service</code>。</li>
+<li>手动调用1：打开左下角 Service 面板，由上之下依次选择<code>frontend</code> - <code>set_theme</code>，之后填入<code>{&quot;name&quot;:&quot;主题名称&quot;}</code>，最后点击 <code>call_service</code>。</li>
 </ul>
 <p><img src="https://cdn.sspai.com/2017/08/06/cf3566b42d0c68197202042da59ecb70.jpg" alt="Services Panel"></p>
 <p><strong>PS：在这里，我们也可以进行 Home Assistant 的重启。</strong></p>
+<ul>
+<li>手动调用2（仅限 0.51.2 及以上版本 HA）：打开左侧面板 — 选择Configuration — 右侧点击<code>configuration.yaml</code>按钮 - 下方 <code>Set A theme</code> 选择你要的主题 - 即时生效</li>
+</ul>
 <ul>
 <li>自动调用：这里预习一下将要学习的自动化知识吧~</li>
 </ul>
@@ -475,12 +479,12 @@
 <span class="attr">        name:</span> <span class="string">happy</span> <span class="comment">#主题名称</span>
 </code></pre>
 <p>相信到这里，大家的 HA 界面已经楚楚动人了，赶紧把 HA 拿出去秀一下吧~</p>
-<p><img src="https://cdn.sspai.com/2017/08/06/2f54f18ed48d459582bb5690005af800.jpg" alt="配合魔镜的全黑背景"></p>
+<p><img src="http://oeoj44yho.bkt.clouddn.com/2017-08-16-%E4%B8%BB%E9%A2%98.jpg" alt=""></p>
 <hr>
 <p>HA 除了预设的个性化配置甚至还提供了自定义卡片、自定义面板等等接口，你可以在卡片中显示徽章，可以使用全文字面板控制设备甚至可以修改硬核代码实现夜间模式……简直是促使程序员们大开脑洞啊，更多的详细教程欢迎关注接下来的高级篇。</p>
 <p>…………</p>
 <p>吊个胃口，比如一个具有交互性并且实时更新的“活点地图”？</p>
-<p><img src="https://cdn.sspai.com/2017/08/06/ee5089786aad57fe2e36008436faf3ba.jpg" alt="房间互动平面图"></p>
+<p><img src="http://oeoj44yho.bkt.clouddn.com/2017-08-18-Jietu20170818-164013%402x.jpg" alt=""></p>
 
       
     </div>
