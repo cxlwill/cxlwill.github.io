@@ -85,7 +85,7 @@
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/30/8b2559b1d7e5f80029d0f6c7219f87c5.jpg">
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-14-Jietu20170814-132022%402x.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/19/6f3c1b863d30a3edd004b7eb7c4d9c1d.jpg">
-<meta property="og:updated_time" content="2017-08-18T09:04:55.000Z">
+<meta property="og:updated_time" content="2017-08-18T09:48:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HA系列基础篇 - 小米特别篇">
 <meta name="twitter:description" content="本篇教程将介绍将小米设备接入 HASS 和 通过 Hombridge 接入 Apple Home 两大平台的方法，具体选择哪个方案，大家各取所需，有关平台选择和区别详见本系列之前的文章。">
@@ -356,7 +356,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  3,019 字
+                  3,039 字
                 </span>
               
 
@@ -405,9 +405,10 @@
 <p>目前有一个简单粗暴的标准，即如果一个设备需要小米多功能网关才可以使用，一般来说它采用的是 Zigbee 协议，那么只要网关接入了 HASS 就可以完美适配。而如果一个设备是独立接入网络的，比如米家 Wi-Fi 插座、扫地机器人、Yeelight 灯具等，我们则需要单独在 HASS 里接入它们。</p>
 <p>类似的标准也适用于 Homeridge，homebridge-mi-aqara 插件正常情况下只支持 Zigbee 设备，其他设备需要另安装插件。</p>
 <p><strong>本篇教程将介绍将小米设备接入 HASS 和 通过 Hombridge 接入 Apple Home 两大平台的方法，具体选择哪个方案，大家各取所需，有关平台选择和区别详见本系列之前的文章。</strong></p>
-<p>下图是我自己整理的小米生态链设备支持列表：</p>
+<p>下图是由我个人独立整理的小米生态链设备支持列表：</p>
 <p><img src="http://oeoj44yho.bkt.clouddn.com/2017-08-14-Jietu20170814-132022%402x.jpg" alt="支持列表 8.14"></p>
-<p>表格使用 <a href="https://docs.google.com/spreadsheets/d/1LI0n_aK-9TuKXrz-PPOAbVuaN8JUj70s5F0MyK8FtsM/edit?usp=sharing" target="_blank" rel="external">Google SpreadSheet</a> 编辑，国内用户请通过 <a href="http://note.youdao.com/noteshare?id=84e800902f163f8d6a624b3f038649f3" target="_blank" rel="external">有道云笔记</a> 访问，列表将会不断更新，也欢迎各位派友向我提供支持信息，直接表格内评论即可。</p>
+<p>表格使用 <a href="https://docs.google.com/spreadsheets/d/1LI0n_aK-9TuKXrz-PPOAbVuaN8JUj70s5F0MyK8FtsM/edit?usp=sharing" target="_blank" rel="external">Google SpreadSheet</a> 编辑，国内用户请通过 <a href="http://note.youdao.com/noteshare?id=84e800902f163f8d6a624b3f038649f3" target="_blank" rel="external">有道云笔记</a> 访问。</p>
+<p>列表将会不断更新，优先更新 Google Sheet，而后同步至有道。欢迎各位朋友向我提供支持信息及报错，直接表格内添加评论即可。</p>
 <p>下面我们以<strong>传输协议</strong>为划分标准，分别介绍小米设备接入智能家居系统的方法：</p>
 <h2 id="Zigbee-设备（小米多功能网关）"><a href="#Zigbee-设备（小米多功能网关）" class="headerlink" title="Zigbee 设备（小米多功能网关）"></a>Zigbee 设备（小米多功能网关）</h2><p>小米多功能网关（第二代）是大部分米家及 绿米（Aqara） Zigbee 设备的联动基础，也是整个米家智能家居系统的核心。</p>
 <p>要将网关接入 HASS，我们需要先打开网关的通信协议，并获取通讯密码。</p>
