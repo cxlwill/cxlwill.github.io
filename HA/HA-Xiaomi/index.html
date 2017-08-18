@@ -85,7 +85,7 @@
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/30/8b2559b1d7e5f80029d0f6c7219f87c5.jpg">
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-14-Jietu20170814-132022%402x.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/19/6f3c1b863d30a3edd004b7eb7c4d9c1d.jpg">
-<meta property="og:updated_time" content="2017-08-16T06:40:45.000Z">
+<meta property="og:updated_time" content="2017-08-18T08:13:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HA系列基础篇 - 小米特别篇">
 <meta name="twitter:description" content="本篇教程将介绍将小米设备接入 HASS 和 通过 Hombridge 接入 Apple Home 两大平台的方法，具体选择哪个方案，大家各取所需，有关平台选择和区别详见本系列之前的文章。">
@@ -356,7 +356,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  2,917 字
+                  2,999 字
                 </span>
               
 
@@ -450,10 +450,13 @@
 <p>请先在 Yeelight app 中打开“极客模式”，地区中国或新加坡皆可，如果设置为新加坡，并且米家 app 设置为中国大陆地区，则设备无法接入米家 app，自行选择。</p>
 <p>之后重启 HA，确认一下设备是否已经被 HA 自动识别添加，如果是的话，皆大欢喜，什么都无需再做了，如果没有，请打开<code>configuration.yaml</code>文件，在最后添加如下字段：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">light:</div><div class="line">  - platform: yeelight</div><div class="line">    devices:</div><div class="line">      192.168.1.25:              #Yeelight灯具ip</div><div class="line">        name: Living Room      #昵称</div><div class="line">        transition: 1000</div><div class="line">        use_music_mode: True #(音乐随动模式，默认关闭)</div></pre></td></tr></table></figure>
-<h3 id="HB"><a href="#HB" class="headerlink" title="HB"></a>HB</h3><p>原则上支持所有传输协议为 WIFI 的 Yeegliht 设备。</p>
+<h3 id="HB"><a href="#HB" class="headerlink" title="HB"></a>HB</h3><p>原则上支持所有 Yeegliht 设备。</p>
 <p>安装 Yeelight 插件</p>
 <p><code>npm install -g homebridge-yeelight</code></p>
-<p>然后什么都不用管了，手机会自动识别的。</p>
+<p>吸顶灯、灯带、灯泡等 WIFI 传输设备无需添加其他配置，手机会自动识别。</p>
+<p>床头灯请在终端运行如下指令，安装蓝牙服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libbluetooth-dev</div><div class="line">sudo npm install -g noble</div><div class="line">sudo apt-get install libcap2-bin</div><div class="line">sudo setcap cap_net_raw+eip $(eval readlink -f `which node`)</div></pre></td></tr></table></figure>
+<p>注意，初次连接床头灯时，当看到呼吸灯效果，记住按下 Mode 按钮以赋予树莓派访问权限。</p>
 <hr>
 <p>以上 2 个是最常见的具有统一插件的设备适配，下面我挑选了几个特殊的常见设备介绍具体配制方法：</p>
 <h2 id="米家扫地机器人"><a href="#米家扫地机器人" class="headerlink" title="米家扫地机器人"></a>米家扫地机器人</h2><p>扫地机器人的接入和设置目前比较麻烦，大家需要有点耐心，我相信随着插件的不断更迭，支持的功能会越来越多。HA 最新 52.1 赋予了扫地机器人专门的类—— vaccum，因此以后相关智能吸尘器、扫地机都可类比之前的灯具、开关进行配置。</p>
