@@ -75,21 +75,17 @@
 
 
 
-<meta name="description" content="利用 HA 改造监测仪，花朵伴侣助我的袖珍椰子茁壮成长。">
+<meta name="description" content="将高德地图接入 Home Assistant，继续加强本地化。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HA系列补充篇 - 改造花花草草监测仪">
-<meta property="og:url" content="http://cxlwill.cn/HA/HA-miFlora/index.html">
+<meta property="og:title" content="HA 系列高级篇 - 高德地图接入">
+<meta property="og:url" content="http://cxlwill.cn/HA/HA-Map/index.html">
 <meta property="og:site_name" content="墨澜技术站">
-<meta property="og:description" content="利用 HA 改造监测仪，花朵伴侣助我的袖珍椰子茁壮成长。">
+<meta property="og:description" content="将高德地图接入 Home Assistant，继续加强本地化。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-18-Miflora.jpg">
-<meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-18-Jietu20170819-000746%402x.jpg">
-<meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-18-siri_flora.JPG">
-<meta property="og:updated_time" content="2017-08-19T13:39:18.000Z">
+<meta property="og:updated_time" content="2017-09-14T02:54:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HA系列补充篇 - 改造花花草草监测仪">
-<meta name="twitter:description" content="利用 HA 改造监测仪，花朵伴侣助我的袖珍椰子茁壮成长。">
-<meta name="twitter:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-18-Miflora.jpg">
+<meta name="twitter:title" content="HA 系列高级篇 - 高德地图接入">
+<meta name="twitter:description" content="将高德地图接入 Home Assistant，继续加强本地化。">
 
 
 
@@ -118,13 +114,13 @@
 
 
 
-  <link rel="canonical" href="http://cxlwill.cn/HA/HA-miFlora/"/>
+  <link rel="canonical" href="http://cxlwill.cn/HA/HA-Map/"/>
 
 
 
 
 
-  <title>HA系列补充篇 - 改造花花草草监测仪 | 墨澜技术站</title>
+  <title>HA 系列高级篇 - 高德地图接入 | 墨澜技术站</title>
   
 
 
@@ -272,7 +268,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://cxlwill.cn/HA/HA-miFlora/">
+    <link itemprop="mainEntityOfPage" href="http://cxlwill.cn/HA/HA-Map/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cxlwill">
@@ -289,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">HA系列补充篇 - 改造花花草草监测仪</h1>
+          <h1 class="post-title" itemprop="name headline">HA 系列高级篇 - 高德地图接入</h1>
         
 
         <div class="post-meta">
@@ -301,8 +297,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-19T21:34:12+08:00">
-                2017-08-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T14:04:44+08:00">
+                2017-09-12
               </time>
             
 
@@ -356,7 +352,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,034 字
+                  1,074 字
                 </span>
               
 
@@ -380,7 +376,7 @@
 
           
               <div class="post-description">
-                  利用 HA 改造监测仪，花朵伴侣助我的袖珍椰子茁壮成长。
+                  将高德地图接入 Home Assistant，继续加强本地化。
               </div>
           
 
@@ -397,34 +393,37 @@
       
 
       
-        <p>从小到大没养活过几个生物的我，这几天想着再拼一把试试看养养花。选来选去挑中好养的绿植类植物，但是花有了心里却没底，凑巧小米活动抽中了30元配件券，于是就入手了花花草草监测仪。</p>
-<p>花花草草监测仪一共有 2 款 3 种型号，分别是白色柄的初版和国际版以及豆绿色柄的加强版。我研究了一下参数，加强版除了可以记忆多个植物以外，真没发现加强在哪里。既然如此，那还是入手 49 元的普通版吧。需要注意的是，由于未知的原因（App 需要向国内服务器发送数据），祖国版监测仪不能在国外使用。</p>
-<p>此款监测仪一共监测 4 项数据，亮度，湿度，温度以及肥力。最后的这个肥力实际上是通过计算导电性得来的，也是监测仪类似磁铁的两极造型的由来。</p>
-<p>实际使用中，原生体系有以下几个致命缺点：</p>
-<ul>
-<li>夜晚模式下，app 的 UI 变了，但是依据提示光照不足，很不科学；</li>
-<li>植物缺水状态下没有消息推送，只能靠用户定期查看 App 获知；</li>
-<li>缺乏植物个性化的设定，App 对所有植物划分同样的缺水、少肥线等，忽视了部分植物喜光、耐热的特性。</li>
-<li>设备使用蓝牙传输信息，手机一远离监测仪就无法获取数据，远程感知无法实现。（比如出差在外，提醒家中其他人帮忙浇水等场景）</li>
-</ul>
-<p>只要是小米生态链下的设备，注定是要接入 HA 的，好在 HA 原生支持此款监测仪，工作顿时轻松了许多，打开安卓手机蓝牙设置，搜寻到设备，记录下 mac，之后在 HA 中的 Configuration.yaml 填入下列配置：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="attr">sensor:</span></div><div class="line"><span class="attr">  - platform:</span> <span class="string">miflora</span></div><div class="line"><span class="attr">    mac:</span> <span class="string">'xx:xx:xx:xx:xx:xx'</span></div><div class="line"><span class="attr">    name:</span> <span class="string">Flower</span> <span class="number">1</span>          <span class="comment">#昵称</span></div><div class="line"><span class="attr">    force_update:</span> <span class="literal">false</span>     <span class="comment">#数据未变化时强制推送数据</span></div><div class="line"><span class="attr">    median:</span> <span class="number">3</span>               <span class="comment">#取值范围</span></div><div class="line"><span class="attr">    monitored_conditions:</span>   <span class="comment">#监测数据类型</span></div><div class="line"><span class="bullet">      -</span> <span class="string">moisture</span>            <span class="comment">#湿度</span></div><div class="line"><span class="bullet">      -</span> <span class="string">light</span>               <span class="comment">#光照</span></div><div class="line"><span class="bullet">      -</span> <span class="string">temperature</span>         <span class="comment">#温度</span></div><div class="line"><span class="bullet">      -</span> <span class="string">conductivity</span>        <span class="comment">#肥力（土壤导电性）</span></div><div class="line"><span class="bullet">      -</span> <span class="string">battery</span>             <span class="comment">#电量</span></div></pre></td></tr></table></figure>
-<p>再添加一些自定义配置，重启 HA，当当，监测仪的监测数据就出现在界面了。</p>
-<p><img src="http://oeoj44yho.bkt.clouddn.com/2017-08-18-Miflora.jpg" alt=""></p>
-<p>由于盆栽摆在室外，因此温度和亮度都可视为室外亮度和温度，正好与室内的温湿度传感器对比，让自己对增减衣物有个底。</p>
-<p>当然光显示数据是不够的，我们的重点在解决问题。</p>
-<p><strong>问题一：异常情况提醒</strong></p>
-<p>结合 HA 的 iOS 和 notify 组件，我们可以自己来编写一段自动化设置，让系统在盆栽缺水时消息推送至 iPhone，提示我们浇花，弥补原生 App 的不足。</p>
-<p>同时，配合魔镜的活点地图，做到缺水、缺肥时，数值闪动，平常照镜子的时候就能及时发现。</p>
-<p><strong>问题二：区分昼夜环境</strong></p>
-<p>结合 HA 的 日出日落组件，我们改造一下上面的自动化配置，添加昼夜环境下不同的光照临界值，这样在夜晚系统便不会提示植物缺乏光照。</p>
-<p>由于 HA 附带历史数据记录功能并可视化数据，可以说已经比原生 app 不知道高到哪里去了。通过上面的配置，没有日志记录习惯的话基本可以摆脱原生 app 了。</p>
-<p><img src="http://oeoj44yho.bkt.clouddn.com/2017-08-18-Jietu20170819-000746%402x.jpg" alt=""></p>
-<p>当然，既然是利用 HA，我们一样可以把数据接入 Homekit。考虑一下场景，听 Siri 回复一堆数据显然非我所愿，我只想知道花正常不正常，缺不缺水，需不需要施肥。</p>
-<p>只需在 HA 中新增加几个自定义传感器，根据数值显示正常不正常即可，之后接入 Homekit。</p>
-<p>好了，现在可以问 Siri 了：</p>
-<p><img src="http://oeoj44yho.bkt.clouddn.com/2017-08-18-siri_flora.JPG" alt=""></p>
-<p>目前使用了一周，感觉还行，肥力会受湿度影响，因此提示缺肥时不妨也看一下水位。</p>
+        <p>Home Assistant 就目前来说，本地化的工作很不到位。我也将在之后的教程中专门出一篇有关汉化的内容，敬请期待。</p>
+<p>这一次的教程呢就先聚焦一下『地图』吧。我们知道 HA 默认的地图面板使用的是 OpenStreet 地图，社区内大部分的组件也是基于 Google Map 开发优化的。这可苦了我们墙内的小伙伴，必须全部替换掉。</p>
+<p>至于替换后所考虑使用的国内地图服务商，我这里还是推荐『高德』。众所周知，由于特别的保密政策及『地图法』，我国的地图坐标系都是加密后的数据，在这种情况下，大家常用的百度地图使用的是百度特有的 BA09 坐标系，在我们实际接入中会产生较大的地图偏移，所以弃用之。那剩下的就只有高德、腾讯这么 2 个选择了，摸摸良心也知道选高德是没错的。</p>
+<p>在 HA 上显示地图，一种方法呢是通过 Panel 面板，另外一种是通过 Card 卡片，两者方法我一并介绍。</p>
+<h2 id="面板"><a href="#面板" class="headerlink" title="面板"></a>面板</h2><p>使用面板将『高德地图』接入 HA，一种方法是直接替换掉原有地图面板的底层地图，另一种方法是接入自定义面板。前者需要在 HA 每次更新后替换源文件，后者则要忍受左侧栏有 2 个地图面板入口，可以说都不是那么完美。权衡再三我还是选择<strong>直接替换源文件</strong>，毕竟 HA 更新没有那么的频繁。</p>
+<p>打开默认的『Map』页面，我们不难从右下角标注部分发现其使用的是『leaflet』框架，有关该框架的具体介绍我就不展开了。简单来说，它的运行原理就是提供一张底图图层，之后在上面增加标记图层。因此，我们只需要把底图替换为『高德地图』就 OK 了。</p>
+<ol>
+<li><p>打开『地图』页面的源文件，先使用格式化工具进行格式化，找到图层相关的语句：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">attached: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> t = <span class="keyword">this</span>._map = <span class="built_in">window</span>.L.map(<span class="keyword">this</span>.$.map);</div><div class="line">  t.setView([<span class="number">51.505</span>, <span class="number">-.09</span>], <span class="number">13</span>),</div><div class="line">  <span class="built_in">window</span>.L.tileLayer(<span class="string">"https://cartodb-basemaps-&#123;s&#125;.global.ssl.fastly.net/light_all/&#123;z&#125;/&#123;x&#125;/&#123;y&#125;.png"</span>).addTo(t),</div><div class="line">  <span class="keyword">this</span>.drawEntities(<span class="keyword">this</span>.hass),</div><div class="line">  <span class="keyword">this</span>.async(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    t.invalidateSize(),</div><div class="line">    <span class="keyword">this</span>.fitMap()</div><div class="line">  &#125;.bind(<span class="keyword">this</span>), <span class="number">1</span>)</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p> 将 <code>window.L.tileLayer</code> 中图层路径部分 <code>https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png</code> 替换为高德地图 <code>http://webrd02.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;scale=1&amp;style=8&amp;x={x}&amp;y={y}&amp;z={z}</code>，之后保存文件；</p>
+</li>
+<li><p>在终端内使用 <code>gzip</code> 指令压缩 <code>html</code> 文件，替换源 <code>html</code> 与 <code>html.gz</code> 文件；</p>
+</li>
+<li>使用 <code>md5</code> 指令获取 <code>html</code> 文件的 md5 值，打开上级文件夹的 <code>version.py</code> 文件，替换 <code>&quot;panels/ha-panel-map.html&quot;</code>的值；</li>
+<li>大功告成，重启 HA 即可，你可以看到『Map』页面的地图已经变为了高德地图。</li>
+</ol>
+<p>最后，我知道你们很懒又迷茫，给你们提供了现成的文件，直接进行替换即可。</p>
+<p>文件地址请扫码捐款后获得</p>
+<p>………………</p>
+<p>好啦，没那么夸张，点此前往。</p>
+<hr>
+<h2 id="卡片"><a href="#卡片" class="headerlink" title="卡片"></a>卡片</h2><p>使用卡片将『高德地图』接入 HA，我们这里需要利用<br>『Genric』这个组件，将地图转化为摄像头画面。</p>
+<p>首先，申请高德开发者账户，新建应用，获取 API 接口秘钥『key』。</p>
+<p>接着，仔细阅读该份静态地图 <a href="http://lbs.amap.com/api/webservice/guide/api/staticmaps" target="_blank" rel="external">技术文档</a>，了解各项值代表的意义和表示方法。</p>
+<p>最后，打开 <code>configuration.yaml</code> 添加 <code>Generic</code> 组件：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#高德地图</span></div><div class="line"><span class="attr">camera:</span></div><div class="line"><span class="attr">  name:</span> <span class="string">Home</span></div><div class="line"><span class="attr">  platform:</span> <span class="string">generic</span></div><div class="line"><span class="attr">  still_image_url:</span> <span class="attr">http://restapi.amap.com/v3/staticmap?location=地图中心经度,地图中心纬度&amp;zoom=14&amp;scale=2&amp;size=305*185&amp;traffic=1&amp;&amp;labels=家,0,0,35,0xFFFFFF,0x5288d8:标记经度,标记纬度&amp;key=秘钥</span></div><div class="line"><span class="attr">  limit_refetch_to_url_change:</span> <span class="literal">false</span></div></pre></td></tr></table></figure>
+<p>重启 HA 后，你想要显示的地图区域就会以『卡片』的形式展现在前端中了。</p>
+<p>我知道你们还是又懒又迷茫，因此，提供了 <a href="https://github.com/cxlwill/HA_config" target="_blank" rel="external">示例配置</a>，这也是我的所有配置的同步仓库。</p>
+<p>到这里，相信大家可以自如地在 HA 中使用高德地图了，还不拿起手机扫一扫下方的捐款码吗？</p>
+<p>（从未见过如此厚颜无耻之徒）</p>
+<p>￣ω￣=</p>
 
       
     </div>
@@ -486,8 +485,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/HA/HA-Yeelight/" rel="next" title="HA系列 - 大战 Yeelight">
-                <i class="fa fa-chevron-left"></i> HA系列 - 大战 Yeelight
+              <a href="/HA/HA-Floorplan/" rel="next" title="HA系列高级篇 - 动态平面图">
+                <i class="fa fa-chevron-left"></i> HA系列高级篇 - 动态平面图
               </a>
             
           </div>
@@ -496,8 +495,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/HA/HA-Floorplan/" rel="prev" title="HA系列高级篇 - 动态平面图">
-                HA系列高级篇 - 动态平面图 <i class="fa fa-chevron-right"></i>
+              <a href="/other/Welcome/" rel="prev" title="Welcome">
+                Welcome <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -575,8 +574,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -667,6 +675,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#面板"><span class="nav-number">1.</span> <span class="nav-text">面板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卡片"><span class="nav-number">2.</span> <span class="nav-text">卡片</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
