@@ -82,7 +82,7 @@
 <meta property="og:site_name" content="墨澜技术站">
 <meta property="og:description" content="将高德地图接入 Home Assistant，继续加强本地化。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-14T03:50:19.000Z">
+<meta property="og:updated_time" content="2017-09-14T05:09:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HA 系列高级篇 - 高德地图接入">
 <meta name="twitter:description" content="将高德地图接入 Home Assistant，继续加强本地化。">
@@ -352,7 +352,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,142 字
+                  1,143 字
                 </span>
               
 
@@ -396,17 +396,22 @@
         <p>Home Assistant 就目前来说，本地化的工作很不到位。我也将在之后的教程中专门出一篇有关汉化的内容，敬请期待。</p>
 <p>这一次的教程呢就先聚焦一下『地图』吧。我们知道 HA 默认的地图面板使用的是 OpenStreet 地图，社区内大部分的组件也是基于 Google Map 开发优化的。这可苦了我们墙内的小伙伴，必须全部替换掉。</p>
 <p>至于替换后所考虑使用的国内地图服务商，我这里还是推荐『高德』。众所周知，由于特别的保密政策及『地图法』，我国的地图坐标系都是加密后的数据，在这种情况下，大家常用的百度地图使用的是百度特有的 BA09 坐标系，在我们实际接入中会产生较大的地图偏移，所以弃用之。那剩下的就只有高德、腾讯这么 2 个选择了，摸摸良心也知道选高德是没错的。</p>
-<p>在 HA 上显示地图，一种方法呢是通过 Panel 面板，另外一种是通过 Card 卡片，两者方法我一并介绍。</p>
+<p>在 HA 上显示地图，一种方法呢是通过 Panel 面板，另外一种是通过 Card 卡片，两种方法我一并介绍。</p>
 <h2 id="面板"><a href="#面板" class="headerlink" title="面板"></a>面板</h2><p>使用面板将『高德地图』接入 HA，一种方法是直接替换掉原有地图面板的底层地图，另一种方法是接入自定义面板。前者需要在 HA 每次更新后替换源文件，后者则要忍受左侧栏有 2 个地图面板入口，可以说都不是那么完美。权衡再三我还是选择<strong>直接替换源文件</strong>，毕竟 HA 更新没有那么的频繁。</p>
 <p>打开默认的『Map』页面，我们不难从右下角标注部分发现其使用的是『leaflet』框架，有关该框架的具体介绍我就不展开了。简单来说，它的运行原理就是提供一张底图图层，之后在上面增加标记图层。因此，我们只需要把底图替换为『高德地图』就 OK 了。</p>
 <p><strong>注意：该步操作涉及源文件修改，有一定风险，请谨慎操作，我不承担任何责任。</strong></p>
 <ol>
-<li><p>打开『地图』页面的源文件，如果你是通过虚拟环境安装 HA 的，那么源文件路径在 <code>/srv/homeassistant/homeassistant_venv/lib/python3.4/site-packages/homeassistant/components/frontend/www_static/panels</code>。先使用格式化工具进行格式化，找到图层相关的语句：</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">attached: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> t = <span class="keyword">this</span>._map = <span class="built_in">window</span>.L.map(<span class="keyword">this</span>.$.map);</div><div class="line">  t.setView([<span class="number">51.505</span>, <span class="number">-.09</span>], <span class="number">13</span>),</div><div class="line">  <span class="built_in">window</span>.L.tileLayer(<span class="string">"https://cartodb-basemaps-&#123;s&#125;.global.ssl.fastly.net/light_all/&#123;z&#125;/&#123;x&#125;/&#123;y&#125;.png"</span>).addTo(t),</div><div class="line">  <span class="keyword">this</span>.drawEntities(<span class="keyword">this</span>.hass),</div><div class="line">  <span class="keyword">this</span>.async(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    t.invalidateSize(),</div><div class="line">    <span class="keyword">this</span>.fitMap()</div><div class="line">  &#125;.bind(<span class="keyword">this</span>), <span class="number">1</span>)</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
-<p> 将 <code>window.L.tileLayer</code> 中图层路径部分 <code>https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png</code> 替换为高德地图 <code>http://webrd02.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;scale=1&amp;style=8&amp;x={x}&amp;y={y}&amp;z={z}</code>，之后保存文件；</p>
+<li><p>打开『地图』页面的源文件，如果你是通过虚拟环境安装 HA 的，那么源文件路径在:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/srv/homeassistant/homeassistant_venv/lib/python3.4/site-packages/homeassistant/components/frontend/www_static/panels</div></pre></td></tr></table></figure>
 </li>
-<li><p>在终端内使用 <code>gzip</code> 指令压缩 <code>html</code> 文件，替换源 <code>html</code> 与 <code>html.gz</code> 文件；</p>
-</li>
+</ol>
+<pre><code>先使用格式化工具进行格式化，找到图层相关的语句：
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">attached: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> t = <span class="keyword">this</span>._map = <span class="built_in">window</span>.L.map(<span class="keyword">this</span>.$.map);</div><div class="line">  t.setView([<span class="number">51.505</span>, <span class="number">-.09</span>], <span class="number">13</span>),</div><div class="line">  <span class="built_in">window</span>.L.tileLayer(<span class="string">"https://cartodb-basemaps-&#123;s&#125;.global.ssl.fastly.net/light_all/&#123;z&#125;/&#123;x&#125;/&#123;y&#125;.png"</span>).addTo(t),</div><div class="line">  <span class="keyword">this</span>.drawEntities(<span class="keyword">this</span>.hass),</div><div class="line">  <span class="keyword">this</span>.async(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    t.invalidateSize(),</div><div class="line">    <span class="keyword">this</span>.fitMap()</div><div class="line">  &#125;.bind(<span class="keyword">this</span>), <span class="number">1</span>)</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+
+将 `window.L.tileLayer` 中图层路径部分 `https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png` 替换为高德地图 `http://webrd02.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;scale=1&amp;style=8&amp;x={x}&amp;y={y}&amp;z={z}`，之后保存文件；
+</code></pre><ol>
+<li>在终端内使用 <code>gzip</code> 指令压缩 <code>html</code> 文件，替换源 <code>html</code> 与 <code>html.gz</code> 文件；</li>
 <li>使用 <code>md5</code> 指令获取 <code>html</code> 文件的 md5 值，打开上上级文件夹内的 <code>version.py</code> 文件，替换 <code>&quot;panels/ha-panel-map.html&quot;</code>的值；</li>
 <li>大功告成，重启 HA 即可，你可以看到『Map』页面的地图已经变为了高德地图。</li>
 </ol>
