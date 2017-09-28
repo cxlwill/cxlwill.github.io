@@ -1631,6 +1631,9 @@ pre .javascript .function {
 .fancybox-close:hover {
   border: none;
 }
+#special-comment {
+  font-size: 12px;
+}
 #rewardButton {
   cursor: pointer;
   border: 0;
@@ -1928,7 +1931,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #acfff4;
+  background: #0059ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3094,4 +3097,7 @@ pre .javascript .function {
 }
 .menu .menu-item a {
   font-size: 15px;
+}
+#special-comment {
+  font-size: 12px;
 }
