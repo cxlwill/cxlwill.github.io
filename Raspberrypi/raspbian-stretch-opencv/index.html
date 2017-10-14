@@ -82,7 +82,7 @@
 <meta property="og:site_name" content="墨澜技术站">
 <meta property="og:description" content="本篇指南将指导大家如何在树莓派最新官方系统 Raspbian Stretch 中安装计算机视觉库 Opencv。该库常用于人脸识别等人工智能图像识别服务中。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-13T09:04:19.776Z">
+<meta property="og:updated_time" content="2017-10-14T01:04:09.774Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派 Raspbian Stretch 安装 OpenCV 指南">
 <meta name="twitter:description" content="本篇指南将指导大家如何在树莓派最新官方系统 Raspbian Stretch 中安装计算机视觉库 Opencv。该库常用于人脸识别等人工智能图像识别服务中。">
@@ -433,7 +433,7 @@
 <h2 id="文件系统扩容"><a href="#文件系统扩容" class="headerlink" title="文件系统扩容"></a>文件系统扩容</h2><p>开头也提到了小派的空间有限，因此第一件事就是将系统扩大到整块 TF 卡的空间。</p>
 <p>终端输入 <code>sudo raspi-config</code> —— Advanced Options —— Expand filesystem ——A1. Expand File System，之后 <code>sudo reboot</code> 重启。</p>
 <p>重启后，可输入 <code>df -h</code>，检查是否扩容完毕。</p>
-<p>俗话说“巧妇那位无米之炊”，都要人工智能了，还是别拿 4G、8G 的小卡折腾了，个人推荐 16G 及以上 TF 卡。要是你非用小卡不可，想要压缩空间，可以把部分系统自带的软件卸载掉，比如 Libreoffice 和 Wolfram 之类的，前提是你确定不使用这些软件。</p>
+<p>俗话说“巧妇难为无米之炊”，都要人工智能了，还是别拿 4G、8G 的小卡折腾了，个人推荐 16G 及以上 TF 卡。要是你非用小卡不可，想要压缩空间，可以把部分系统自带的软件卸载掉，比如 Libreoffice 和 Wolfram 之类的，前提是你确定不使用这些软件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo apt-get purge wolfram-engine</div><div class="line">sudo apt-get purge libreoffice*</div><div class="line">sudo apt-get clean</div><div class="line">sudo apt-get autoremove</div></pre></td></tr></table></figure>
 <h2 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h2><p>磨刀不误砍柴工，最麻烦的一个步骤来了。老样子，开始操作前务必记得更新源和包：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update &amp;&amp; sudo apt-get upgrade</div></pre></td></tr></table></figure>
