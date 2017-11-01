@@ -25,6 +25,14 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[Home Assistant 系列高级篇 —— 日落日出时间]]></title>
+    <url>%2FHome-Assistant%2FHomeAssistant-Date%2F</url>
+    <content type="text"><![CDATA[入秋以后，天暗得很早，早早没了阳光，收衣服的时间也比原先提早了。因此想在前端了解一下日落时间，最终显示的效果就是这样： 老样子，还是要用 Template Sensor 接入，利用系统自带的sun.sun组件的属性： 12345- platform: template sensors: sunrise: value_template: '&#123;&#123; ((as_timestamp(states.sun.sun.attributes.next_rising)) | timestamp_local) [11:16] &#125;&#125;' friendly_name: '日出时间' 重点当然就是 value_template 这段了，其实我这里偷了一个懒，直接指定了时间格式的模板（日落日出没人需要年月日的），最规范的格式化应该是： 1&#123;&#123; as_timestamp(states.sun.sun.attributes.next_setting) | timestamp_custom(&quot;%H:%M&quot;) &#125;&#125; 显示出的日期格式是 24 小时制的 14:10 ，如果要显示 7:10 没有十位数 0 的时间，只要把 (&quot;%H:%M&quot;) 替换成 (&quot;%-H:%M&quot;). 如果想使用 12 小时制，则把(&quot;%H:%M&quot;) 替换成 (&quot;%I:%M&quot;) 或者 (&quot;%-I:%M&quot;) 。当然使用 12 小时制度的话，可能需要显示 AM/PM。也很简单，末尾加个 p 变成 (&quot;%I:%M %p&quot; ) 就可以了。 更具体的时间表示方法可以直接 check 技术文档。 还有一点重要的是在接入前务必记得更改系统时区，否则你就使用系统默认的格林尼治时间吧，太阳晚上十点才升起呢 ：）。]]></content>
+      <categories>
+        <category>Home Assistant</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[Home Assistant 系列超神篇 - 3D 动态平面图]]></title>
     <url>%2FHome-Assistant%2FHomeAssistant-floorplan3D%2F</url>
     <content type="text"><![CDATA[还在不断完善中……]]></content>
