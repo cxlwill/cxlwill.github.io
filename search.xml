@@ -17,6 +17,14 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[网络分析工具 mtr 使用]]></title>
+    <url>%2Fother%2Fmtr%2F</url>
+    <content type="text"><![CDATA[前几天，海外租用的 VPS 延迟严重，亏我还购买了针对东亚的 IP，无奈申请关闭退款。结果对方客服发邮件过来让我使用 mtr 工具，反馈一下网络情况。我也是才了解到这么一个工具。 mtr 安装起来很简单，macOS 有 homebrew 的话 直接 brew install mtr就完成了。Linux 上更是简单，用 yum 和 apt-get 都可以直接安装，工具本身也非常轻量。 安装之后，直接指令 mtr ip 就可以了，进程启动后会持续不断地 Ping。之所以喜欢这个工具是展示界面非常清楚明了，操作也非常简单，单键的字母快捷键解决一切： 可以看到时延基本都 150+ 了，特别 IP 看来没发挥多大的作用。还有一些其他的指令，通过 mtr -h 可以详查。]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[Home Assistant 系列高级篇 —— 日落日出时间]]></title>
     <url>%2FHome-Assistant%2FHomeAssistant-Date%2F</url>
     <content type="text"><![CDATA[入秋以后，天暗得很早，早早没了阳光，收衣服的时间也比原先提早了。因此想在前端了解一下日落时间，最终显示的效果就是这样： 老样子，还是要用 Template Sensor 接入，利用系统自带的sun.sun组件的属性： 12345- platform: template sensors: sunrise: value_template: '&#123;&#123; ((as_timestamp(states.sun.sun.attributes.next_rising)) | timestamp_local) [11:16] &#125;&#125;' friendly_name: '日出时间' 重点当然就是 value_template 这段了，其实我这里偷了一个懒，直接指定了时间格式的模板（日落日出没人需要年月日的），最规范的格式化应该是： 1&#123;&#123; as_timestamp(states.sun.sun.attributes.next_setting) | timestamp_custom(&quot;%H:%M&quot;) &#125;&#125; 显示出的日期格式是 24 小时制的 14:10 ，如果要显示 7:10 没有十位数 0 的时间，只要把 (&quot;%H:%M&quot;) 替换成 (&quot;%-H:%M&quot;). 如果想使用 12 小时制，则把(&quot;%H:%M&quot;) 替换成 (&quot;%I:%M&quot;) 或者 (&quot;%-I:%M&quot;) 。当然使用 12 小时制度的话，可能需要显示 AM/PM。也很简单，末尾加个 p 变成 (&quot;%I:%M %p&quot; ) 就可以了。 更具体的时间表示方法可以直接 check 技术文档。 还有一点重要的是在接入前务必记得更改系统时区，否则你就使用系统默认的格林尼治时间吧，太阳晚上十点才升起呢 ：）。]]></content>
