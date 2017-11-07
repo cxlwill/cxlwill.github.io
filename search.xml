@@ -17,6 +17,14 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[D3.js&Billboard.js]]></title>
+    <url>%2Ffrontend%2Fd3%2F</url>
+    <content type="text"><![CDATA[最近心血来潮研究起 D3，在逛 Home Assistant 前端的 Github 的时候发现有一位大神打算使用 D3 + Billboard.js 取代现有的 Google Chart 服务。这当然是造福祖国人民的好操作，定睛一看大神果然是自己人 = =。顺便就去看了下 Billboard.js 究竟为何。 Billboard.js 原来之前是 C3.js 的一个 Fork，现在独立出来改为支持 D3 v4了。对你没有听错，这货支持 D3 的 V4，简直是时代先锋。简单来说 Billboard 就是调用自家的 CSS 和 JS，快速生成简单图表。 当然，既然框架用的是 d3，更繁杂的设置都是支持的。支持的图表数量也不少： 比起原生框架，Billboard 的优势是能减少很多 DOM 操作。不过老实说还不成熟，个人站点或者中小项目可以尝试用用。]]></content>
+      <categories>
+        <category>frontend</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[网络分析工具 mtr 使用]]></title>
     <url>%2Fother%2Fmtr%2F</url>
     <content type="text"><![CDATA[前几天，海外租用的 VPS 延迟严重，亏我还购买了针对东亚的 IP，无奈申请关闭退款。结果对方客服发邮件过来让我使用 mtr 工具，反馈一下网络情况。我也是才了解到这么一个工具。 mtr 安装起来很简单，macOS 有 homebrew 的话 直接 brew install mtr就完成了。Linux 上更是简单，用 yum 和 apt-get 都可以直接安装，工具本身也非常轻量。 安装之后，直接指令 mtr ip 就可以了，进程启动后会持续不断地 Ping。之所以喜欢这个工具是展示界面非常清楚明了，操作也非常简单，单键的字母快捷键解决一切： 可以看到时延基本都 150+ 了，特别 IP 看来没发挥多大的作用。还有一些其他的指令，通过 mtr -h 可以详查。]]></content>
