@@ -21,7 +21,7 @@
     <url>%2Ffrontend%2Fd3%2F</url>
     <content type="text"><![CDATA[最近心血来潮研究起 D3，在逛 Home Assistant 前端的 Github 的时候发现有一位大神打算使用 D3 + Billboard.js 取代现有的 Google Chart 服务。这当然是造福祖国人民的好操作，定睛一看大神果然是自己人 = =。顺便就去看了下 Billboard.js 究竟为何。 Billboard.js 原来之前是 C3.js 的一个 Fork，现在独立出来改为支持 D3 v4了。对你没有听错，这货支持 D3 的 V4，简直是时代先锋。简单来说 Billboard 就是调用自家的 CSS 和 JS，快速生成简单图表。 当然，既然框架用的是 d3，更繁杂的设置都是支持的。支持的图表数量也不少： 比起原生框架，Billboard 的优势是能减少很多 DOM 操作。不过老实说还不成熟，个人站点或者中小项目可以尝试用用。]]></content>
       <categories>
-        <category>frontend</category>
+        <category>前端</category>
       </categories>
   </entry>
   <entry>
