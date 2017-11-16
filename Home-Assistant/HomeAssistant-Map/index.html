@@ -82,7 +82,7 @@
 <meta property="og:site_name" content="墨澜技术站">
 <meta property="og:description" content="将高德地图接入 Home Assistant，继续加强本地化。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-26T10:53:11.213Z">
+<meta property="og:updated_time" content="2017-11-16T07:22:26.564Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 系列高级篇 - 高德地图接入">
 <meta name="twitter:description" content="将高德地图接入 Home Assistant，继续加强本地化。">
@@ -331,8 +331,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T14:04:44+08:00">
-                2017-09-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-16T14:04:44+08:00">
+                2017-11-16
               </time>
             
 
@@ -386,7 +386,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,150 字
+                  1,104 字
                 </span>
               
 
@@ -427,7 +427,7 @@
       
 
       
-        <p>Home Assistant 就目前来说，本地化的工作很不到位。我也将在之后的教程中专门出一篇有关汉化的内容，敬请期待。</p>
+        <p><strong>2017.11.16 修改：更新替换文件地址和地图图层 URL。</strong></p>
 <p>这一次的教程呢就先聚焦一下『地图』吧。我们知道 HA 默认的地图面板使用的是 OpenStreet 地图，社区内大部分的组件也是基于 Google Map 开发优化的。这可苦了我们墙内的小伙伴，必须全部替换掉。</p>
 <p>至于替换后所考虑使用的国内地图服务商，我这里还是推荐『高德』。众所周知，由于特别的保密政策及『地图法』，我国的地图坐标系都是加密后的数据，在这种情况下，大家常用的百度地图使用的是百度特有的 BA09 坐标系，在我们实际接入中会产生较大的地图偏移，所以弃用之。那剩下的就只有高德、腾讯这么 2 个选择了，摸摸良心也知道选高德是没错的。</p>
 <p>在 HA 上显示地图，一种方法呢是通过 Panel 面板，另外一种是通过 Card 卡片，两种方法我一并介绍。</p>
@@ -435,12 +435,12 @@
 <p>打开默认的『Map』页面，我们不难从右下角标注部分发现其使用的是『leaflet』框架，有关该框架的具体介绍我就不展开了。简单来说，它的运行原理就是提供一张底图图层，之后在上面增加标记图层。因此，我们只需要把底图替换为『高德地图』就 OK 了。</p>
 <p><strong>注意：该步操作涉及源文件修改，有一定风险，请谨慎操作，我不承担任何责任。</strong></p>
 <p>首先，打开『地图』页面的源文件，如果你是通过虚拟环境安装 HA 的，那么源文件路径在:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/srv/homeassistant/homeassistant_venv/lib/python3.4/site-packages/homeassistant/components/frontend/www_static/panels</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/srv/homeassistant/homeassistant_venv/lib/python3.5/site-packages/hass_frontend/panels</div></pre></td></tr></table></figure>
 <p>先使用格式化工具进行格式化，找到图层相关的语句：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">attached: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> t = <span class="keyword">this</span>._map = <span class="built_in">window</span>.L.map(<span class="keyword">this</span>.$.map);</div><div class="line">    t.setView([<span class="number">51.505</span>, <span class="number">-.09</span>], <span class="number">13</span>),</div><div class="line">    <span class="built_in">window</span>.L.tileLayer(<span class="string">"https://cartodb-basemaps-&#123;s&#125;.global.ssl.fastly.net/light_all/&#123;z&#125;/&#123;x&#125;/&#123;y&#125;.png"</span>).addTo(t),</div><div class="line">    <span class="keyword">this</span>.drawEntities(<span class="keyword">this</span>.hass),</div><div class="line">    <span class="keyword">this</span>.async(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        t.invalidateSize(),</div><div class="line">        <span class="keyword">this</span>.fitMap()</div><div class="line">        &#125;.bind(<span class="keyword">this</span>), <span class="number">1</span>)</div><div class="line">    &#125;,</div></pre></td></tr></table></figure>
-<p>将 <code>window.L.tileLayer</code> 中图层路径部分 <code>https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png</code> 替换为高德地图 <code>http://webrd02.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;scale=1&amp;style=8&amp;x={x}&amp;y={y}&amp;z={z}</code>，之后保存文件；</p>
+<p>将 <code>window.L.tileLayer</code> 中图层路径部分 <code>https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png</code> 替换为高德地图 URL，之后保存文件；</p>
 <p>接着，在终端内使用 <code>gzip</code> 指令压缩 <code>html</code> 文件，替换源 <code>html</code> 与 <code>html.gz</code> 文件；</p>
-<p>再次，使用 <code>md5</code> 指令获取 <code>html</code> 文件的 md5 值，打开上上级文件夹内的 <code>version.py</code> 文件，替换 <code>&quot;panels/ha-panel-map.html&quot;</code>的值；</p>
+<p>再次，使用 <code>md5</code> 指令获取 <code>html</code> 文件的 md5 值，打开上上级文件夹内的 <code>__init__.py</code> 文件，替换 <code>&quot;panels/ha-panel-map.html&quot;</code>的值；</p>
 <p>最后，大功告成，重启 HA 即可，你可以看到『Map』页面的地图已经变为了高德地图。</p>
 <p>最后的最后，我知道你们很懒又迷茫，给你们提供了现成的文件，直接进行替换即可。</p>
 <p>文件地址请扫码捐款后获得</p>
@@ -517,8 +517,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Home-Assistant/HomeAssistant-Floorplan/" rel="next" title="Home Assistant 系列高级篇 - 动态平面图">
-                <i class="fa fa-chevron-left"></i> Home Assistant 系列高级篇 - 动态平面图
+              <a href="/frontend/GaodeMap/" rel="next" title="高德地图瓦片深探">
+                <i class="fa fa-chevron-left"></i> 高德地图瓦片深探
               </a>
             
           </div>
@@ -527,8 +527,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Apple/ios11-homekit/" rel="prev" title="你的家焕然一新 —— 细述 iOS 11 中 的 Homekit">
-                你的家焕然一新 —— 细述 iOS 11 中 的 Homekit <i class="fa fa-chevron-right"></i>
+              <a href="/Home-Assistant/HomeAssistant-Chinese-docs/" rel="prev" title="Home Assistant 中文文档上线">
+                Home Assistant 中文文档上线 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -631,7 +631,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -642,7 +642,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
