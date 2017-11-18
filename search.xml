@@ -9,9 +9,17 @@
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[Home Assistant 中文文档上线]]></title>
+    <title><![CDATA[【置顶】Home Assistant 中文文档上线]]></title>
     <url>%2FHome-Assistant%2FHomeAssistant-Chinese-docs%2F</url>
     <content type="text"><![CDATA[经过再三的斟酌，我决定制作这么一份接地气的 Home Assistant 中文文档。 文档地址是：https://home-assistant.cc，欢迎大家阅读及收藏。 较于英文文档，这份文档将实现： 摒弃英文文档反人类的结构，采用更直观清晰，符合中文阅读的展现形式； 剔除大量国内用户这辈子都不可能用到的组件说明，提高常用平台的层级和权重； 着重添加实际操作的指导； 跳出 Home Assistant 的框架，这份文档还将一并纳入 Floorplan、HADashboard、Homebridge-homeassistant 等其他 HA 相关的内容，让你实现一站搞定 Home Assistant 的梦想； 国内开发者自制的自定义组件指南，间接鼓励开发者开发。 出于我对翻译及成文质量的精神洁癖，目前本文档由我独立制作更新，所以进度有些迟缓。欢迎有能力、有闲时、有热情的朋友加我微信『cxlwill』沟通。 当然，偏爱官方展现形式的用户，可以选择浏览同样由我参与翻译，仍将保持更新的“瀚思彼岸”论坛的中文文档。 最后，我想说， Home Assistant 作为开源平台，势必会吸引很多利益方的眼球。大家都知道国内的开源环境和知识产权保护环境有多么的糟糕，随着平台的发展，未来相关的中文网站及社区肯定也会层出不穷，恶性竞争在所难免。作为简简单单的爱好者，我还是希望能够保证平台的纯净性，也期待见证更多的优秀的积极向上的平台。]]></content>
+      <categories>
+        <category>Home Assistant</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[给 Hassbian 插上 GUI 的翅膀]]></title>
+    <url>%2FHome-Assistant%2FHassbian-GUI%2F</url>
+    <content type="text"><![CDATA[声明：本文禁止转载 HA Raspberry All-in-One 的作者于月初宣布放弃项目，让不少小伙伴头皮发麻，毕竟大家冲着官方系统的支持度和 GUI 都愿意选择安装 Raspbian。自动安装指令被放弃后，虽然 HASS 依旧可以通过手动创建 Python 虚拟环境安装，但是过程繁琐。另外一直以来有不少朋友对 Hassbian 的特制工具包垂涎三尺，希望在 Raspbian 上也能有相关工具。 结合上述的需求，本篇教程将教授大家如何在 Hassbain 上安装 GUI，实现天下大同。 首先，刷入 Hassbian 镜像，开启 wifi，调整基础设置，替换源等等，不多赘述。 接着，我们需要安装以下软件： 123sudo apt-get install --no-install-recommends xserver-xorgsudo apt-get install --no-install-recommends xinitsudo apt-get install --no-install-recommends raspberrypi-ui-mods lxterminal gvfs 最后，输入 sudo reboot 重启。不一会儿，一个以假乱真的 Raspbian with pixel 就展现在你面前了。 更重要的是，你不仅可以如常操作系统，更可以随心使用 Hassbian-config 工具包。 当然，你肯定不想每次开机都手动登陆，只要编辑配置文件 sudo nano /etc/lightdm/lightdm.conf找到 #autologin-user=username，改为 autologin-user=pi，保存退出即可。 看完教程觉得过程很复杂，文字教程仍不够？ 欢迎登陆网易云课堂，购买我的 Home Assistant 智能家居入门 视频课程，同时可以获得仅面向购课者公开的文字教程和独门经验~~ 目前初上线折扣价 99 元喔，2018年恢复原价 199 元。]]></content>
       <categories>
         <category>Home Assistant</category>
       </categories>
