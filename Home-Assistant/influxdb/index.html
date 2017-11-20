@@ -75,17 +75,27 @@
 
 
 
-<meta name="description" content="All-in-One 不能用了别着急~ 让我们改造 Hassbian 获得更好的体验。">
+<meta name="description" content="使用 InfluxDB 替代国内无法使用的 Google Chart 和 History 面板">
 <meta property="og:type" content="article">
-<meta property="og:title" content="给 Hassbian 插上 GUI 的翅膀">
-<meta property="og:url" content="http://cxlwill.cn/Home-Assistant/Hassbian-GUI/index.html">
+<meta property="og:title" content="Home Assistant 超神篇 - 告别不接地气的 History">
+<meta property="og:url" content="http://cxlwill.cn/Home-Assistant/influxdb/index.html">
 <meta property="og:site_name" content="墨澜技术站">
-<meta property="og:description" content="All-in-One 不能用了别着急~ 让我们改造 Hassbian 获得更好的体验。">
+<meta property="og:description" content="使用 InfluxDB 替代国内无法使用的 Google Chart 和 History 面板">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-18T14:51:57.090Z">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1flovvlnkyzg30qo0f0al8.gif">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1flozd3caq4j31g80k0aal.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1flozdqh7koj30zk0f874d.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1floze9dximj31kw0iq3z6.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1flozf4i9tsj30zk0mawft.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1floy34a95mj31kw0vbjw6.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1floybgjc98j31kw0dzdgp.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1floyicxfvzj31kw0sfwiy.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1floyofkhxxj31kw06mq41.jpg">
+<meta property="og:updated_time" content="2017-11-20T15:47:52.920Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="给 Hassbian 插上 GUI 的翅膀">
-<meta name="twitter:description" content="All-in-One 不能用了别着急~ 让我们改造 Hassbian 获得更好的体验。">
+<meta name="twitter:title" content="Home Assistant 超神篇 - 告别不接地气的 History">
+<meta name="twitter:description" content="使用 InfluxDB 替代国内无法使用的 Google Chart 和 History 面板">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1flovvlnkyzg30qo0f0al8.gif">
 
 
 
@@ -114,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://cxlwill.cn/Home-Assistant/Hassbian-GUI/"/>
+  <link rel="canonical" href="http://cxlwill.cn/Home-Assistant/influxdb/"/>
 
 
 
 
 
-  <title>给 Hassbian 插上 GUI 的翅膀 | 墨澜技术站</title>
+  <title>Home Assistant 超神篇 - 告别不接地气的 History | 墨澜技术站</title>
   
 
 
@@ -302,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://cxlwill.cn/Home-Assistant/Hassbian-GUI/">
+    <link itemprop="mainEntityOfPage" href="http://cxlwill.cn/Home-Assistant/influxdb/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cxlwill">
@@ -319,7 +329,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">给 Hassbian 插上 GUI 的翅膀</h1>
+          <h1 class="post-title" itemprop="name headline">Home Assistant 超神篇 - 告别不接地气的 History</h1>
         
 
         <div class="post-meta">
@@ -331,8 +341,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-18T19:59:00+08:00">
-                2017-11-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-20T23:42:43+08:00">
+                2017-11-20
               </time>
             
 
@@ -386,7 +396,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  415 字
+                  1,488 字
                 </span>
               
 
@@ -402,7 +412,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  6 分钟
                 </span>
               
             </div>
@@ -410,7 +420,7 @@
 
           
               <div class="post-description">
-                  All-in-One 不能用了别着急~ 让我们改造 Hassbian 获得更好的体验。
+                  使用 InfluxDB 替代国内无法使用的 Google Chart 和 History 面板
               </div>
           
 
@@ -427,20 +437,90 @@
       
 
       
-        <p><strong>声明：本文禁止转载</strong></p>
-<p>HA Raspberry All-in-One 的作者于月初宣布<a href="https://community.home-assistant.io/t/the-all-in-one-installer-is-deprecated/31953" target="_blank" rel="external">放弃项目</a>，让不少小伙伴头皮发麻，毕竟大家冲着官方系统的支持度和 GUI 都愿意选择安装 Raspbian。自动安装指令被放弃后，虽然 HASS 依旧可以通过手动创建 Python 虚拟环境安装，但是过程繁琐。另外一直以来有不少朋友对 Hassbian 的特制工具包垂涎三尺，希望在 Raspbian 上也能有相关工具。</p>
-<p>结合上述的需求，本篇教程将教授大家如何在 Hassbain 上安装 GUI，实现天下大同。</p>
-<p>首先，刷入 Hassbian 镜像，开启 wifi，调整基础设置，替换源等等，不多赘述。</p>
-<p>接着，我们需要安装以下软件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install --no-install-recommends xserver-xorg</div><div class="line">sudo apt-get install --no-install-recommends xinit</div><div class="line">sudo apt-get install --no-install-recommends raspberrypi-ui-mods lxterminal gvfs</div></pre></td></tr></table></figure>
-<p>最后，输入 <code>sudo reboot</code> 重启。不一会儿，一个以假乱真的 Raspbian with pixel 就展现在你面前了。</p>
-<p>更重要的是，你不仅可以如常操作系统，更可以随心使用 Hassbian-config 工具包。</p>
-<p>当然，你肯定不想每次开机都手动登陆，只要编辑配置文件 <code>sudo nano /etc/lightdm/lightdm.conf</code><br>找到 <code>#autologin-user=username</code>，改为 <code>autologin-user=pi</code>，保存退出即可。</p>
-<hr>
-<p>看完教程觉得过程很复杂，文字教程仍不够？</p>
-<p><strong>欢迎登陆网易云课堂，购买我的 <a href="http://study.163.com/course/courseMain.htm?courseId=1004598001" target="_blank" rel="external">Home Assistant 智能家居入门</a> 视频课程，同时可以获得仅面向购课者公开的文字教程和独门经验~~</strong></p>
-<p><strong>目前初上线折扣价 99 元喔，2018年恢复原价 199 元。</strong></p>
-<hr>
+        <p><strong>声明：本文禁止转载！</strong></p>
+<p>HA 中的历史也就是 History，原本是个非常好的设计。汇总设备一段时间的数值之后以可视化的形式呈现给大家，除了图标的颜色有些丑，其他都不错。然而千好万好，一到了国内环境就变了味。原因在于其加载了 Google API 用于加载可视化 JS 和 CSS，当然我们可以从云端直接下载相关文件，但是操作起来总是麻烦，而且涉及动态加载，文件本身总有变数。</p>
+<p>时间序列数据库 <a href="https://www.baidu.com/link?url=XUinYBRKTwlPA0iP28ZGDpQqZdiPlkAR6M5LP9OwicHKDLHDVVlGysNbtsJdM9RU&amp;wd=&amp;eqid=c0d526fc00018e0f000000065a12da50" target="_blank" rel="external">InfluxDB</a> 在 2 年前就已经被 HA 官方博客提及，配合 <a href="https://www.baidu.com/link?url=HofP4rOIhbGl5PKIxhmoIm-MF2F3fS5l-jpxxd5su7q&amp;wd=&amp;eqid=8d91844000019ebd000000065a12da42" target="_blank" rel="external">Grafana</a> 可以成为数据可视化的替代选择。然而时过境迁，Grafana 最新版对包括树莓派在内的 armhf 架构设备支持度较差，而 InfluxDB 早已推出了自己的数据可视化平台，和 Grafana 有的一拼。如果你还照着 HA 论坛上老旧的教程和帖子操作，很快就会发现部署在 8083 端口的 Web UI 早已仙去。</p>
+<p>本次的教程就教导大家如何在系统中安装最新版本的 InfluxDB 并且利用原生可视化平台展示数据。</p>
+<p>老样子，先上最终效果吧：</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1flovvlnkyzg30qo0f0al8.gif" alt=""></p>
+<p>可以看出对比原生 History 的优势有：</p>
+<ul>
+<li>大文字展示数值</li>
+<li>折线图与文字同时展示</li>
+<li>鼠标拖拽缩放深入指定时间数据</li>
+<li>数据展示最长至 30 日，最短精确到 5 分钟</li>
+<li>高大上的 GUI</li>
+</ul>
+<p>下面开始正式教程：</p>
+<h2 id="安装-InfluxDB"><a href="#安装-InfluxDB" class="headerlink" title="安装 InfluxDB"></a>安装 InfluxDB</h2><p>InfluxDB 发展至今已经从单一的数据库演变成了集成平台，通过提供、整理、可视化 InfluxDB 上的数据。</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1flozd3caq4j31g80k0aal.jpg" alt=""></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">功能</th>
+<th style="text-align:center">默认端口</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">InfluxDB</td>
+<td style="text-align:center">数据库</td>
+<td style="text-align:center">8086</td>
+</tr>
+<tr>
+<td style="text-align:center">Kapacitor</td>
+<td style="text-align:center">数据处理</td>
+<td style="text-align:center">9092</td>
+</tr>
+<tr>
+<td style="text-align:center">Chronograf</td>
+<td style="text-align:center">数据展示</td>
+<td style="text-align:center">8888</td>
+</tr>
+<tr>
+<td style="text-align:center">Telegraf</td>
+<td style="text-align:center">数据收集</td>
+<td style="text-align:center">8086</td>
+</tr>
+</tbody>
+</table>
+<p>当然，所有的一切始于 InfluxDB 数据库本身的安装，打开设备终端，输入以下指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -</div><div class="line">source /etc/os-release</div><div class="line">test $VERSION_ID = &quot;9&quot; &amp;&amp; echo &quot;deb https://repos.influxdata.com/debian stretch stable&quot; | sudo tee /etc/apt/sources.list.d/influxdb.list</div><div class="line">sudo apt-get update &amp;&amp; sudo apt-get install influxdb</div><div class="line">sudo systemctl start influxdb</div></pre></td></tr></table></figure>
+<p><strong>以上的指令基于 Hassbian Stretch 版树莓派，下同。</strong>使用 Debian 系统的用户可参考，适当变通。例如如果你使用的是 Debian 8 Jessie 的话，那么第三行指令则应为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">test $VERSION_ID = &quot;8&quot; &amp;&amp; echo &quot;deb https://repos.influxdata.com/debian jessie stable&quot; | sudo tee /etc/apt/sources.list.d/influxdb.list</div></pre></td></tr></table></figure>
+<p>其他平台安装方法详见 <a href="https://docs.influxdata.com/influxdb/v1.3/introduction/installation/" target="_blank" rel="external">官方文档</a>。</p>
+<p>安装完成后，默认的配置文件存放于 <code>/etc/influxdb/influxdb.conf</code>，按正常的安装步骤我们应该逐步新建一个数据库，当然如果你有其他项目的需求可以着手开始，但是这里我们要利用 Home Assistant 本身的数据库。</p>
+<p>在接入 Home Assistant 本身前，我们必须安装其他三个工具完成整个数据链处理的闭环。</p>
+<p>上步的教程用了 <code>apt</code> 工具安装 InfluxDB，实际中我们也可以使用 <code>dpkg</code> 完成安装，结合剩余三个工具的安装，以下是在树莓派 Raspbian Stretch 上完整的平台安装方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">wget https://dl.influxdata.com/influxdb/releases/influxdb_1.2.4_armhf.deb</div><div class="line">sudo dpkg -i influxdb_1.2.4_armhf.deb</div><div class="line">sudo systemctl start influxdb</div><div class="line"></div><div class="line">wget https://dl.influxdata.com/kapacitor/releases/kapacitor_1.3.1_armhf.deb</div><div class="line">sudo dpkg -i kapacitor_1.3.1_armhf.deb</div><div class="line">sudo systemctl start kapacitor</div><div class="line"></div><div class="line">wget https://dl.influxdata.com/telegraf/releases/telegraf_1.3.2-1_armhf.deb</div><div class="line">sudo dpkg -i telegraf_1.3.2-1_armhf.deb</div><div class="line">sudo systemctl start telegraf</div><div class="line"></div><div class="line">wget https://dl.influxdata.com/chronograf/releases/chronograf_1.3.3.0_armhf.deb</div><div class="line">sudo dpkg -i chronograf_1.3.3.0_armhf.deb</div><div class="line">sudo systemctl start chronograf</div></pre></td></tr></table></figure>
+<p>如果你使用的是 arm64 等其他架构设备，注意替换指令中的 <code>armhf</code>。</p>
+<p>完成上述操作，你就在终端中安装了整个 InfluxDB 平台，现在打开 <code>http://localhost:8888</code>，一个漂亮的欢迎界面就展现在你眼前了：</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1flozdqh7koj30zk0f874d.jpg" alt=""></p>
+<p>中间的用户名和密码可以留空，名称随便取，其余的照着截图填即可，点击添加后，我们就进入了 InfluxDB 的前端控制面板。</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1floze9dximj31kw0iq3z6.jpg" alt=""></p>
+<p>点击左侧栏第 2 个图标 （Host List），点选唯一的 Host，一个系统监测面板就出现了：</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1flozf4i9tsj30zk0mawft.jpg" alt=""></p>
+<p>是不是挺酷炫的？接下来我们就让 Home Assistant 的数据也呈现上述效果。</p>
+<h2 id="接入-HA-数据库"><a href="#接入-HA-数据库" class="headerlink" title="接入 HA 数据库"></a>接入 HA 数据库</h2><p>处理数据之前，我们首先要接入 Home Assistant 的数据库。</p>
+<p>点选左侧栏倒数第 2 个图标，进入管理面板，选择右上角 <code>Create Database</code>，将数据库取名为 <code>home_assistant</code> 后点勾：</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1floy34a95mj31kw0vbjw6.jpg" alt=""></p>
+<p>之后，我们回到 Home Assistant 的 <code>configuration.yaml</code> 配置文件，添加 InfluxDB：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">influxdb:</span></div></pre></td></tr></table></figure>
+<p>因为我们都是用默认设置，无须其他配置，完整的参考配置语句是：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="attr">influxdb:</span></div><div class="line"><span class="attr">  host:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.190</span></div><div class="line"><span class="attr">  port:</span> <span class="number">20000</span></div><div class="line"><span class="attr">  database:</span> <span class="string">DB_TO_STORE_EVENTS</span></div><div class="line"><span class="attr">  username:</span> <span class="string">MY_USERNAME</span></div><div class="line"><span class="attr">  password:</span> <span class="string">MY_PASSWORD</span></div><div class="line"><span class="attr">  ssl:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  verify_ssl:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  default_measurement:</span> <span class="string">state</span></div><div class="line"><span class="attr">  exclude:</span></div><div class="line"><span class="attr">    entities:</span></div><div class="line"><span class="bullet">       -</span> <span class="string">entity.id1</span></div><div class="line"><span class="bullet">       -</span> <span class="string">entity.id2</span></div><div class="line"><span class="attr">    domains:</span></div><div class="line"><span class="bullet">       -</span> <span class="string">automation</span></div><div class="line"><span class="attr">  include:</span></div><div class="line"><span class="attr">    entities:</span></div><div class="line"><span class="bullet">       -</span> <span class="string">entity.id3</span></div><div class="line"><span class="bullet">       -</span> <span class="string">entity.id4</span></div><div class="line"><span class="attr">  tags:</span></div><div class="line"><span class="attr">    instance:</span> <span class="string">prod</span></div><div class="line"><span class="attr">    source:</span> <span class="string">hass</span></div></pre></td></tr></table></figure>
+<p>之后重启 HA，我们发现 HA 已经开始自动向 InfluxDB 推送数据了。</p>
+<p>##数据可视化<br>既然成功获取了 HA 的数据，我们的最终目标是可视化相关数据。</p>
+<p>选择 InfluxDB 面板左侧栏第 3 个图标（Dashboard），点选右上角按钮新建面板。</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1floybgjc98j31kw0dzdgp.jpg" alt=""></p>
+<p>之后，点选 <code>Add a requery</code>，选择左侧栏的 <code>home_assistant.autogen</code>，现在选择你想要在卡片中展示的数据，注意是否选用 function 函数，在右上方选择图表样式。可视化后的图标可以实时预览，十分方便。</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1floyicxfvzj31kw0sfwiy.jpg" alt=""></p>
+<p>之后，重复这步操作，往面板添加你想要监测和展示的数据，卡片的大小和位置可以鼠标直接拖拽变更。同时，监测的时间和更新的频率都可以通过右上方点选，可以说是十分方便了。</p>
+<p>对比一下之前的 历史 面板，是不是有一种浓浓的嫌弃感？</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1floyofkhxxj31kw06mq41.jpg" alt=""></p>
+<h2 id="接入面板"><a href="#接入面板" class="headerlink" title="接入面板"></a>接入面板</h2><p>大功告成之后，我们可以使用 Ifame Panel 将其接入 HA，取代 History 的位置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">panel_iframe:</span></div><div class="line"><span class="attr">  router:</span></div><div class="line"><span class="attr">    title:</span> <span class="string">'历史'</span></div><div class="line"><span class="attr">    url:</span> <span class="string">'http://localhost:8888'</span></div></pre></td></tr></table></figure>
+<p>Google Chart，Bye Bye 了您嘞~~~</p>
 
       
     </div>
@@ -501,8 +581,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/frontend/GaodeMap/" rel="next" title="高德地图瓦片深探">
-                <i class="fa fa-chevron-left"></i> 高德地图瓦片深探
+              <a href="/Home-Assistant/HomeAssistant-Map/" rel="next" title="Home Assistant 系列高级篇 - 高德地图接入">
+                <i class="fa fa-chevron-left"></i> Home Assistant 系列高级篇 - 高德地图接入
               </a>
             
           </div>
@@ -511,8 +591,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Home-Assistant/HomeAssistant-Map/" rel="prev" title="Home Assistant 系列高级篇 - 高德地图接入">
-                Home Assistant 系列高级篇 - 高德地图接入 <i class="fa fa-chevron-right"></i>
+              <a href="/Home-Assistant/HomeAssistant-Chinese-docs/" rel="prev" title="【置顶】Home Assistant 中文文档上线">
+                【置顶】Home Assistant 中文文档上线 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -590,8 +670,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -698,6 +787,22 @@ tpwidget("show");</script>
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-InfluxDB"><span class="nav-number">1.</span> <span class="nav-text">安装 InfluxDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接入-HA-数据库"><span class="nav-number">2.</span> <span class="nav-text">接入 HA 数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接入面板"><span class="nav-number">3.</span> <span class="nav-text">接入面板</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
