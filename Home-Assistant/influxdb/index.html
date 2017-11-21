@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1floybgjc98j31kw0dzdgp.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1floyicxfvzj31kw0sfwiy.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1floyofkhxxj31kw06mq41.jpg">
-<meta property="og:updated_time" content="2017-11-20T15:47:52.920Z">
+<meta property="og:updated_time" content="2017-11-21T03:42:22.789Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 超神篇 - 告别不接地气的 History">
 <meta name="twitter:description" content="使用 InfluxDB 替代国内无法使用的 Google Chart 和 History 面板">
@@ -510,7 +510,7 @@
 <p>因为我们都是用默认设置，无须其他配置，完整的参考配置语句是：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="attr">influxdb:</span></div><div class="line"><span class="attr">  host:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.190</span></div><div class="line"><span class="attr">  port:</span> <span class="number">20000</span></div><div class="line"><span class="attr">  database:</span> <span class="string">DB_TO_STORE_EVENTS</span></div><div class="line"><span class="attr">  username:</span> <span class="string">MY_USERNAME</span></div><div class="line"><span class="attr">  password:</span> <span class="string">MY_PASSWORD</span></div><div class="line"><span class="attr">  ssl:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  verify_ssl:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  default_measurement:</span> <span class="string">state</span></div><div class="line"><span class="attr">  exclude:</span></div><div class="line"><span class="attr">    entities:</span></div><div class="line"><span class="bullet">       -</span> <span class="string">entity.id1</span></div><div class="line"><span class="bullet">       -</span> <span class="string">entity.id2</span></div><div class="line"><span class="attr">    domains:</span></div><div class="line"><span class="bullet">       -</span> <span class="string">automation</span></div><div class="line"><span class="attr">  include:</span></div><div class="line"><span class="attr">    entities:</span></div><div class="line"><span class="bullet">       -</span> <span class="string">entity.id3</span></div><div class="line"><span class="bullet">       -</span> <span class="string">entity.id4</span></div><div class="line"><span class="attr">  tags:</span></div><div class="line"><span class="attr">    instance:</span> <span class="string">prod</span></div><div class="line"><span class="attr">    source:</span> <span class="string">hass</span></div></pre></td></tr></table></figure>
 <p>之后重启 HA，我们发现 HA 已经开始自动向 InfluxDB 推送数据了。</p>
-<p>##数据可视化<br>既然成功获取了 HA 的数据，我们的最终目标是可视化相关数据。</p>
+<h2 id="数据可视化"><a href="#数据可视化" class="headerlink" title="数据可视化"></a>数据可视化</h2><p>既然成功获取了 HA 的数据，我们的最终目标是可视化相关数据。</p>
 <p>选择 InfluxDB 面板左侧栏第 3 个图标（Dashboard），点选右上角按钮新建面板。</p>
 <p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1floybgjc98j31kw0dzdgp.jpg" alt=""></p>
 <p>之后，点选 <code>Add a requery</code>，选择左侧栏的 <code>home_assistant.autogen</code>，现在选择你想要在卡片中展示的数据，注意是否选用 function 函数，在右上方选择图表样式。可视化后的图标可以实时预览，十分方便。</p>
@@ -797,7 +797,7 @@ tpwidget("show");</script>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-InfluxDB"><span class="nav-number">1.</span> <span class="nav-text">安装 InfluxDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接入-HA-数据库"><span class="nav-number">2.</span> <span class="nav-text">接入 HA 数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接入面板"><span class="nav-number">3.</span> <span class="nav-text">接入面板</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-InfluxDB"><span class="nav-number">1.</span> <span class="nav-text">安装 InfluxDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接入-HA-数据库"><span class="nav-number">2.</span> <span class="nav-text">接入 HA 数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据可视化"><span class="nav-number">3.</span> <span class="nav-text">数据可视化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接入面板"><span class="nav-number">4.</span> <span class="nav-text">接入面板</span></a></li></ol></div>
             
 
           </div>
