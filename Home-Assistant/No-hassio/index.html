@@ -75,20 +75,17 @@
 
 
 
-<meta name="description" content="结合 0.51.2 的更新，对自家的系统来个小小升级">
+<meta name="description" content="信息社会，不要盲目被所谓舆论带跑。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Home Assistant 系列补充篇 - UI 研究">
-<meta property="og:url" content="http://cxlwill.cn/Home-Assistant/HomeAssistant-add01/index.html">
+<meta property="og:title" content="为什么我不推荐使用 Hass.io？">
+<meta property="og:url" content="http://cxlwill.cn/Home-Assistant/No-hassio/index.html">
 <meta property="og:site_name" content="墨澜技术站">
-<meta property="og:description" content="结合 0.51.2 的更新，对自家的系统来个小小升级">
+<meta property="og:description" content="信息社会，不要盲目被所谓舆论带跑。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-16-%E4%B8%BB%E9%A2%98.jpg">
-<meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-16-Jietu20170816-133809%402x.jpg">
-<meta property="og:updated_time" content="2017-10-11T08:52:20.412Z">
+<meta property="og:updated_time" content="2017-11-21T03:35:19.245Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Home Assistant 系列补充篇 - UI 研究">
-<meta name="twitter:description" content="结合 0.51.2 的更新，对自家的系统来个小小升级">
-<meta name="twitter:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-16-%E4%B8%BB%E9%A2%98.jpg">
+<meta name="twitter:title" content="为什么我不推荐使用 Hass.io？">
+<meta name="twitter:description" content="信息社会，不要盲目被所谓舆论带跑。">
 
 
 
@@ -117,13 +114,13 @@
 
 
 
-  <link rel="canonical" href="http://cxlwill.cn/Home-Assistant/HomeAssistant-add01/"/>
+  <link rel="canonical" href="http://cxlwill.cn/Home-Assistant/No-hassio/"/>
 
 
 
 
 
-  <title>Home Assistant 系列补充篇 - UI 研究 | 墨澜技术站</title>
+  <title>为什么我不推荐使用 Hass.io？ | 墨澜技术站</title>
   
 
 
@@ -305,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://cxlwill.cn/Home-Assistant/HomeAssistant-add01/">
+    <link itemprop="mainEntityOfPage" href="http://cxlwill.cn/Home-Assistant/No-hassio/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cxlwill">
@@ -322,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Home Assistant 系列补充篇 - UI 研究</h1>
+          <h1 class="post-title" itemprop="name headline">为什么我不推荐使用 Hass.io？</h1>
         
 
         <div class="post-meta">
@@ -334,8 +331,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-16T13:31:38+08:00">
-                2017-08-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-21T11:27:21+08:00">
+                2017-11-21
               </time>
             
 
@@ -389,7 +386,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  271 字
+                  1,048 字
                 </span>
               
 
@@ -405,7 +402,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  4 分钟
                 </span>
               
             </div>
@@ -413,7 +410,7 @@
 
           
               <div class="post-description">
-                  结合 0.51.2 的更新，对自家的系统来个小小升级
+                  信息社会，不要盲目被所谓舆论带跑。
               </div>
           
 
@@ -430,25 +427,23 @@
       
 
       
-        <p>HA 更新到 0.51.2 之后感觉愈加逆天了，增加了吸尘器的类，逼着我买扫地机器人啊。</p>
-<p>然后是主题部分终于增加了背景色和卡片底色的自定义接口，这下黑暗模式总算可以实现了。从论坛偷来一个配置，看看这效果，简直服气！</p>
-<p><img src="http://oeoj44yho.bkt.clouddn.com/2017-08-16-%E4%B8%BB%E9%A2%98.jpg" alt=""></p>
-<p>最近对 HA 的研究愈加深入，配置文件各种格式替换信手拈来啊~ </p>
-<p>另外再次升级改造了一下自己的平面图，现在真的是逆天级别了：</p>
-<p>动态效果：</p>
-<ol>
-<li>空调开启时，吹风效果；</li>
-<li>显示屏联动 PS4 显示在玩游戏名称，关闭时显示“学习中”；</li>
-<li>盆栽含水量和肥力过低时会变红并闪烁提示浇花施肥</li>
-</ol>
-<p>静态效果：</p>
-<ol>
-<li>设备关闭变灰色，开启恢复原色；</li>
-<li>家人在家绿色，离开红色；</li>
-<li>可开关设备及场景都可点击（触摸）切换。</li>
-</ol>
-<p><img src="http://oeoj44yho.bkt.clouddn.com/2017-08-16-Jietu20170816-133809%402x.jpg" alt=""></p>
-<p>感觉基本上不会有大的变动了，开始慢慢退坑了~ </p>
+        <p>这篇文章不是为了拉人站队，实际上最近随着 Home Assistant 的用户增多，很多小白被一切不实的言论带入坑中，我不得不澄清一些观点。</p>
+<p>Home Assistant 至今都是一个开源系统，Hass.io 的推出不可不视为是 HA 团队为商业化做的打算。从近来的开发步调上看，HA 可能会推出付费的云服务。但是，无论怎么样，Home Assistant系统本身以及 Hass.io 一定还会保持开源的节奏，企业发展的路子可以参考 InfluxDB 等。</p>
+<p>近来，有一些人开始有意无意踩低树莓派的性能，表达一些观点。当然，树莓派肯定不是十全十美的，挑卡等也是不争的事实，但是其毕竟是现在搭建 HA 最广泛的平台。海外的很多博物馆、气象站、学校等等机构都有使用树莓派于日常生活实践中。一个能上太空的开发板，你说带十几个设备的信息反馈和控制（没错还不是直接传感器加载）回卡，你在开什么国际玩笑？！以后如果有人跑来告诉你“树莓派就是垃圾，跑几个智能设备几个月就带不动了。” 请你一巴掌把他呼出去。</p>
+<p>既然如此，为什么部分人一直推崇 Hass.io 加 NAS 呢？</p>
+<p>大部分的爱好者在智能家居的坑里只会越陷越深，因此他们的设备数量可能迅猛增加，或者有更大的项目开发的考虑，所需要的平台性能要求就不断增高，这非常正常。</p>
+<p><strong>然而，更重要的他们中的另一部分人从这里看到了商机。有什么比卖镜像更来钱快的呢？单卖镜像怎么行，再顺便卖卖机器吧？卖树莓派哪能赚什么钱，顺便卖装了镜像的 NAS 吧？</strong></p>
+<p><strong>真是没毛病啊？！</strong></p>
+<p>所以我为什么那么愤慨，很多事情一到了中国人这里就切切实实地变味了。开源的系统被拿来卖钱，还鼓吹树莓派性能不佳，“皆为利来”啊！！！</p>
+<p>树莓派在诞生之初就是为了教育用途的，Linux 系统博大精深，更是普遍用于开发用途。其实入手树莓派是一个绝佳的学习机会，除了 Home Assistant，大可把眼光放得长远一些。Hass.io 作为一个特制的封闭的系统，使用它就意味着剥夺了你入手树莓派 90% 的乐趣和技能提升的空间。更重要的是，这个系统目前处在初级阶段，配套的库仍不完善，由于系统特别你想要在网上找个参考资料都难。除非你把『网』界定在一个论坛或者社区空间上。</p>
+<p><strong>我坚持推荐使用 Raspbian 而不推荐容器，并且保持撰写教程，本质也是想让大家能够利用树莓派，手把手学会一些编程技能，给自己的技能树上加个点，大部分用户都是年轻人，学习能力很强，从长远来说，这个路子比给你个镜像益处更大。</strong></p>
+<p>然而现在一堆人想要不劳而获，就等着人家喂饭给你，随时都想要现成的镜像，真真是本末倒置。如果你看了这篇文章，还不愿意思考一下，被贩子们带着走，<strong>那我只能说你傻你呆你活该被坑，不赚你钱赚谁钱？！</strong></p>
+<p>当然，千万不要误解我反对 HA 和衍生品的商业化。不商业化哪来的钱败家？良性的商业发展模式理应是发挥组织能力，优化甚至改写 HA，到那个时候完全可以脱离 HA，树立自己的品牌了。但是在当下，我只能说没有任何一家厂商做到了。</p>
+<p>也千万别误解我，根正苗红一人，不卖派不卖啥，只做教程，而且我的教程：</p>
+<blockquote>
+<p>还是全平台通用的~~~</p>
+</blockquote>
+<p>气不气死你？！</p>
 
       
     </div>
@@ -509,8 +504,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/programming/Daily-experience/" rel="next" title="灵光一现">
-                <i class="fa fa-chevron-left"></i> 灵光一现
+              <a href="/Home-Assistant/influxdb/" rel="next" title="Home Assistant 超神篇 - 告别不接地气的 History">
+                <i class="fa fa-chevron-left"></i> Home Assistant 超神篇 - 告别不接地气的 History
               </a>
             
           </div>
@@ -519,8 +514,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Raspberrypi/pi-screenshot/" rel="prev" title="树莓派截图">
-                树莓派截图 <i class="fa fa-chevron-right"></i>
+              <a href="/other/Welcome/" rel="prev" title="Welcome">
+                Welcome <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
