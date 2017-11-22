@@ -85,7 +85,7 @@
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-12-%E6%A1%86%E6%9E%B6_meitu_3.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/26/27f32112a6d6c5806761fe8587ef3f06.jpg">
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-12-01.jpg">
-<meta property="og:updated_time" content="2017-10-13T04:08:20.781Z">
+<meta property="og:updated_time" content="2017-11-22T03:07:39.785Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 系列基础篇 - 系统安装">
 <meta name="twitter:description" content="本系列教程将介绍智能家居平台 Home Assistant 的安装及配置方法，由浅入深，欢迎大家持续关注。">
@@ -390,7 +390,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  3,384 字
+                  3,387 字
                 </span>
               
 
@@ -448,14 +448,15 @@
 <li><p>直接安装最新高度集成系统 Hass.io。</p>
 </li>
 </ol>
-<p>以上 3 种方法从性能上来说并无二异，均能实现 HASS 全部功能，Hassbian 实际上亦基于 Raspbian ，唯一需要纳入考虑的是图形化操作界面的需求。由于树莓派基金会官方尚未公开单独安装图形化操作界面的方法，在当下，如果有该需求，只能通过官方图形化操作系统 Raspbian with Desktop 实现。</p>
+<p>以上 3 种方法从性能上来说并无二异，均能实现 HASS 全部功能，Hassbian 实际上亦基于 Raspbian ，唯一需要纳入考虑的是图形化操作界面的需求。原生 Hassbian 没有 GUI，但是我们可以手动进行安装。</p>
 <p>对于刚入门的新手和想摆脱大量代码的朋友，方法推荐度依次为：3 &gt; 2 &gt; 1。</p>
 <p>下述教程将讲解方法 1 及 方法 2 的安装方法，方法 3 的具体安装方法欢迎参考 『<a href="http://cxlwill.cn/Home-Assistant/HomeAssistant-Hass-io/">Hass.io 特别篇</a>』。</p>
 <blockquote>
 <p>近期，Raspbian 正在经历 Jessie 至 Stretch 的大版本更新，Home Assistant 同样正在进行 Python 3.5 的兼容工作。因此，当下的程序包、依赖包可能出现兼容性问题。我将跟随『树莓派基金会』以及『HA』的官方说明和文档，及时更新教程。希望大家在安装过程中遇到问题不要着急，举一反三，勤搜索，多提问。</p>
 </blockquote>
 <hr>
-<h3 id="方法-1-（Raspbian）"><a href="#方法-1-（Raspbian）" class="headerlink" title="方法 1 （Raspbian）"></a>方法 1 （Raspbian）</h3><p>安装前，请参考其他教程对树莓派进行初始基础设置，重点关注地区、WiFi、源替换的内容，这里不再展开。</p>
+<h3 id="方法-1-（Raspbian）"><a href="#方法-1-（Raspbian）" class="headerlink" title="方法 1 （Raspbian）"></a>方法 1 （Raspbian）</h3><p><strong>2017.11.19 修正：此一行指令已被作者宣布停止维护，因此可用性不能保证。</strong></p>
+<p>安装前，请参考其他教程对树莓派进行初始基础设置，重点关注地区、WiFi、源替换的内容，这里不再展开。</p>
 <p>注意：1. 2016 年 11 月后的官方系统默认关闭 SSH 功能，请务必打开；2. 如果使用 Stretch 系统，请将中文源中的『Jessie』改为『Stretch』，否则安装包版本不正确；3. 近期国内大学网络访问可能有问题，推荐使用『阿里云』等非大学源。</p>
 <p>使用任何方法连接到树莓派终端，输入以下安装代码，请整段复制粘贴：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -O https://raw.githubusercontent.com/home-assistant/fabric-home-assistant/master/hass_rpi_installer.sh &amp;&amp; sudo chown pi:pi hass_rpi_installer.sh &amp;&amp; bash hass_rpi_installer.sh</div></pre></td></tr></table></figure>
@@ -474,12 +475,16 @@
 <li><p>打开 TF 卡 /boot/wpa_supplicant.conf 文件；</p>
 </li>
 <li><p>添加如下设置，保存：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">	network=&#123;</div><div class="line">    ssid=&quot;WIFI 名&quot;</div><div class="line">    psk=&quot;WIFI 密码&quot;</div><div class="line">    key_mgmt=WPA-PSK   #加密方式，一般为WPA-PSK或WPA2-PSK</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">country=CN</div><div class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</div><div class="line">update_config=1</div><div class="line">network=&#123;</div><div class="line">    ssid=&quot;WIFI 名称&quot;</div><div class="line">    psk=&quot;WIFI 密码&quot;</div><div class="line">    key_mgmt=WPA-PSK</div><div class="line">    priority=1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>官方教程告知初次启动需要等待 5 分钟左右，基于国内的网络环境，我这里测试多次，都需要等待近 <strong>10 分钟</strong>方可，所以大家不要焦躁，可以看部番剧或者往下研究一下此篇文章以便接下来顺利进展。</p>
 <p>如果等待时间过久却没有出现初始界面，可尝试使用以下命令强制初始安装：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo systemctl enable install_homeassistant.service</div><div class="line">sudo systemctl start install_homeassistant.service</div></pre></td></tr></table></figure>
+<hr>
+<p>2017.11.19 添加：Hassbian 默认没有 GUI，但我们可以手动安装，最终实现和 Raspbian with Desktop 一样的效果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install --no-install-recommends xserver-xorg</div><div class="line">sudo apt-get install --no-install-recommends xinit</div><div class="line">sudo apt-get install --no-install-recommends raspberrypi-ui-mods lxterminal gvfs</div></pre></td></tr></table></figure>
+<hr>
 <p>如果使用此方法，未来更新指令如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sudo systemctl stop home-assistant@homeassistant.service</div><div class="line">sudo su -s /bin/bash homeassistant</div><div class="line">source /srv/homeassistant/bin/activate</div><div class="line">pip3 install --upgrade homeassistant -i https://http://pypi.doubanio.com/simple </div><div class="line">exit</div><div class="line">sudo systemctl start home-assistant@homeassistant.service</div></pre></td></tr></table></figure>
 <hr>
@@ -510,10 +515,10 @@
 <p>重启服务</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl restart home-assistant@homeassistant.service</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="MQTT-amp-OpenZWave"><a href="#MQTT-amp-OpenZWave" class="headerlink" title="MQTT &amp; OpenZWave"></a>MQTT &amp; OpenZWave</h3><p>MQTT 是基于二进制消息的发布、订阅编程模式的消息协议，广泛用于物联网部署中。同样 Z-wave 也是普遍用于物联网中的短距离无线通信技术。部分智能家居设备需要 MQTT 和 Z-Wave 传输信息。</p>
-<p>All-in-one 安装指令已经安装了 MQTT 和 OpenZwave 服务，故无需重复安装。</p>
+<h3 id="MQTT"><a href="#MQTT" class="headerlink" title="MQTT"></a>MQTT</h3><p>MQTT 是基于二进制消息的发布、订阅编程模式的消息协议，广泛用于物联网部署中。</p>
+<p>All-in-one 安装指令已经安装了 MQTT 服务，故无需重复安装。</p>
 <p>Hassbian 用户请使用 Hassbian 工具包安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo hassbian-config install mosquitto</div><div class="line">sudo hassbian-config install openzwave-pip</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo hassbian-config install mosquitto</div></pre></td></tr></table></figure>
 <hr>
 <h3 id="Homebridge-安装"><a href="#Homebridge-安装" class="headerlink" title="Homebridge 安装"></a>Homebridge 安装</h3><p>该步骤仅适用于 Apple 生态链用户，特别是想要通过 家庭 app 及 Siri 控制智能家居设备的用户。其他平台用户可跳过。</p>
 <p>在文章开头，我已经简要介绍了 HASS 和 HB 的区别。我们在这里安装 HB 的目的在于通过 HB 打通 HASS 和 Apple Home 两大平台，实现联动。</p>
@@ -797,6 +802,22 @@
                   <a href="https://home-assistant.cc" title="Home Assistant 中文文档" target="_blank">Home Assistant 中文文档</a>
                 </li>
               
+                <li class="links-of-blogroll-item">
+                  <a href="https://jq.qq.com/?_wv=1027&k=5ZGk07E" title="HA QQ 群 515348788" target="_blank">HA QQ 群 515348788</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="" title="HB QQ 群 107927710" target="_blank">HB QQ 群 107927710</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://join.slack.com/t/magicmirror-cn/shared_invite/enQtMjExNjg5MzY0NTQ1LTYxNzA5NzA1NTcwMWU5MjdkYWU3MTVjYzNlYWQ1Yjg4ZmQ5MWY1MTI5NjE2ZDI2Yzc2OTdkYWEwZTliODVkMDE" title="Slack" target="_blank">Slack</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://homekit.loli.ren/" title="渣渣米的 HB 文档" target="_blank">渣渣米的 HB 文档</a>
+                </li>
+              
             </ul>
           </div>
         
@@ -828,7 +849,7 @@ tpwidget("show");</script>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始安装"><span class="nav-number">1.</span> <span class="nav-text">初始安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-1-（Raspbian）"><span class="nav-number">1.1.</span> <span class="nav-text">方法 1 （Raspbian）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-2-（Hassbian）"><span class="nav-number">1.2.</span> <span class="nav-text">方法 2 （Hassbian）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-3（Hass-io）"><span class="nav-number">1.3.</span> <span class="nav-text">方法 3（Hass.io）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附加功能安装"><span class="nav-number">2.</span> <span class="nav-text">附加功能安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SMB（-强烈建议）"><span class="nav-number">2.1.</span> <span class="nav-text">SMB（ 强烈建议）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MQTT-amp-OpenZWave"><span class="nav-number">2.2.</span> <span class="nav-text">MQTT & OpenZWave</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Homebridge-安装"><span class="nav-number">2.3.</span> <span class="nav-text">Homebridge 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加自启任务"><span class="nav-number">2.4.</span> <span class="nav-text">添加自启任务</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始安装"><span class="nav-number">1.</span> <span class="nav-text">初始安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-1-（Raspbian）"><span class="nav-number">1.1.</span> <span class="nav-text">方法 1 （Raspbian）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-2-（Hassbian）"><span class="nav-number">1.2.</span> <span class="nav-text">方法 2 （Hassbian）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-3（Hass-io）"><span class="nav-number">1.3.</span> <span class="nav-text">方法 3（Hass.io）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附加功能安装"><span class="nav-number">2.</span> <span class="nav-text">附加功能安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SMB（-强烈建议）"><span class="nav-number">2.1.</span> <span class="nav-text">SMB（ 强烈建议）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MQTT"><span class="nav-number">2.2.</span> <span class="nav-text">MQTT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Homebridge-安装"><span class="nav-number">2.3.</span> <span class="nav-text">Homebridge 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加自启任务"><span class="nav-number">2.4.</span> <span class="nav-text">添加自启任务</span></a></li></ol></li></ol></div>
             
 
           </div>
