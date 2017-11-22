@@ -82,7 +82,7 @@
 <meta property="og:site_name" content="墨澜技术站">
 <meta property="og:description" content="本篇指南将指导大家如何在树莓派最新官方系统 Raspbian Stretch 中安装计算机视觉库 Opencv。该库常用于人脸识别等人工智能图像识别服务中。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-14T01:04:09.774Z">
+<meta property="og:updated_time" content="2017-11-22T07:13:13.009Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派 Raspbian Stretch 安装 OpenCV 指南">
 <meta name="twitter:description" content="本篇指南将指导大家如何在树莓派最新官方系统 Raspbian Stretch 中安装计算机视觉库 Opencv。该库常用于人脸识别等人工智能图像识别服务中。">
@@ -386,7 +386,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,561 字
+                  1,572 字
                 </span>
               
 
@@ -427,7 +427,8 @@
       
 
       
-        <p>OpenCV 对于研究 AI 的朋友肯定不陌生了，相信不少人在其他系统的主机上跑起来了。树莓派由于性能受限，一直不被看作适合 OpenCV 的平台。诚然，小派跑起 OpenCV 确实吃力了一些，但是并非完全不可能跑。本篇教程所展现的内容就是一个尝试，需要注意的是树莓派的性能问题并不能通过软件解决，因此请大家做好运行迟缓的内心准备。</p>
+        <p><strong><a href="https://jq.qq.com/?_wv=1027&amp;k=5ZGk07E" target="_blank" rel="external">欢迎加入 HA 技术讨论群：515348788</a></strong></p>
+<p>OpenCV 对于研究 AI 的朋友肯定不陌生了，相信不少人在其他系统的主机上跑起来了。树莓派由于性能受限，一直不被看作适合 OpenCV 的平台。诚然，小派跑起 OpenCV 确实吃力了一些，但是并非完全不可能跑。本篇教程所展现的内容就是一个尝试，需要注意的是树莓派的性能问题并不能通过软件解决，因此请大家做好运行迟缓的内心准备。</p>
 <p>以下教程内容参考了 <a href="https://www.pyimagesearch.com/2017/09/04/raspbian-stretch-install-opencv-3-python-on-your-raspberry-pi/" target="_blank" rel="external">Pyimagesearch</a>。建议有英文基础的同学前往该网站学习。当然文章不是纯翻译，还是会掺和一些自己的私货，比如如何在 Home Assistant 当中接入 OpenCV 呢？~</p>
 <p>安装背景：一块装有 Raspbian Stretch 的树莓派（最好是全新纯净安装），熟悉基本的 SSH、VNC 等操作。（都玩到 OpenCV 了，相信不用我再多说这些知识了）</p>
 <h2 id="文件系统扩容"><a href="#文件系统扩容" class="headerlink" title="文件系统扩容"></a>文件系统扩容</h2><p>开头也提到了小派的空间有限，因此第一件事就是将系统扩大到整块 TF 卡的空间。</p>

@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1floybgjc98j31kw0dzdgp.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1floyicxfvzj31kw0sfwiy.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1floyofkhxxj31kw06mq41.jpg">
-<meta property="og:updated_time" content="2017-11-21T03:42:22.789Z">
+<meta property="og:updated_time" content="2017-11-22T07:11:04.652Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 超神篇 - 告别不接地气的 History">
 <meta name="twitter:description" content="使用 InfluxDB 替代国内无法使用的 Google Chart 和 History 面板">
@@ -396,7 +396,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,488 字
+                  1,499 字
                 </span>
               
 
@@ -438,6 +438,7 @@
 
       
         <p><strong>声明：本文禁止转载！</strong></p>
+<p><strong><a href="https://jq.qq.com/?_wv=1027&amp;k=5ZGk07E" target="_blank" rel="external">欢迎加入 HA 技术讨论群：515348788</a></strong></p>
 <p>HA 中的历史也就是 History，原本是个非常好的设计。汇总设备一段时间的数值之后以可视化的形式呈现给大家，除了图标的颜色有些丑，其他都不错。然而千好万好，一到了国内环境就变了味。原因在于其加载了 Google API 用于加载可视化 JS 和 CSS，当然我们可以从云端直接下载相关文件，但是操作起来总是麻烦，而且涉及动态加载，文件本身总有变数。</p>
 <p>时间序列数据库 <a href="https://www.baidu.com/link?url=XUinYBRKTwlPA0iP28ZGDpQqZdiPlkAR6M5LP9OwicHKDLHDVVlGysNbtsJdM9RU&amp;wd=&amp;eqid=c0d526fc00018e0f000000065a12da50" target="_blank" rel="external">InfluxDB</a> 在 2 年前就已经被 HA 官方博客提及，配合 <a href="https://www.baidu.com/link?url=HofP4rOIhbGl5PKIxhmoIm-MF2F3fS5l-jpxxd5su7q&amp;wd=&amp;eqid=8d91844000019ebd000000065a12da42" target="_blank" rel="external">Grafana</a> 可以成为数据可视化的替代选择。然而时过境迁，Grafana 最新版对包括树莓派在内的 armhf 架构设备支持度较差，而 InfluxDB 早已推出了自己的数据可视化平台，和 Grafana 有的一拼。如果你还照着 HA 论坛上老旧的教程和帖子操作，很快就会发现部署在 8083 端口的 Web UI 早已仙去。</p>
 <p>本次的教程就教导大家如何在系统中安装最新版本的 InfluxDB 并且利用原生可视化平台展示数据。</p>

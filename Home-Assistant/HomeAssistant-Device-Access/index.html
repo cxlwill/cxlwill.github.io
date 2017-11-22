@@ -87,7 +87,7 @@
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/30/769d4a78065db8ce46fdf7e546d6b21d.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/19/9da22ed3c7e53ae1d939888e292f4ef2.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/26/a03014830a2fb8e4341d130c87ad0171.jpeg">
-<meta property="og:updated_time" content="2017-10-11T08:51:35.641Z">
+<meta property="og:updated_time" content="2017-11-22T07:13:31.466Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 系列基础篇 - 设备接入">
 <meta name="twitter:description" content="相信大家通过之前的『安装篇』已经成功安装了 Home Assistant 和 Homebridge，在这篇文章中，我将带领大家接入智能家居设备。">
@@ -392,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,942 字
+                  1,953 字
                 </span>
               
 
@@ -433,7 +433,8 @@
       
 
       
-        <p>相信大家通过之前的 <a href="https://sspai.com/post/38849" target="_blank" rel="external">安装篇</a> 已经成功安装了 Home Assistant (HASS) 和 Homebridge，在这篇文章中，我将带领大家接入智能家居设备。</p>
+        <p><strong><a href="https://jq.qq.com/?_wv=1027&amp;k=5ZGk07E" target="_blank" rel="external">欢迎加入 HA 技术讨论群：515348788</a></strong></p>
+<p>相信大家通过之前的 <a href="https://sspai.com/post/38849" target="_blank" rel="external">安装篇</a> 已经成功安装了 Home Assistant (HASS) 和 Homebridge，在这篇文章中，我将带领大家接入智能家居设备。</p>
 <p>大多数人初接触 HASS 的时候经常一头雾水，原因是 HASS 的配置体系十分混乱，一个设备的完美接入需要涉及多个配置文件。实际上，系统架构不清晰也是 HASS 的最大缺点，因此，在开始配置教程前，我先帮助大家捋一捋 HASS 的配置框架。</p>
 <h2 id="HASS-配置框架"><a href="#HASS-配置框架" class="headerlink" title="HASS 配置框架"></a>HASS 配置框架</h2><p>HASS 的核心配置围绕 <code>configuration.yaml</code> 文件展开, 在这里你可以进行时区、度量单位、开发者模式、主题选择等等基础配置。当然，最为重要的，你将在该文件内完成所有设备的接入。这也是<strong>本篇教程的重点</strong>。</p>
 <p>HASS 的运行依赖于一个个相对独立的功能组件(Components），比如小米米家平台就可以视作一个组件。有些时候，部分设备或者功能仍未得到 HASS 的官方支持，你必须在主目录下新建自定义组件<code>custom_components</code>文件夹，添加相关的设备支持文件。</p>

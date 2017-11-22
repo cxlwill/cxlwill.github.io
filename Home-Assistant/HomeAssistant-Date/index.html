@@ -83,7 +83,7 @@
 <meta property="og:description" content="借配置日落日出时间，普及一下 HA 中的时间格式知识。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1fl2rb40rvpj30qs04wglh.jpg">
-<meta property="og:updated_time" content="2017-11-01T10:38:41.044Z">
+<meta property="og:updated_time" content="2017-11-22T07:12:56.668Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 系列高级篇 —— 日落日出时间">
 <meta name="twitter:description" content="借配置日落日出时间，普及一下 HA 中的时间格式知识。">
@@ -388,7 +388,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  332 字
+                  343 字
                 </span>
               
 
@@ -429,7 +429,8 @@
       
 
       
-        <p>入秋以后，天暗得很早，早早没了阳光，收衣服的时间也比原先提早了。因此想在前端了解一下日落时间，最终显示的效果就是这样：</p>
+        <p><strong><a href="https://jq.qq.com/?_wv=1027&amp;k=5ZGk07E" target="_blank" rel="external">欢迎加入 HA 技术讨论群：515348788</a></strong></p>
+<p>入秋以后，天暗得很早，早早没了阳光，收衣服的时间也比原先提早了。因此想在前端了解一下日落时间，最终显示的效果就是这样：</p>
 <p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fl2rb40rvpj30qs04wglh.jpg" alt=""></p>
 <p>老样子，还是要用 <code>Template Sensor</code> 接入，利用系统自带的<code>sun.sun</code>组件的属性：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">- platform:</span> <span class="string">template</span></div><div class="line"><span class="attr">  sensors:</span></div><div class="line"><span class="attr">    sunrise:</span></div><div class="line"><span class="attr">      value_template:</span> <span class="string">'<span class="template-variable">&#123;&#123; ((as_timestamp(states.sun.sun.attributes.next_rising)) | timestamp_local) [11:16] &#125;&#125;</span>'</span></div><div class="line"><span class="attr">      friendly_name:</span> <span class="string">'日出时间'</span></div></pre></td></tr></table></figure>
