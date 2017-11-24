@@ -9,6 +9,14 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[Home Assistant 提高篇 - 使用 PostgreSQL 替换数据库]]></title>
+    <url>%2FHome-Assistant%2FHomeAssistant-PostgreSQL%2F</url>
+    <content type="text"><![CDATA[Home Assistant 原生使用 SQLite 作为数据库，使用体验如何大家肯定都有感触了：加载数据慢 + 数据文件庞大，必须换。需要声明的是数据库的替换并不会转移之前的数据，因此尽量在初次安装后即进行数据库替换工作。原数据都存放在配置文件夹的 home-assistant_v2.db文件中。 既然 HA 数据库是 SQL 架构，意味着我们的选择面很广。DB-Engines 上排名靠前的几个关系型数据库都能使用，例如 MySQL、MariaDB、PostgreSQL 和 MS SQL Server。本教程将重点放在 PostgreSQL 上。 首先很简单，安装 PostgreSQL： 1sudo apt install postgresql-9.6 postgresql-server-dev-9.6 版本号随着更新变动，请自行查证。 接着创建数据库用户，这里就要留意一下运行 HA 环境的用户名了。如果是通过 All-in-one 或者 Hassbian 安装的用户，用户名为 homeassistant： 1sudo -u postgres createuser homeassistant 其他安装环境用户请自行修改。 之后创建数据库，统一命名为 homeassistant，好记： 1sudo -u postgres createdb -O homeassistant homeassistant 然后安装 psycopg2，注意如果是在 Python 虚拟环境中运行的 HA，请进入虚拟环境后操作。例如，在 All-in-one 安装环境下： 123sudo su -s /bin/bash homeassistantsource /srv/homeassistant/homeassistant_venv/bin/activatepip3 install psycopg2 最后，在 HA 的配置文件 configuration.yaml 中添加以下字段： 12recorder: db_url: postgres://@/homeassistant 大功告成，重启 HA 后，新的数据库就正式启用了。初次启用需要一定时间生成数据，但是在之后的重启中你就能切实感受到 HA 迅速开启的快感了~~]]></content>
+      <categories>
+        <category>Home Assistant</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[为什么我不推荐使用 Hass.io？]]></title>
     <url>%2FHome-Assistant%2FNo-hassio%2F</url>
     <content type="text"><![CDATA[欢迎加入 HA 技术讨论群：515348788 这篇文章不是为了拉人站队，实际上最近随着 Home Assistant 的用户增多，很多小白被一切不实的言论带入坑中，我不得不澄清一些观点。 Home Assistant 至今都是一个开源系统，Hass.io 的推出不可不视为是 HA 团队为商业化做的打算。从近来的开发步调上看，HA 可能会推出付费的云服务。但是，无论怎么样，Home Assistant系统本身以及 Hass.io 一定还会保持开源的节奏，企业发展的路子可以参考 InfluxDB 等。 近来，有一些人开始有意无意踩低树莓派的性能，表达一些观点。当然，树莓派肯定不是十全十美的，挑卡等也是不争的事实，但是其毕竟是现在搭建 HA 最广泛的平台。海外的很多博物馆、气象站、学校等等机构都有使用树莓派于日常生活实践中。一个能上太空的开发板，你说带十几个设备的信息反馈和控制（没错还不是直接传感器加载）回卡，你在开什么国际玩笑？！以后如果有人跑来告诉你“树莓派就是垃圾，跑几个智能设备几个月就带不动了。” 请你一巴掌把他呼出去。 既然如此，为什么部分人一直推崇 Hass.io 加 NAS 呢？ 大部分的爱好者在智能家居的坑里只会越陷越深，因此他们的设备数量可能迅猛增加，或者有更大的项目开发的考虑，所需要的平台性能要求就不断增高，这非常正常。 然而，更重要的他们中的另一部分人从这里看到了商机。有什么比卖镜像更来钱快的呢？单卖镜像怎么行，再顺便卖卖机器吧？卖树莓派哪能赚什么钱，顺便卖装了镜像的 NAS 吧？ 真是没毛病啊？！ 所以我为什么那么愤慨，很多事情一到了中国人这里就切切实实地变味了。开源的系统被拿来卖钱，还鼓吹树莓派性能不佳，“皆为利来”啊！！！ 树莓派在诞生之初就是为了教育用途的，Linux 系统博大精深，更是普遍用于开发用途。其实入手树莓派是一个绝佳的学习机会，除了 Home Assistant，大可把眼光放得长远一些。Hass.io 作为一个特制的封闭的系统，使用它就意味着剥夺了你入手树莓派 90% 的乐趣和技能提升的空间。更重要的是，这个系统目前处在初级阶段，配套的库仍不完善，由于系统特别你想要在网上找个参考资料都难。除非你把『网』界定在一个论坛或者社区空间上。 我坚持推荐使用 Raspbian 而不推荐容器，并且保持撰写教程，本质也是想让大家能够利用树莓派，手把手学会一些编程技能，给自己的技能树上加个点，大部分用户都是年轻人，学习能力很强，从长远来说，这个路子比给你个镜像益处更大。 然而现在一堆人想要不劳而获，就等着人家喂饭给你，随时都想要现成的镜像，真真是本末倒置。如果你看了这篇文章，还不愿意思考一下，被贩子们带着走，那我只能说你傻你呆你活该被坑，不赚你钱赚谁钱？！ 当然，千万不要误解我反对 HA 和衍生品的商业化。不商业化哪来的钱败家？良性的商业发展模式理应是发挥组织能力，优化甚至改写 HA，到那个时候完全可以脱离 HA，树立自己的品牌了。但是在当下，我只能说没有任何一家厂商做到了。 也千万别误解我，根正苗红一人，不卖派不卖啥，只做教程，而且我的教程： 还是全平台通用的~~~ 气不气死你？！]]></content>
