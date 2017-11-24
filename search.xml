@@ -9,7 +9,7 @@
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[Home Assistant 提高篇 - 使用 PostgreSQL 替换数据库]]></title>
+    <title><![CDATA[Home Assistant 提高篇 - 数据库替换]]></title>
     <url>%2FHome-Assistant%2FHomeAssistant-PostgreSQL%2F</url>
     <content type="text"><![CDATA[Home Assistant 原生使用 SQLite 作为数据库，使用体验如何大家肯定都有感触了：加载数据慢 + 数据文件庞大，必须换。需要声明的是数据库的替换并不会转移之前的数据，因此尽量在初次安装后即进行数据库替换工作。原数据都存放在配置文件夹的 home-assistant_v2.db文件中。 既然 HA 数据库是 SQL 架构，意味着我们的选择面很广。DB-Engines 上排名靠前的几个关系型数据库都能使用，例如 MySQL、MariaDB、PostgreSQL 和 MS SQL Server。本教程将重点放在 PostgreSQL 上。 首先很简单，安装 PostgreSQL： 1sudo apt install postgresql-9.6 postgresql-server-dev-9.6 版本号随着更新变动，请自行查证。 接着创建数据库用户，这里就要留意一下运行 HA 环境的用户名了。如果是通过 All-in-one 或者 Hassbian 安装的用户，用户名为 homeassistant： 1sudo -u postgres createuser homeassistant 其他安装环境用户请自行修改。 之后创建数据库，统一命名为 homeassistant，好记： 1sudo -u postgres createdb -O homeassistant homeassistant 然后安装 psycopg2，注意如果是在 Python 虚拟环境中运行的 HA，请进入虚拟环境后操作。例如，在 All-in-one 安装环境下： 123sudo su -s /bin/bash homeassistantsource /srv/homeassistant/homeassistant_venv/bin/activatepip3 install psycopg2 最后，在 HA 的配置文件 configuration.yaml 中添加以下字段： 12recorder: db_url: postgres://@/homeassistant 大功告成，重启 HA 后，新的数据库就正式启用了。初次启用需要一定时间生成数据，但是在之后的重启中你就能切实感受到 HA 迅速开启的快感了~~]]></content>
       <categories>
