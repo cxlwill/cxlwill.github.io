@@ -87,7 +87,7 @@
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/30/769d4a78065db8ce46fdf7e546d6b21d.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/19/9da22ed3c7e53ae1d939888e292f4ef2.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/26/a03014830a2fb8e4341d130c87ad0171.jpeg">
-<meta property="og:updated_time" content="2017-11-22T07:13:31.466Z">
+<meta property="og:updated_time" content="2017-11-25T01:42:21.603Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 系列基础篇 - 设备接入">
 <meta name="twitter:description" content="相信大家通过之前的『安装篇』已经成功安装了 Home Assistant 和 Homebridge，在这篇文章中，我将带领大家接入智能家居设备。">
@@ -392,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,953 字
+                  2,021 字
                 </span>
               
 
@@ -408,7 +408,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  7 分钟
+                  8 分钟
                 </span>
               
             </div>
@@ -452,13 +452,15 @@
 <p>恭喜你，接入了第一个 HASS 组件~ 现在你大概明白 HASS 是怎么个操作原理了，HASS 支持上千款智能家居设备，你可以<a href="https://home-assistant.io/components/" target="_blank" rel="external">到此</a>寻找你的设备按上述方法接入。</p>
 <p>如果你是果家用户，需要 Homekit 服务，那么我们还需要转到 Homebridge 进行相关设置。</p>
 <hr>
-<h2 id="Homebridge-设置"><a href="#Homebridge-设置" class="headerlink" title="Homebridge 设置"></a>Homebridge 设置</h2><p>执行指令前，请保证曾经运行过一次 Homebridge。<strong>注意：如果添加了开机自启任务，勿重复运行 Homebridge，否则会出现端口占用错误。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">cd /var/homebridge/</div><div class="line"></div><div class="line">sudo nano config.json</div><div class="line"></div><div class="line">&#123;</div><div class="line"></div><div class="line">&quot;bridge&quot;: &#123;</div><div class="line"></div><div class="line">&quot;name&quot;: &quot;Homebridge&quot;,</div><div class="line"></div><div class="line">&quot;username&quot;: &quot;CC:22:3D:E3:CE:30（树莓派MAC地址）&quot;,</div><div class="line"></div><div class="line">&quot;port&quot;: 51826,</div><div class="line"></div><div class="line">&quot;pin&quot;: &quot;123-45-678（连接密码，自行设定）&quot;</div><div class="line"></div><div class="line">&#125;,</div><div class="line"></div><div class="line">&quot;platforms&quot;: [</div><div class="line"></div><div class="line">&#123;</div><div class="line"></div><div class="line">&quot;platform&quot;: &quot;HomeAssistant&quot;,</div><div class="line"></div><div class="line">&quot;name&quot;: &quot;HomeAssistant&quot;,</div><div class="line"></div><div class="line">&quot;host&quot;: &quot;http://树莓派地址:8123&quot;,</div><div class="line"></div><div class="line">&quot;password&quot;: &quot;raspberry&quot;, #此处为 HA 中的 api_password，如有设置请添加</div><div class="line"></div><div class="line">&quot;supported_types&quot;: [&quot;fan&quot;, &quot;binary_sensor&quot;, &quot;sensor&quot;, &quot;garage_door&quot;, &quot;input_boolean&quot;, &quot;light&quot;, &quot;lock&quot;, &quot;media_player&quot;, &quot;rollershutter&quot;, &quot;scene&quot;, &quot;switch&quot;]</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">]</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Homebridge-设置"><a href="#Homebridge-设置" class="headerlink" title="Homebridge 设置"></a>Homebridge 设置</h2><p>执行指令前，请先运行一次 Homebridge。<strong>注意：如果添加了开机自启任务，勿重复运行 Homebridge，否则会出现端口占用错误。</strong></p>
+<p><strong>Homebridge - homeassistant 插件版本为 2.3.0 以上的，特别注意添加最后一行配置，否则家庭 app 内设备为空。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">cd /home/pi/.homebridge</div><div class="line"></div><div class="line">sudo nano config.json</div><div class="line"></div><div class="line">&#123;</div><div class="line"></div><div class="line">&quot;bridge&quot;: &#123;</div><div class="line"></div><div class="line">&quot;name&quot;: &quot;Homebridge&quot;,</div><div class="line"></div><div class="line">&quot;username&quot;: &quot;CC:22:3D:E3:CE:30&quot;,     //树莓派 mac 地址</div><div class="line"></div><div class="line">&quot;port&quot;: 51826,     //运行端口</div><div class="line"></div><div class="line">&quot;pin&quot;: &quot;123-45-678&quot;    //连接密码，自行设定</div><div class="line"></div><div class="line">&#125;,</div><div class="line"></div><div class="line">&quot;platforms&quot;: [</div><div class="line"></div><div class="line">&#123;</div><div class="line"></div><div class="line">&quot;platform&quot;: &quot;HomeAssistant&quot;,</div><div class="line"></div><div class="line">&quot;name&quot;: &quot;HomeAssistant&quot;,</div><div class="line"></div><div class="line">&quot;host&quot;: &quot;http://127.0.0.1:8123&quot;,     //HA 运行的网址，可以是 ip 也可以是域名</div><div class="line"></div><div class="line">&quot;password&quot;: &quot;raspberry&quot;,     //HA 的 api_password，及密码，如有设置请添加</div><div class="line"></div><div class="line">&quot;supported_types&quot;: [&quot;automation&quot;, &quot;binary_sensor&quot;, &quot;climate&quot;, &quot;cover&quot;, &quot;device_tracker&quot;, &quot;fan&quot;, &quot;group&quot;, &quot;input_boolean&quot;, &quot;light&quot;, &quot;lock&quot;, &quot;media_player&quot;, &quot;remote&quot;, &quot;scene&quot;, &quot;sensor&quot;, &quot;switch&quot;],</div><div class="line"></div><div class="line">&quot;default_visibility&quot;: &quot;visible&quot;    //特别注意此项</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">]</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>ctrl+x，y，回车。之后清除 Homebridge 的缓存：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">sudo rm -rf /home/pi/.homebridge/persist/</div></pre></td></tr></table></figure>
 <p><strong>请大家记住此步指令，今后若出现重新配置 HA、HB 导致 iOS 设备无法识别新设备或树莓派的，大部分情况均可以使用此指令解决。</strong></p>
-<p>这样我们就完成了 Homebridge 的设置，重启Homebridge。</p>
-<p>经过上述设置，我相信你的智能家居设备已经在 HASS 里稳定运转了，现在不妨尝试使用 Siri 操控你的设备。</p>
+<p>这样我们就完成了 Homebridge 的设置，重启Homebridge：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">sudo systemctl restart homebridge</div></pre></td></tr></table></figure>
+<p>经过上述设置，我相信你的智能家居设备已经在 HA 和 HB 里稳定运转了，现在不妨尝试使用 Siri 操控你的设备。</p>
 <hr>
 <h2 id="鹬蚌相争？"><a href="#鹬蚌相争？" class="headerlink" title="鹬蚌相争？"></a>鹬蚌相争？</h2><p>在之前的 <a href="https://sspai.com/post/38849" target="_blank" rel="external">安装篇</a> 中我们知道 Homebridge 本身可以通过安装插件的方式将智能设备接入 Apple Home 平台，有的时候设备同时支持 HASS 和 Apple Home 2 个平台，这时我们就面临平台选择。</p>
 <p>首先，这个问题只存在 iOS 以及未来的 macOS 用户身上，因为只有你们可以使用 Siri，才可以痛并快乐着。 对于其他终端系统的用户而言，要么和设备厂家的 app 斗智斗勇，要么享受 HASS 网页操控的快感，至于语音控制，就还需等待了。</p>
