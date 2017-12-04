@@ -84,7 +84,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/30/8b2559b1d7e5f80029d0f6c7219f87c5.jpg">
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-10-11-xiaomi.jpg">
-<meta property="og:updated_time" content="2017-11-22T07:10:52.778Z">
+<meta property="og:updated_time" content="2017-12-04T06:23:34.646Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 系列基础篇 - 小米特别篇">
 <meta name="twitter:description" content="本篇教程将介绍将小米设备接入 HA 和 通过 Hombridge 接入 Apple Home 两大平台的方法，具体选择哪个方案，大家各取所需，有关平台选择和区别详见本系列之前的文章。">
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  2,184 字
+                  2,259 字
                 </span>
               
 
@@ -437,47 +437,66 @@
 <p>我们知道小米生态链挺复杂，紫米、绿米各种子公司。不管牌怎么换，对于集成平台来说，想要一统江湖，我们只需关心设备的传输协议即可。</p>
 <p>目前有一个简单粗暴的标准，即如果一个设备需要小米多功能网关才可以使用，一般来说它采用的是 Zigbee 协议，那么只要网关接入了 HA 就可以完美适配。而如果一个设备是独立接入网络的，比如米家 Wi-Fi 插座、扫地机器人、Yeelight 灯具等，我们则需要单独在 HA 里接入它们。</p>
 <p>类似的标准也适用于 Homeridge，homebridge-mi-aqara 插件正常情况下只支持 Zigbee 设备，其他设备需要另安装插件。</p>
-<p><strong>本篇教程将介绍将小米设备接入 HA 的方法，如果你打算通过 HB 直连，请参考<a href="https://homekit.loli.ren/" target="_blank" rel="external">渣渣米大大的教程</a>，本教程不再涉及。具体选择哪个方案，大家各取所需，有关平台选择和区别详见本系列之前的文章。</strong></p>
+<p><strong>本篇教程将介绍将小米设备接入 HA 的方法，如果你打算通过 HB 直连，请参考 <a href="https://homekit.loli.ren/" target="_blank" rel="external">渣渣米大大的教程</a>，本教程不再涉及。具体选择哪个方案，大家各取所需，有关平台选择和区别详见本系列之前的文章。</strong></p>
 <p>下图是我个人独立整理的小米生态链部分设备支持列表（中英双语）：</p>
 <p><img src="http://oeoj44yho.bkt.clouddn.com/2017-10-11-xiaomi.jpg" alt="支持列表 10.11"></p>
-<p>表格使用 <a href="https://docs.google.com/spreadsheets/d/1LI0n_aK-9TuKXrz-PPOAbVuaN8JUj70s5F0MyK8FtsM/edit?usp=sharing" target="_blank" rel="external">Google SpreadSheet</a> 编辑，将会不断更新。国内朋友可访问『<a href="https://www.jianguoyun.com/p/DSxHEhUQp5HMBhiSmjg" target="_blank" rel="external">坚果云</a>』 (访问密码：cxlwill)。</p>
+<p>表格使用 <a href="https://docs.google.com/spreadsheets/d/1LI0n_aK-9TuKXrz-PPOAbVuaN8JUj70s5F0MyK8FtsM/edit?usp=sharing" target="_blank" rel="external">Google SpreadSheet</a> 编辑，将会不断更新。国内朋友可访问『<a href="https://www.jianguoyun.com/p/DYFO3Y8Qp5HMBhiQjzw" target="_blank" rel="external">坚果云</a>』获取。。</p>
 <p><strong>在此欢迎各位朋友向我提供支持信息或内容纠正，直接在表格内评论即可。</strong></p>
 <p>下面我们以<strong>传输协议</strong>为划分标准，分别介绍小米设备接入智能家居系统的方法：</p>
-<h2 id="Zigbee-设备（小米多功能网关）"><a href="#Zigbee-设备（小米多功能网关）" class="headerlink" title="Zigbee 设备（小米多功能网关）"></a>Zigbee 设备（小米多功能网关）</h2><blockquote>
+<p><strong>需要提点的是，今后只要是Wifi的设备，都将通过 <code>xiaomi_miio</code>接入，Zigbee 设备则统一是 <code>xiaomi_aqara</code>。</strong></p>
+<h2 id="Zigbee-设备（网关类设备）"><a href="#Zigbee-设备（网关类设备）" class="headerlink" title="Zigbee 设备（网关类设备）"></a>Zigbee 设备（网关类设备）</h2><blockquote>
 <p>本部分教程仅适用于『绿米网关局域网通信协议』 1.x 版本的环境，不保证未来『局域网通信协议』升级后的适用性。</p>
 </blockquote>
 <p>以小米多功能网关（第二代）为代表的网关类设备是大部分『米家』及 『绿米（Aqara）』 Zigbee 设备的联动基础，也是整个米家智能家居系统的核心。除多功能网关外，空调伴侣和 Aqara 监控摄像头都具备网关功能。</p>
 <p>要将网关接入 HA，我们需要先打开网关的通信协议，并获取通讯密码。</p>
 <p>打开米家 app，连接设置多功能网关，点击进入网关页面，点击右上角「…」，进入「设置」。点击第二行「关于」，狂点空白处，便会跳出「局域网通信协议」以及「网关信息」。进入「局域网通信协议」，打开开关，记录下密码，这就是之后待填的<strong>「key」</strong>。回到上级页面，进入「网关信息」，记录下 mac 地址，这就是之后待填的<strong>「sid 或 mac」</strong>。</p>
-<p>HA 0.50.0 及之后版本已经添加对米家平台的官方支持，我们只需要直接配置即可。<strong>如果之前有复制 custom_componets 文件夹的同学，升级后请删除该文件夹。</strong>通过 SMB 链接至树莓派，在 HASS 主目录打开 <code>configuration.yaml</code> 文件，在最后添加如下字段：</p>
-<p><strong>此设置适用于 HA 0.54.0 版及之后</strong></p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">xiaomi_aqara:</span></div><div class="line"></div><div class="line"><span class="attr">  gateways:</span></div><div class="line"></div><div class="line"><span class="attr">      - mac:</span> <span class="string">MAC</span> <span class="string">地址</span> <span class="string">（地址不带</span> <span class="string">"-"</span> <span class="string">或</span> <span class="string">":"</span> <span class="string">，最前面的「-」必须保留）</span></div><div class="line"></div><div class="line"><span class="attr">        key:</span> <span class="string">通讯密码</span></div></pre></td></tr></table></figure>
-<p>（注意：iOS 设备 key 请使用大写，安卓设备 key 请使用小写。）</p>
+<p>HA 0.50.0 及之后版本已经添加对米家平台的官方支持，我们只需要直接配置即可。<strong>如果之前有复制 custom_componets 文件夹的同学，升级后请删除该文件夹。</strong> 打开 <code>configuration.yaml</code> 文件，添加以下配置：</p>
+<p><strong>此设置适用于 HA 0.54.0版及之后</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">xiaomi_aqara:</span></div><div class="line"></div><div class="line"><span class="attr">  gateways:</span></div><div class="line"></div><div class="line"><span class="attr">      - mac:</span> <span class="string">MAC</span> <span class="string">地址</span> <span class="string">（地址不带</span> <span class="string">"-"</span> <span class="string">或</span> <span class="string">":"</span> <span class="string">，行首的「-」必须保留）</span></div><div class="line"></div><div class="line"><span class="attr">        key:</span> <span class="string">通讯密码</span></div></pre></td></tr></table></figure>
 <p>如果你有多个网关，则按以下格式设定：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">xiaomi_aqara:</span></div><div class="line"><span class="attr">  gateways:</span></div><div class="line"><span class="attr">    - mac:</span> <span class="string">xxxxxxxxxxxx</span></div><div class="line"><span class="attr">      key:</span> <span class="string">xxxxxxxxxxxxxxxx</span></div><div class="line"><span class="attr">    - mac:</span> <span class="string">xxxxxxxxxxxx</span></div><div class="line"><span class="attr">      key:</span> <span class="string">xxxxxxxxxxxxxxxx</span></div></pre></td></tr></table></figure>
 <p>重启后，HA 主界面将会自动识别网关及捆绑的所有设备。</p>
 <hr>
-<h2 id="Yeelight-灯具"><a href="#Yeelight-灯具" class="headerlink" title="Yeelight 灯具"></a>Yeelight 灯具</h2><p>Yeelight 目前已经从小米独立出来，运作良好，原生支持 Google Assistant 等平台，应该说是小米生态链下「走出去」的先锋。Yeelight 在 HA 中支持色温、色彩、亮度等控制，基本实现全品支持。</p>
-<p>配置前请先在 Yeelight app 中打开“极客模式”，地区选择中国或新加坡皆可，注意如果区域设置与米家 app 设置不同，则设备无法接入米家 app，但不影响 HA 的控制。</p>
+<h2 id="Yeelight-灯具"><a href="#Yeelight-灯具" class="headerlink" title="Yeelight 灯具"></a>Yeelight 灯具</h2><p>Yeelight 目前已经从小米独立出来，运作良好，原生支持 Google Assistant 等平台，应该说是小米生态链下『走出去』的先锋。Yeelight 在 HA 中支持色温、色彩、亮度等控制，基本实现全品支持。</p>
+<p>配置前请先在 Yeelight App 中打开『局域网控制 (LAN Control)』，服务器选择中国大陆、新加坡皆可，注意如果所选服务器与米家 App 中不同，则设备无法接入米家 App，但不影响在 Yeelight App 及 HA 中的控制。<strong>（Yeelight App 3.0 之前版本中，『局域网控制』为『极客模式』）</strong></p>
 <p>之后重启 HA，重启前请打开灯具，稍等几分钟，<strong>确认一下设备是否已经被 HA 自动识别添加</strong>。如果是的话，皆大欢喜，什么都无需再做了；如果没有，请打开<code>configuration.yaml</code>文件，在合适位置添加如下字段：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">light:</div><div class="line">  - platform: yeelight</div><div class="line">    devices:</div><div class="line">      192.168.1.25:              #Yeelight灯具ip</div><div class="line">        name: Living Room      #昵称</div><div class="line">        transition: 1000</div><div class="line">        use_music_mode: True #音乐随动模式，默认关闭</div><div class="line">``` </div><div class="line"></div><div class="line">***</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">以上 2 个是最常见的具有统一插件的设备适配，下面我挑选了几个特殊的常见设备介绍具体配置方法：</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">## 米家扫地机器人</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">扫地机器人的接入和设置目前比较麻烦，大家需要有点耐心，我相信随着插件的不断更迭，支持的功能会越来越多。HA 最新 v52.1 赋予了扫地机器人专门的类—— vacuum，因此以后相关智能吸尘器、扫地机都可类比之前的灯具、开关进行配置。</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">**iOS &amp; macOS**</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">1. 将扫地机器人与米家 app 适配连接，而后使用 iTunes 创建无加密的 iOS 备份</div><div class="line"></div><div class="line">2. 安装 [iBackup Viewer](http://www.imactools.com/iphonebackupviewer/)</div><div class="line"></div><div class="line">3. 使用 iBackup Viewer 查看备份，将 `/raw data/com.xiami.mihome/_mihome.sqlite` 文件解压至电脑</div><div class="line"></div><div class="line">4. 使用文件编辑器打开该文件，找到扫地机器人的 token</div><div class="line"></div><div class="line">5. 在 `configuration.yaml` 文件中填入下列设置：</div></pre></td></tr></table></figure>
-<p>vacuum:</p>
-<ul>
-<li>platform: xiaomi_miio<br> name: ‘<em>*</em>‘                    #昵称<br> host: 192.168.1.2            #ip<br> token: R@#RT$TFEW    #token<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">***</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">## 空气净化器</div><div class="line"></div><div class="line">HA 目前原生支持 2 代空净，暂不支持 Pro 版。</div><div class="line"></div><div class="line">按照上方教程获取空气净化器的 token，之后在 `configuration.yaml` 中填入以下配置：</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>fan:</p>
-<ul>
-<li>platform: xiaomi_miio<br>name: Xiaomi Air Purifier 2<br>host: 192.168.130.66<br>token: YOUR_TOKEN<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">***</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">## 空调伴侣</div><div class="line"></div><div class="line">米家和 Aqara 均发布了自己品牌的空调伴侣，除外观差异外，内核并无不同。目前空调伴侣支持接入 HB 和 HA。小米已于近日固件中开放空调伴侣的局域网通信协议，空调控制和网关功能请分别使用各自插件接入。另，目前插件仅支持部分空调品牌的部分预设模式，详见插件说明页，未支持的型号请自行抓包红外码。</div><div class="line"></div><div class="line">Home Assistant 中空调伴侣以自定义组件的方式加入，此组件为爱好者 Mac_zhou 制作，欢迎大家前往 [项目地址](https://github.com/mac-zhou/homeassistant-mi-acpartner) 点赞。</div><div class="line"></div><div class="line">插件使用前需获取设备的 token：进入『米家』应用，点击空调伴侣，选择右上角『•••』—— 『关于』—— 狂点空白区域 —— 网关信息 “token=xxxxxxx&quot;即是 。</div><div class="line"></div><div class="line">将 Github 中的对应文件放入文件夹，层级与 Github 中展示一致，之后在配置文件中增加以下配置：</div><div class="line"></div><div class="line">```yaml</div><div class="line"></div><div class="line">climate:</div><div class="line">    - platform: mi_acpartner</div><div class="line">      name: mi_acpartner</div><div class="line">      host: 10.0.0.234 #ip地址</div><div class="line">      token: ****** #token</div><div class="line">      target_sensor: sensor.temperature_158d00015aefc4 #温度传感器 ID</div><div class="line">      target_temp: 26 #目标温度</div></pre></td></tr></table></figure>
-</li>
-</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">light:</div><div class="line">  - platform: yeelight</div><div class="line">    devices:</div><div class="line">      192.168.1.25:              #Yeelight灯具ip</div><div class="line">        name: Living Room      #昵称</div><div class="line">        transition: 1000</div><div class="line">        use_music_mode: True #音乐随动模式，默认关闭</div><div class="line">``` </div><div class="line"></div><div class="line">***</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">以上 2 个是最常见的具有统一平台的设备适配，下面是使用 WiFi 传输协议设备的具体配置方法：</div><div class="line"></div><div class="line">## 获取 token</div><div class="line"></div><div class="line">所有的小米 WiFi 设备都必须先取得设备的 token 方可接入 HA，以下简要介绍获取 token 的方法之一，更多方法请参考 [Home Assistant 中文文档](https://home-assistant.cc/component/xiaomi/)  。</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">首先在安装有 Node.js 的电脑上安装 miio 库</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">```terminal</div><div class="line"></div><div class="line">sudo npm install miio</div></pre></td></tr></table></figure>
+<p>之后，重置待连小米设备的网络，使其产生 WIFI 热点，将电脑连接至该热点上，之后输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">miio --discover</div></pre></td></tr></table></figure>
+<p>即获取设备的 token，请集中保存。获取 token 后，如需绑定米家 App，请直接在 App 中添加设备，切勿继续重置设备，否则 token 将重新生成，原有 token 将失效。</p>
+<hr>
+<h2 id="米家扫地机器人"><a href="#米家扫地机器人" class="headerlink" title="米家扫地机器人"></a>米家扫地机器人</h2><p>HA 原生支持米家和石头扫地机器人(2nd)，使用专门的类—— vacuum。</p>
+<p>按照上方教程获取扫地机的 token，之后在 <code>configuration.yaml</code> 中填入以下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">vacuum:</div><div class="line">   - platform: xiaomi_miio</div><div class="line">      name: &apos;***&apos;                    #昵称</div><div class="line">      host: 192.168.1.2            #ip</div><div class="line">      token:     #token</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="空气净化器"><a href="#空气净化器" class="headerlink" title="空气净化器"></a>空气净化器</h2><p>HA 目前原生支持 2 代空净，暂不支持 Pro 版。</p>
+<p>按照上方教程获取空气净化器的 token，之后在 <code>configuration.yaml</code> 中填入以下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">fan:</div><div class="line">  - platform: xiaomi_miio</div><div class="line">    name: Xiaomi Air Purifier 2</div><div class="line">    host: 192.168.130.66</div><div class="line">    token: YOUR_TOKEN</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="空调伴侣"><a href="#空调伴侣" class="headerlink" title="空调伴侣"></a>空调伴侣</h2><p>米家和 Aqara 均发布了自己品牌的空调伴侣，除外观差异外，内核并无不同。<strong>小米已于近日固件更新中开放空调伴侣的『局域网通信协议』，空调控制和网关功能请分别使用各自插件接入</strong>。另，目前插件仅支持部分空调品牌的部分预设模式，详见插件说明页，未支持的型号请自行抓包空调码。</p>
+<p>Home Assistant 中空调伴侣以自定义组件的方式加入，此组件为爱好者 Mac_zhou 制作，欢迎大家前往 <a href="https://github.com/mac-zhou/homeassistant-mi-acpartner" target="_blank" rel="external">项目地址</a> 点赞。</p>
+<p>插件使用前需获取设备的 token：进入『米家』应用，点击空调伴侣，选择右上角『•••』—— 『关于』—— 狂点空白区域 —— 网关信息 “token=xxxxxxx”即是 。</p>
+<p>将 Github 中的对应文件放入文件夹，层级与 Github 中展示一致，之后在配置文件中增加以下配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">climate:</span></div><div class="line"><span class="attr">    - platform:</span> <span class="string">mi_acpartner</span></div><div class="line"><span class="attr">      name:</span> <span class="string">mi_acpartner</span></div><div class="line"><span class="attr">      host:</span> <span class="number">10.0</span><span class="number">.0</span><span class="number">.234</span> <span class="comment">#ip地址</span></div><div class="line"><span class="attr">      token:</span> <span class="string">******</span> <span class="comment">#token</span></div><div class="line"><span class="attr">      target_sensor:</span> <span class="string">sensor.temperature_158d00015aefc4</span> <span class="comment">#温度传感器 ID</span></div><div class="line"><span class="attr">      target_temp:</span> <span class="number">26</span> <span class="comment">#目标温度</span></div></pre></td></tr></table></figure>
 <p>组件由国人制作， README 文件以中文书写，这里我就不再作变量说明了。</p>
 <hr>
-<h2 id="WiFi-插座及智能插线板"><a href="#WiFi-插座及智能插线板" class="headerlink" title="WiFi  插座及智能插线板"></a>WiFi  插座及智能插线板</h2><p>0.56.0 的更新带来了插座的支持，老样子在接入前我们必须获取设备的 token，具体方法见前文。有了 token 之后，在 <code>configuraiton.yaml</code> 添加如下设置：</p>
+<h2 id="WiFi-插座及智能插线板"><a href="#WiFi-插座及智能插线板" class="headerlink" title="WiFi  插座及智能插线板"></a>WiFi  插座及智能插线板</h2><p>0.56.0 的更新带来了插座的支持，接入前先获取设备的 token，具体方法见前文。之后，在 <code>configuraiton.yaml</code> 添加如下设置：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">switch:</span></div><div class="line"><span class="attr">  - platform:</span> <span class="string">xiaomi_miio</span></div><div class="line"><span class="attr">    name:</span> <span class="string">Original</span> <span class="string">Xiaomi</span> <span class="string">Mi</span> <span class="string">Smart</span> <span class="string">WiFi</span> <span class="string">Socket</span></div><div class="line"><span class="attr">    host:</span> <span class="number">192.168</span><span class="number">.130</span><span class="number">.59</span></div><div class="line"><span class="attr">    token:</span> <span class="string">YOUR_TOKEN</span></div></pre></td></tr></table></figure>
 <p>这英文简单得不能再简单了，我就不做变量说明了。</p>
 <hr>
+<h2 id="净水器"><a href="#净水器" class="headerlink" title="净水器"></a>净水器</h2><p>小米净水器插件由 bit3725 制作，欢迎前往 <a href="https://github.com/bit3725/homeassistant-mi-water-purifier" target="_blank" rel="external">项目</a> 点赞~</p>
+<p>使用方法：从 Github 下载 <code>mi_water_purifier.py</code>，放入 <code>custom_components/sensor/</code> 文件夹内（文件层级项目本身已经很清晰地给出了），在 <code>configuration.yaml</code> 添加如下设置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">sensor:</span></div><div class="line"><span class="attr">  - platform:</span> <span class="string">mi_water_purifier</span></div><div class="line"><span class="attr">    host:</span> <span class="string">YOUR_SENSOR_IP</span></div><div class="line"><span class="attr">    token:</span> <span class="string">YOUR_SENSOR_TOKEN</span></div><div class="line"><span class="attr">    name:</span> <span class="string">YOUT_SENSOR_NAME</span></div></pre></td></tr></table></figure>
+<p>接入后自动会生成几项相关的传感器数值，如果需要集中查看，请使用群组：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="attr">group:</span></div><div class="line"><span class="attr">  - xiaomi_water_purifier:</span></div><div class="line"><span class="attr">    name:</span> <span class="string">Xiaomi</span> <span class="string">Water</span> <span class="string">Purifier</span></div><div class="line"><span class="attr">    icon:</span> <span class="attr">mdi:water</span></div><div class="line"><span class="attr">    entities:</span></div><div class="line"><span class="bullet">      -</span> <span class="string">sensor.tap_water</span></div><div class="line"><span class="bullet">      -</span> <span class="string">sensor.filtered_water</span></div><div class="line"><span class="bullet">      -</span> <span class="string">sensor.pp_cotton_filter</span></div><div class="line"><span class="bullet">      -</span> <span class="string">sensor.front_active_carbon_filter</span></div><div class="line"><span class="bullet">      -</span> <span class="string">sensor.ro_filter</span></div><div class="line"><span class="bullet">      -</span> <span class="string">sensor.rear_active_carbon_filter</span></div></pre></td></tr></table></figure>
+<hr>
+<h2 id="PM-2-5-监测仪"><a href="#PM-2-5-监测仪" class="headerlink" title="PM 2.5 监测仪"></a>PM 2.5 监测仪</h2><p>PM 2.5 监测仪插件由 bit3725 制作，欢迎前往 <a href="https://github.com/bit3725/homeassistant-mi-air-quality-monitor" target="_blank" rel="external">项目</a> 点赞~</p>
+<p>使用方法：从 Github 下载 <code>mi_air_quality_monitor.py</code>，放入 <code>custom_components/sensor/</code> 文件夹内（文件层级项目本身已经很清晰地给出了），在 <code>configuration.yaml</code> 添加如下设置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">sensor:</span></div><div class="line"><span class="attr">  - platform:</span> <span class="string">mi_air_quality_monitor</span></div><div class="line"><span class="attr">    host:</span> <span class="string">YOUR_SENSOR_IP</span></div><div class="line"><span class="attr">    token:</span> <span class="string">YOUR_SENSOR_TOKEN</span></div><div class="line"><span class="attr">    name:</span> <span class="string">YOUT_SENSOR_NAME</span></div></pre></td></tr></table></figure>
+<hr>
 <h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><ul>
+<li><p>12.04 增加小米净水器、pm 2.5 监测仪，token 获取教程；</p>
+</li>
 <li><p>11.21 增加空调伴侣网关支持；</p>
 </li>
 <li><p>11.20 大幅更新，删除所有 Homebridge 有关内容；</p>
@@ -485,24 +504,6 @@
 <li><p>10.11  更新空气净化器及支持列表；</p>
 </li>
 <li><p>09.28 小修正；</p>
-</li>
-<li><p>09.23 增加最新版本网关设置，HA 最新版本为 0.54.0；</p>
-</li>
-<li><p>09.17 小幅更新；</p>
-</li>
-<li><p>09.11 更新米家&amp;Aqara空调伴侣接入方法；</p>
-</li>
-<li><p>08.22 明确小米网关接入的秘钥大小写问题；</p>
-</li>
-<li><p>08.18 修改 Yeelight 部分内容，增加 Yeelight 床头灯 HB 连接方法；</p>
-</li>
-<li><p>08.14 更新扫地机器人配置方法；</p>
-</li>
-<li><p>08.08  关闭评论区；</p>
-</li>
-<li><p>07.30 伴随 HA 50.0 发布，更新设备支持列表；</p>
-</li>
-<li><p>07.23 修改设备支持列表，增加修改文件以适配 Zigbee 插座的方法，添加版本区分提醒。更新英文版小米设备支持列表。</p>
 </li>
 </ul>
 
@@ -797,7 +798,7 @@ tpwidget("show");</script>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Zigbee-设备（小米多功能网关）"><span class="nav-number">1.</span> <span class="nav-text">Zigbee 设备（小米多功能网关）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yeelight-灯具"><span class="nav-number">2.</span> <span class="nav-text">Yeelight 灯具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WiFi-插座及智能插线板"><span class="nav-number">3.</span> <span class="nav-text">WiFi  插座及智能插线板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新日志"><span class="nav-number">4.</span> <span class="nav-text">更新日志</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Zigbee-设备（网关类设备）"><span class="nav-number">1.</span> <span class="nav-text">Zigbee 设备（网关类设备）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yeelight-灯具"><span class="nav-number">2.</span> <span class="nav-text">Yeelight 灯具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#米家扫地机器人"><span class="nav-number">3.</span> <span class="nav-text">米家扫地机器人</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空气净化器"><span class="nav-number">4.</span> <span class="nav-text">空气净化器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空调伴侣"><span class="nav-number">5.</span> <span class="nav-text">空调伴侣</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WiFi-插座及智能插线板"><span class="nav-number">6.</span> <span class="nav-text">WiFi  插座及智能插线板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#净水器"><span class="nav-number">7.</span> <span class="nav-text">净水器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PM-2-5-监测仪"><span class="nav-number">8.</span> <span class="nav-text">PM 2.5 监测仪</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新日志"><span class="nav-number">9.</span> <span class="nav-text">更新日志</span></a></li></ol></div>
             
 
           </div>
