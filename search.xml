@@ -9,6 +9,14 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[Home Assistant 基础篇 —— 使用 Docker for Mac 安装]]></title>
+    <url>%2FHome-Assistant%2FHomeAssistant-docker%2F</url>
+    <content type="text"><![CDATA[既然是操作系统，MacOS 当然也可以使用传统的 Python 安装路线，但是如果想尝鲜或求快的同学，也不妨试试 Docker。Docker 发展至今在 MacOS 上的表现已经进化不少，再无需 Docker Toolbox 或者 Boot2Docker 的工具搭桥了。 首先，前往 官网 下载并安装最新版应用。 打开应用，稍等一会，点击工具栏的小鲸鱼图标，显示『Docker is running』就表示 Docker 进程已经开始运行了。 我们开始拉取并加载 HA 的最新 Docker 镜像（Image），这步也可以理解为安装 HA。 命令很简单，就一行： 1docker run -d --name=&quot;home-assistant&quot; -v /Users/cxlwill/Hass/mac_config:/config -e &quot;TZ= Asia/Chongqing&quot; -p 8123:8123 homeassistant/home-assistant 解读一下： --name=&quot;&quot; 是你将要创建的容器名称，你就理解为名称就好了 -v /Users/cxlwill/Hass/mac_config:/config 表示的是 HA 配置文件所在的文件夹，这里特别注意文件夹的路径到 : 号为止，也就是我这里展示的配置文件存放在 /Users/cxlwill/Hass/mac_config 文件夹内，剩余的 :/config 部分请原样保留 -e 是时区，-p 是端口，很好理解 最后的 homeassistant/home-assistant 就是镜像源了 运行后，等待下载一段时间，HA 就运行在 mac 所在 IP 段的 8123 端口上了。在浏览器中输入 http://IP:8123，HA 的界面就会出现了。 然后，就没有然后了。该怎么配置文件就怎么配置。 速度真的是惊人。 这里顺便再提一下更新，更新的时候我们必须先重命名一下容器，比如我此处是 home-assistant，那么就运行：docker rename home-assistant hass-old。 之后，拉取最新的HA 镜像：docker pull homeassistant/home-assistant。 接着，再重新运行一次『安装』的指令： 1docker run -d --name=&quot;home-assistant&quot; -v /Users/cxlwill/Hass/mac_config:/config -e &quot;TZ= Asia/Chongqing&quot; -p 8123:8123 homeassistant/home-assistant 最后，把旧的容器删除：docker rm hass-old。当然，最好是顺便删了旧的镜像。先 docker images 看看现有的镜像，然后 docker rmi 镜像 ID 删除旧版本的 HA 镜像。 聪明的朋友不难发现，这哪里是更新，简直就是重新创建了。恭喜你，对 Docker 的容器机制有了一个初步的认识。 如果你误操作了，傻傻分不清楚现在到底有几个 HA，可以输入 docker ps 查看当前存在的容器。之后该删的删，该更新的更新~]]></content>
+      <categories>
+        <category>Home Assistant</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[Home Assistant 提高篇 - 数据库替换]]></title>
     <url>%2FHome-Assistant%2FHomeAssistant-PostgreSQL%2F</url>
     <content type="text"><![CDATA[Home Assistant 原生使用 SQLite 作为数据库，使用体验如何大家肯定都有感触了：加载数据慢 + 数据文件庞大，必须换。需要声明的是数据库的替换并不会转移之前的数据，因此尽量在初次安装后即进行数据库替换工作。原数据都存放在配置文件夹的 home-assistant_v2.db文件中。 既然 HA 数据库是 SQL 架构，意味着我们的选择面很广。DB-Engines 上排名靠前的几个关系型数据库都能使用，例如 MySQL、MariaDB、PostgreSQL 和 MS SQL Server。本教程将重点放在 PostgreSQL 上。 首先很简单，安装 PostgreSQL： 1sudo apt install postgresql-9.6 postgresql-server-dev-9.6 版本号随着更新变动，请自行查证。 接着创建数据库用户，这里就要留意一下运行 HA 环境的用户名了。如果是通过 All-in-one 或者 Hassbian 安装的用户，用户名为 homeassistant： 1sudo -u postgres createuser homeassistant 其他安装环境用户请自行修改。 之后创建数据库，统一命名为 homeassistant，好记： 1sudo -u postgres createdb -O homeassistant homeassistant 然后安装 psycopg2，注意如果是在 Python 虚拟环境中运行的 HA，请进入虚拟环境后操作。例如，在 All-in-one 安装环境下： 123sudo su -s /bin/bash homeassistantsource /srv/homeassistant/homeassistant_venv/bin/activatepip3 install psycopg2 最后，在 HA 的配置文件 configuration.yaml 中添加以下字段： 12recorder: db_url: postgres://@/homeassistant 大功告成，重启 HA 后，新的数据库就正式启用了。初次启用需要一定时间生成数据，但是在之后的重启中你就能切实感受到 HA 迅速开启的快感了~~]]></content>
