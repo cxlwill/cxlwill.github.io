@@ -82,7 +82,7 @@
 <meta property="og:site_name" content="墨澜技术站">
 <meta property="og:description" content="本篇指南将指导大家如何在树莓派最新官方系统 Raspbian Stretch 中安装计算机视觉库 Opencv。该库常用于人脸识别等人工智能图像识别服务中。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-22T07:13:13.009Z">
+<meta property="og:updated_time" content="2017-12-06T03:41:33.846Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派 Raspbian Stretch 安装 OpenCV 指南">
 <meta name="twitter:description" content="本篇指南将指导大家如何在树莓派最新官方系统 Raspbian Stretch 中安装计算机视觉库 Opencv。该库常用于人脸识别等人工智能图像识别服务中。">
@@ -457,7 +457,7 @@
 </li>
 </ol>
 <h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><p>这里抓取下载的是最新版本 3.3.0，日后有新版本更新也可以更换版本号。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cd ~</div><div class="line">wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.3.0.zip</div><div class="line">unzip opencv.zip</div><div class="line">``` </div><div class="line">因为安装的是完整功能版本的 OpenCV，因此还要下一个带有附加模块的普通发行版：</div><div class="line"></div><div class="line">``` terminal</div><div class="line">wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.3.0.zip</div><div class="line">unzip opencv_contrib.zip</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">cd ~</div><div class="line">wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.3.0.zip</div><div class="line">unzip opencv.zip</div><div class="line">``` </div><div class="line"></div><div class="line">因为安装的是完整功能版本的 OpenCV，因此还要下一个带有附加模块的普通发行版：</div><div class="line"></div><div class="line">``` terminal</div><div class="line">wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.3.0.zip</div><div class="line">unzip opencv_contrib.zip</div></pre></td></tr></table></figure>
 <p>注意：源码和发行版的版本号要一致。</p>
 <h2 id="虚拟环境"><a href="#虚拟环境" class="headerlink" title="虚拟环境"></a>虚拟环境</h2><p>原作者本人非常提倡在 Python 虚拟环境中安装运行 OpenCV，毕竟库大又杂，不太好影响生产环境。这个问题我个人觉得是见仁见智了，正是因为虚拟环境完全独立于原生 Python 环境，如果要编译一些全局项目的话，反而不方便。我这里就选择跳过这段了。</p>
 <p>安装有 Home Assistant 的朋友可以考虑进入 HA 的虚拟环境中安装 OpenCV，也方便日后接入 HA 的时候调用库。不过操作前千万 <strong>记得备份</strong> ！！！</p>
