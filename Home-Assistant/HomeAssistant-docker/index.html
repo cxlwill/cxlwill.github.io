@@ -82,7 +82,7 @@
 <meta property="og:site_name" content="墨澜技术站">
 <meta property="og:description" content="应用容器引擎 Docker 多被使用于群晖系统的 HA 安装中，实际上 Docker for Mac 应用的存在也能大大简化 HA 在 MacOS 中的安装过程。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-06T15:03:44.059Z">
+<meta property="og:updated_time" content="2017-12-07T09:58:22.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 基础篇 —— 使用 Docker for Mac 安装">
 <meta name="twitter:description" content="应用容器引擎 Docker 多被使用于群晖系统的 HA 安装中，实际上 Docker for Mac 应用的存在也能大大简化 HA 在 MacOS 中的安装过程。">
@@ -386,7 +386,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  621 字
+                  686 字
                 </span>
               
 
@@ -402,7 +402,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  3 分钟
                 </span>
               
             </div>
@@ -450,6 +450,9 @@
 <p>最后，把旧的容器删除：<code>docker rm hass-old</code>。当然，最好是顺便删了旧的镜像。先 <code>docker images</code> 看看现有的镜像，然后 <code>docker rmi 镜像 ID</code> 删除旧版本的 HA 镜像。</p>
 <p>聪明的朋友不难发现，这哪里是更新，简直就是重新创建了。恭喜你，对 Docker 的容器机制有了一个初步的认识。</p>
 <p>如果你误操作了，傻傻分不清楚现在到底有几个 HA，可以输入 <code>docker ps</code> 查看当前存在的容器。之后该删的删，该更新的更新~</p>
+<p>想要一个 GUI 环境的话，操作其实也和其他系统安装的 Docker 一样，推荐使用 portainer。直接运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer</div></pre></td></tr></table></figure>
+<p>之后就有可视化的管理界面了。</p>
 
       
     </div>
