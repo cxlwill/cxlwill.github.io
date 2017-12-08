@@ -9,6 +9,14 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[Home Assistant 超越篇 —— 自制中文地图面板发布]]></title>
+    <url>%2FHome-Assistant%2FHomeAssistant-inkwavemap%2F</url>
+    <content type="text"><![CDATA[很高兴宣布，由我参与开发的 HA 自制中文地图面板今日正式上线啦！ 你是否对 HA 原生地图面板早就颇有怨言？单调的图层，复杂的图层替换，最要命的是每次更新，还得再重复一遍替换操作。好不容易替换完，扪心自问一下打开过面板几次呢？ 全新的中文地图面板就是为此而生的~~ 这个面板实现了： 高德地图、百度地图(coming soon)接入 自带坐标系转换(即地理位置纠偏) 显示/隐藏 交通态势 显示/隐藏 区域（zone）范围及家标签 显示/隐藏 Home Assistant 中 zone 及 device_tracker 信息 显示/隐藏 预算到家时间及路线轨迹 替代原有图层替换方法，不受 HA 更新影响，一步到位 更深入的介绍，欢迎观看 视频；详细的面板接入以及配置说明，请见项目 Github。 这个项目仅仅是我和伙伴的试水作品，欢迎各位的建议和 bug 反馈，让我们一起让 Home Assistant 生态更美好~~]]></content>
+      <categories>
+        <category>Home Assistant</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[Home Assistant 基础篇 —— 使用 Docker for Mac 安装]]></title>
     <url>%2FHome-Assistant%2FHomeAssistant-docker%2F</url>
     <content type="text"><![CDATA[既然是操作系统，MacOS 当然也可以使用传统的 Python 安装路线，但是如果想尝鲜或求快的同学，也不妨试试 Docker。Docker 发展至今在 MacOS 上的表现已经进化不少，再无需 Docker Toolbox 或者 Boot2Docker 的工具搭桥了。 首先，前往 官网 下载并安装最新版应用。 打开应用，稍等一会，点击工具栏的小鲸鱼图标，显示『Docker is running』就表示 Docker 进程已经开始运行了。 我们开始拉取并加载 HA 的最新 Docker 镜像（Image），这步也可以理解为安装 HA。 命令很简单，就一行： 1docker run -d --name=&quot;home-assistant&quot; -v /Users/cxlwill/Hass/mac_config:/config -e &quot;TZ= Asia/Chongqing&quot; -p 8123:8123 homeassistant/home-assistant 解读一下： --name=&quot;&quot; 是你将要创建的容器名称，你就理解为名称就好了 -v /Users/cxlwill/Hass/mac_config:/config 表示的是 HA 配置文件所在的文件夹，这里特别注意文件夹的路径到 : 号为止，也就是我这里展示的配置文件存放在 /Users/cxlwill/Hass/mac_config 文件夹内，剩余的 :/config 部分请原样保留 -e 是时区，-p 是端口，很好理解 最后的 homeassistant/home-assistant 就是镜像源了 运行后，等待下载一段时间，HA 就运行在 mac 所在 IP 段的 8123 端口上了。在浏览器中输入 http://IP:8123，HA 的界面就会出现了。 然后，就没有然后了。该怎么配置文件就怎么配置。 速度真的是惊人。 这里顺便再提一下更新，更新的时候我们必须先重命名一下容器，比如我此处是 home-assistant，那么就运行：docker rename home-assistant hass-old。 之后，拉取最新的HA 镜像：docker pull homeassistant/home-assistant。 接着，再重新运行一次『安装』的指令： 1docker run -d --name=&quot;home-assistant&quot; -v /Users/cxlwill/Hass/mac_config:/config -e &quot;TZ= Asia/Chongqing&quot; -p 8123:8123 homeassistant/home-assistant 最后，把旧的容器删除：docker rm hass-old。当然，最好是顺便删了旧的镜像。先 docker images 看看现有的镜像，然后 docker rmi 镜像 ID 删除旧版本的 HA 镜像。 聪明的朋友不难发现，这哪里是更新，简直就是重新创建了。恭喜你，对 Docker 的容器机制有了一个初步的认识。 如果你误操作了，傻傻分不清楚现在到底有几个 HA，可以输入 docker ps 查看当前存在的容器。之后该删的删，该更新的更新~ 想要一个 GUI 环境的话，操作其实也和其他系统安装的 Docker 一样，推荐使用 portainer。直接运行： 1docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer 之后就有可视化的管理界面了。]]></content>
