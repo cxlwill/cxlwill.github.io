@@ -96,7 +96,7 @@
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-12-%E6%A1%86%E6%9E%B6_meitu_3.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/26/27f32112a6d6c5806761fe8587ef3f06.jpg">
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-12-01.jpg">
-<meta property="og:updated_time" content="2017-12-15T02:13:47.410Z">
+<meta property="og:updated_time" content="2017-12-15T09:16:13.580Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 系列基础篇 - 系统安装">
 <meta name="twitter:description" content="本系列教程将介绍智能家居平台 Home Assistant 的安装及配置方法，由浅入深，欢迎大家持续关注。">
@@ -390,7 +390,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,349 字
+                  3,354 字
                 </span>
               
 
@@ -515,7 +515,7 @@
 <p>这里我做一个说明：桥梁和平台分工不同，不可能产生冲突，也就是原有 HB 配置当然可以保留。但是仅使用 HB 就是将设备直接接入 Apple Home 这个平台，而如果设备同时接入了同样是平台的 HASS，那么平台之间就会产生冲突，导致设备被重复识别添加。当然，我们可以进行进一步的设置避免这一点，我将在未来的 <a href="http://cxlwill.cn/Home-Assistant/HomeAssistant-Device-Access/">『设备接入篇』</a> 中详细介绍。</p>
 <p>对于初学者，我建议一个设备仅连接一个平台使用，即要么单接入 HA，要么通过安装 HB 插件的方式单接入 Apple Home。</p>
 <p>HB 的详细安装流程我就不多言了，欢迎大家参考其他教程。这里我根据之前指导他人的经验简单概括一下：</p>
-<p>HB 提供一行安装指令：<code>sudo npm install -g --unsafe-perm homebridge</code>， 如果安装不成功，大家再使用下面的手动安装指令。</p>
+<p>HB 提供一行安装指令：<code>sudo npm install -g --unsafe-perm homebridge</code>，请大家优先使用。如果安装不成功，再使用下面的手动安装指令。</p>
 <p><strong>注意：以下指令仅适用于树莓派 3B，2B 用户无法使用。</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install git make</div><div class="line">sudo apt-get install g++</div><div class="line">curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -</div><div class="line">sudo apt-get install -y nodejs</div><div class="line">sudo apt-get install libavahi-compat-libdnssd-dev</div><div class="line">sudo npm install -g --unsafe-perm homebridge hap-nodejs node-gyp</div><div class="line">cd /usr/local/lib/node_modules/homebridge/</div><div class="line">（注意这里如果显示不存在文件夹，替换成 cd /usr/lib/node_modules/homebridge/)</div><div class="line">sudo npm install --unsafe-perm bignum</div><div class="line">cd /usr/local/lib/node_modules/hap-nodejs/node_modules/mdns</div><div class="line">（注意这里如果显示不存在文件夹，替换成 cd /usr/lib/node_modules/hap-nodejs/node_modules/mdns）</div><div class="line">sudo node-gyp BUILDTYPE=Release rebuild</div></pre></td></tr></table></figure>
 <p>安装完成后，建议大家直接输入 <code>homebridge</code> 运行一次 HB，以生成示例配置文件，然后 Ctrl + C 退出。</p>
