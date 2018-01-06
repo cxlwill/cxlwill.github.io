@@ -96,7 +96,7 @@
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-12-%E6%A1%86%E6%9E%B6_meitu_3.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/26/27f32112a6d6c5806761fe8587ef3f06.jpg">
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-12-01.jpg">
-<meta property="og:updated_time" content="2017-12-15T09:16:13.580Z">
+<meta property="og:updated_time" content="2018-01-06T05:49:50.989Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 系列基础篇 - 系统安装">
 <meta name="twitter:description" content="本系列教程将介绍智能家居平台 Home Assistant 的安装及配置方法，由浅入深，欢迎大家持续关注。">
@@ -390,7 +390,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,354 字
+                  3,398 字
                 </span>
               
 
@@ -537,10 +537,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># Defaults / Configuration options for homebridge</div><div class="line"># The following settings tells homebridge where to find the config.json file and where to persist the data (i.e. pairing and others)</div><div class="line">HOMEBRIDGE_OPTS= /home/pi/.homebridge</div></pre></td></tr></table></figure>
 <p>Ctrl+X，Y，回车</p>
 <p>所有带有 # 字的行皆为注释，可整行删除不影响。上述指令的作用是指定 Homebridge 的配置文件及缓存所在文件夹。</p>
-<p>如果你想要 Homebridge 显示更详细的日志，可以继续添加如下字段 <code>DEBUG=*</code><br>之后 Ctrl+X，Y，回车。继续输入：</p>
+<p>如果你想要 Homebridge 显示更详细的日志，可以继续添加如下字段 <code>DEBUG=*</code><br>之后 Ctrl+X，Y，回车。</p>
+<p>继续输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd</div><div class="line">which homebridge</div></pre></td></tr></table></figure>
+<p><strong>记下系统反馈的路径</strong></p>
+<p>接着继续输入：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /etc/systemd/system</div><div class="line">sudo nano homebridge.service</div></pre></td></tr></table></figure>
 <p>复制粘贴</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[Unit]</div><div class="line">Description=Node.js HomeKit Server </div><div class="line">After=syslog.target network-online.target</div><div class="line">[Service]</div><div class="line">Type=simple</div><div class="line">User=homebridge</div><div class="line">EnvironmentFile=/etc/default/homebridge</div><div class="line">ExecStart=/usr/lib/node_modules/homebridge/bin/homebridge $HOMEBRIDGE_OPTS</div><div class="line">Restart=on-failure</div><div class="line">RestartSec=10</div><div class="line">KillMode=process</div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[Unit]</div><div class="line">Description=Node.js HomeKit Server </div><div class="line">After=syslog.target network-online.target</div><div class="line">[Service]</div><div class="line">Type=simple</div><div class="line">User=pi</div><div class="line">EnvironmentFile=/etc/default/homebridge</div><div class="line">ExecStart=/usr/lib/node_modules/homebridge/bin/homebridge $HOMEBRIDGE_OPTS</div><div class="line">Restart=on-failure</div><div class="line">RestartSec=10</div><div class="line">KillMode=process</div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div></pre></td></tr></table></figure>
+<p>其中 <code>ExecStart=</code> 后面跟着的路径填上上面系统反馈的路径，后面 <code>$HOMEBRIDGE_OPTS</code> 保留。</p>
 <p>Ctrl+X，Y，回车</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd /</div><div class="line">sudo systemctl daemon-reload</div><div class="line">sudo systemctl enable homebridge</div><div class="line">sudo systemctl start homebridge</div><div class="line">sudo systemctl status homebridge</div><div class="line">sudo systemctl enable mosquitto</div></pre></td></tr></table></figure>
 <p>最后重启：<code>sudo reboot</code></p>
@@ -867,7 +872,7 @@ tpwidget("show");</script>
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
