@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="墨澜技术站">
 <meta property="og:description" content="使用 PostgreSQL 替换原生数据库，显著提高 HA 开启速度。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-24T13:07:54.483Z">
+<meta property="og:updated_time" content="2018-01-07T04:47:25.362Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 提高篇 - 数据库替换">
 <meta name="twitter:description" content="使用 PostgreSQL 替换原生数据库，显著提高 HA 开启速度。">
@@ -386,7 +386,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  424 字
+                  425 字
                 </span>
               
 
@@ -418,7 +418,7 @@
         <p>Home Assistant 原生使用 SQLite 作为数据库，使用体验如何大家肯定都有感触了：加载数据慢 + 数据文件庞大，必须换。需要声明的是数据库的替换并不会转移之前的数据，因此尽量在初次安装后即进行数据库替换工作。原数据都存放在配置文件夹的 <code>home-assistant_v2.db</code>文件中。</p>
 <p>既然 HA 数据库是 SQL 架构，意味着我们的选择面很广。<a href="https://db-engines.com/en/ranking/relational+dbms" target="_blank" rel="external">DB-Engines</a> 上排名靠前的几个关系型数据库都能使用，例如 MySQL、MariaDB、PostgreSQL 和 MS SQL Server。本教程将重点放在 PostgreSQL 上。</p>
 <p>首先很简单，安装 PostgreSQL：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt install postgresql-9.6 postgresql-server-dev-9.6</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install postgresql-9.6 postgresql-server-dev-9.6</div></pre></td></tr></table></figure>
 <p>版本号随着更新变动，请自行查证。</p>
 <p>接着创建数据库用户，这里就要留意一下运行 HA 环境的用户名了。如果是通过 All-in-one 或者 Hassbian 安装的用户，用户名为 <code>homeassistant</code>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo -u postgres createuser homeassistant</div></pre></td></tr></table></figure>
