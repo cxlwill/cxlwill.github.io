@@ -17,6 +17,19 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[自制 Hassbian 本地化镜像发布]]></title>
+    <url>%2FHome-Assistant%2FMossbian%2F</url>
+    <content type="text"><![CDATA[随着 All-in-one 的下线，目前 Home Assistant 的阵营基本上分为两拨 ——Docker 和 Hassbian。相比于 Docker 镜像加载的天然加成，Hassbian 系统的客制化比较复杂。普遍的方法是备份已经完成的系统，然而此方法不但有暴露隐私文件的风险，更无法适配其他版本的树莓派甚至是不同容量的 TF 卡。 有鉴于此，我特别制作了一份本地化的 Hassbian 镜像 —— Mossbian。此版本镜像有几大优势： 镜像由脚本自动生成，非直接备份，适配所有型号树莓派以及各容量存储卡，和树莓派官方系统看齐。 自带 GUI 和必要系统依赖文件，删除部分幼教内容与 Minecraft、Libreoffice 等不常用应用，较原生 Hassbian 更丰富，较官方 Raspbian 更精简。 自带汉化版 Hassbian-scripts 工具包，一行指令安装与升级 HA、HB、MQTT、SMB 及 Appdeamon，和 HA 官方版同步。 自带 Pypi 阿里云源，npm 淘宝源与 apt-get 中国源，显著提升国内软件包安装速度。 自带中文语言包与中文输入法，方便使用。 所有功能和官方 Raspbian 基本相同，项目攻略随便看。 注：基于系统稳定性考虑，中文语言包和apt-get 已写入未启用，可自行调用。 镜像下载地址：百度云 欢迎大家试用并提出建议，反馈通道：QQ 群：515348788]]></content>
+      <categories>
+        <category>Home Assistant</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[杂]]></title>
+    <url>%2Funcategorized%2Fselftalking%2F</url>
+    <content type="text"><![CDATA[最近断断续续看了好几本书，刷了不少网课，挖了各种坑。 想要系统学一下 D3，一直没时间。懵懵懂懂也做了个智障小程序出来。又去看了看 LESS 和 SASS，觉得自己真是小看了CSS。 归根结底，JS 的代码基础太烂，深刻反省。 HA 这里争取这个月把视频课程结束掉吧，实话说，未来 HA 怎么发展也不知道。国内各有各的商业化的想法，国外也不太平。因为官方撤了 Alexa 虚拟 hue 的 方法，推动人使用 Cloud，被人指责 abuse 了社区的免费劳动力。 我觉得就当个兴趣爱好，有能力学学拍码谢谢插件就 OK 了。有的时候很害怕自己太过于深入某个事情，有点透支的感觉。不多不少，刚刚好最好~ 未知的知识还有那么多，好像分身成 N 个人不断学习，然而总是不太可能。 Google Map 总算回来了，虽然用的是高德的数据，其实我关心的反而是 API 有没有回来。不过想了想，大概就是高德的 API 吧 = =]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[Home Assistant 超越篇 —— 自制中文地图面板发布]]></title>
     <url>%2FHome-Assistant%2FHomeAssistant-inkwavemap%2F</url>
     <content type="text"><![CDATA[很高兴宣布，由我参与开发的 HA 自制中文地图面板今日正式上线啦！ 你是否对 HA 原生地图面板早就颇有怨言？单调的图层，复杂的图层替换，最要命的是每次更新，还得再重复一遍替换操作。好不容易替换完，扪心自问一下打开过面板几次呢？ 全新的中文地图面板就是为此而生的~~ 这个面板实现了： 高德地图、百度地图(coming soon)接入 自带坐标系转换(即地理位置纠偏) 显示/隐藏 交通态势 显示/隐藏 区域（zone）范围及家标签 显示/隐藏 Home Assistant 中 zone 及 device_tracker 信息 显示/隐藏 预算到家时间及路线轨迹 替代原有图层替换方法，不受 HA 更新影响，一步到位 更深入的介绍，欢迎观看 视频；详细的面板接入以及配置说明，请见项目 Github。 这个项目仅仅是我和伙伴的试水作品，欢迎各位的建议和 bug 反馈，让我们一起让 Home Assistant 生态更美好~~]]></content>
