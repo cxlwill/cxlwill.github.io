@@ -17,6 +17,14 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[Homebridge Web 管理界面]]></title>
+    <url>%2FHome-Assistant%2FHB-UI%2F</url>
+    <content type="text"><![CDATA[Homebridge 最近伴随着插件 homebridge-config-ui-x 更新到了回春之际。 最新版本的插件除了原有的 HB 概览页面以外竟然加入了设备管理界面，活生生把家庭应用搬到了网页上。为什么说这是创世之举？因为采用基于 Web 的页面就意味着全平台的通用性，现在除了 Siri 语音体验，安卓平台也可以享受到 Homebridge 带来的便利了。 乔布斯：………… 启用该页面的方法也很简单，安装插件之后以 Insecure 模式运行 Homebridge 即可 homebridge -I。大家也不要对这个不安全模式担心，只要不把端口转发到外网，走 Apple 的 iCloud 都是可以放心的。（云上贵州安不安全那我可说不准了……） 那已经将 HB 转为系统服务后台运行的用户怎么办呢？ 还不拖到篇末赞赏一下？ 编辑homebridge服务文件，我的文件路径是 /etc/systemd/system/homebridge.service，在 ExecStart=/usr/lib/node_modules/homebridge/bin/homebridge $HOMEBRIDGE_OPTS 的最后加一个 -I 即可。当然保存退出后不要忘记重载服务：sudo systemctl daemon-reload。重启 homebridge，web 管理页面就会出现了。 由于尚处于测试功能阶段，管理页面的各方面功能不是非常完善，例如名称的修改、全类型设备的支持等等。但是，不得不说已经是极具突破性的一步了！ 现在，没有 iOS 设备的你，一样可以享受 Apple Homekit 了~]]></content>
+      <categories>
+        <category>Home Assistant</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[自制 Hassbian 本地化镜像发布]]></title>
     <url>%2FHome-Assistant%2FMossbian%2F</url>
     <content type="text"><![CDATA[随着 All-in-one 的下线，目前 Home Assistant 的阵营基本上分为两拨 ——Docker 和 Hassbian。相比于 Docker 镜像加载的天然加成，Hassbian 系统的客制化比较复杂。普遍的方法是备份已经完成的系统，然而此方法不但有暴露隐私文件的风险，更无法适配其他版本的树莓派甚至是不同容量的 TF 卡。 有鉴于此，我特别制作了一份本地化的 Hassbian 镜像 —— Mossbian。此版本镜像有几大优势： 镜像由脚本自动生成，非直接备份，适配所有型号树莓派以及各容量存储卡，和树莓派官方系统看齐。 自带 GUI 和必要系统依赖文件，删除部分幼教内容与 Minecraft、Libreoffice 等不常用应用，较原生 Hassbian 更丰富，较官方 Raspbian 更精简。 自带汉化版 Hassbian-scripts 工具包，一行指令安装与升级 HA、HB、MQTT、SMB 及 Appdeamon，和 HA 官方版同步。 自带 Pypi 阿里云源，npm 淘宝源与 apt-get 中国源，显著提升国内软件包安装速度。 自带中文语言包与中文输入法，方便使用。 所有功能和官方 Raspbian 基本相同，项目攻略随便看。 注：基于系统稳定性考虑，中文语言包和apt-get 已写入未启用，可自行调用。 镜像下载地址：百度云 欢迎大家试用并提出建议，反馈通道：QQ 群：515348788]]></content>
