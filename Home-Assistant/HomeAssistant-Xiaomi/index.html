@@ -95,7 +95,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/30/8b2559b1d7e5f80029d0f6c7219f87c5.jpg">
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-10-11-xiaomi.jpg">
-<meta property="og:updated_time" content="2017-12-04T06:41:48.110Z">
+<meta property="og:updated_time" content="2018-03-21T02:34:33.486Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 系列基础篇 - 小米特别篇">
 <meta name="twitter:description" content="本篇教程将介绍将小米设备接入 HA 和 通过 Hombridge 接入 Apple Home 两大平台的方法，具体选择哪个方案，大家各取所需，有关平台选择和区别详见本系列之前的文章。">
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,218 字
+                  2,276 字
                 </span>
               
 
@@ -418,17 +418,19 @@
       
 
       
-        <p><strong><a href="https://jq.qq.com/?_wv=1027&amp;k=5ZGk07E" target="_blank" rel="external">欢迎加入 HA 技术讨论群：515348788</a></strong></p>
+        <p><strong>此教程正式停止更新，有关小米设备接入的完整攻略，请参考 <a href="https://home-assistant.cc/component/xiaomi/" target="_blank" rel="external">Home Assistant 中文文档小米设备章节</a>。</strong></p>
+<p><strong>更多精彩 Home Assistant 入门视频教程，欢迎前往 <a href="http://t.cn/RQv3NbT" target="_blank" rel="external">网易云课堂</a> 学习。</strong></p>
+<p><strong>欢迎加入 <a href="https://jq.qq.com/?_wv=1027&amp;k=5ZGk07E" target="_blank" rel="external">HA 技术讨论群：515348788</a>。</strong></p>
 <p>通过之前的<a href="http://cxlwill.cn/Home-Assistant/HomeAssistant-Installation/">『安装篇』</a>与<a href="http://cxlwill.cn/Home-Assistant/HomeAssistant-Device-Access/">『设备接入篇』</a>，相信大家对 Home Assistant 有了一定程度的认识。</p>
 <p>小米的智能家居设备物美价廉，博得了国内外不少用户的喜爱。不要不信，在 Home Assistant 官方论坛上，米家设备相关话题的热度一直居高不下。HA 在最新 50.0 版本中已经添加了对小米平台的官方支持。</p>
 <p><img src="https://cdn.sspai.com/2017/07/30/8b2559b1d7e5f80029d0f6c7219f87c5.jpg" alt="From: https://home-assistant.io/blog/2017/07/29/release-50/"></p>
 <p>我们知道小米生态链挺复杂，紫米、绿米各种子公司。不管牌怎么换，对于集成平台来说，想要一统江湖，我们只需关心设备的传输协议即可。</p>
 <p>目前有一个简单粗暴的标准，即如果一个设备需要小米多功能网关才可以使用，一般来说它采用的是 Zigbee 协议，那么只要网关接入了 HA 就可以完美适配。而如果一个设备是独立接入网络的，比如米家 Wi-Fi 插座、扫地机器人、Yeelight 灯具等，我们则需要单独在 HA 里接入它们。</p>
 <p>类似的标准也适用于 Homeridge，homebridge-mi-aqara 插件正常情况下只支持 Zigbee 设备，其他设备需要另安装插件。</p>
-<p><strong>本篇教程将介绍将小米设备接入 HA 的方法，如果你打算通过 HB 直连，请参考 <a href="https://homekit.loli.ren/" target="_blank" rel="external">渣渣米大大的教程</a>，本教程不再涉及。具体选择哪个方案，大家各取所需，有关平台选择和区别详见本系列之前的文章。</strong></p>
+<p><strong>本篇教程将介绍将小米设备接入 HA 的方法，如果你打算通过 HB 直连，请参考 <a href="https://http://wiki.yinhh.com/" target="_blank" rel="external">智能家居百科</a>，本教程不再涉及。具体选择哪个方案，大家各取所需，有关平台选择和区别详见本系列之前的文章。</strong></p>
 <p>下图是我个人独立整理的小米生态链部分设备支持列表（中英双语）：</p>
 <p><img src="http://oeoj44yho.bkt.clouddn.com/2017-10-11-xiaomi.jpg" alt="支持列表 10.11"></p>
-<p>表格使用 <a href="https://docs.google.com/spreadsheets/d/1LI0n_aK-9TuKXrz-PPOAbVuaN8JUj70s5F0MyK8FtsM/edit?usp=sharing" target="_blank" rel="external">Google SpreadSheet</a> 编辑，将会不断更新。国内朋友可访问『<a href="https://www.jianguoyun.com/p/DYFO3Y8Qp5HMBhiQjzw" target="_blank" rel="external">坚果云</a>』获取。。</p>
+<p>表格使用 <a href="https://docs.google.com/spreadsheets/d/1LI0n_aK-9TuKXrz-PPOAbVuaN8JUj70s5F0MyK8FtsM/edit?usp=sharing" target="_blank" rel="external">Google SpreadSheet</a> 编辑，将会不断更新。国内朋友可访问<a href="https://www.jianguoyun.com/p/DYFO3Y8Qp5HMBhiQjzw" target="_blank" rel="external">坚果云</a> 获取。。</p>
 <p><strong>在此欢迎各位朋友向我提供支持信息或内容纠正，直接在表格内评论即可。</strong></p>
 <p>下面我们以<strong>传输协议</strong>为划分标准，分别介绍小米设备接入智能家居系统的方法：</p>
 <p><strong>需要提点的是，今后只要是Wifi的设备，都将通过 <code>xiaomi_miio</code>接入，Zigbee 设备则统一是 <code>xiaomi_aqara</code>。</strong></p>
@@ -833,7 +835,7 @@ tpwidget("show");</script>
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">30.5k</span>
+    <span title="Site words total count">29.8k</span>
   
 </div>
 

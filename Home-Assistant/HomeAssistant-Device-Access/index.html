@@ -97,8 +97,8 @@
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/30/a12570a56afa72143ea842790a4dbcb3.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/30/769d4a78065db8ce46fdf7e546d6b21d.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/19/9da22ed3c7e53ae1d939888e292f4ef2.jpg">
-<meta property="og:image" content="https://cdn.sspai.com/2017/07/26/a03014830a2fb8e4341d130c87ad0171.jpeg">
-<meta property="og:updated_time" content="2018-01-10T07:25:46.021Z">
+<meta property="og:image" content="http://p5kkxbt8j.bkt.clouddn.com/2018-03-16-HADashboard.jpg">
+<meta property="og:updated_time" content="2018-03-21T02:26:23.794Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 系列基础篇 - 设备接入">
 <meta name="twitter:description" content="相信大家通过之前的『安装篇』已经成功安装了 Home Assistant 和 Homebridge，在这篇文章中，我将带领大家接入智能家居设备。">
@@ -392,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,979 字
+                  1,752 字
                 </span>
               
 
@@ -437,24 +437,12 @@
 <p>其中，woeid是城市代码，打开雅虎天气官网输入城市后搜索，url的最后几位数字便是</p>
 <p><img src="https://cdn.sspai.com/2017/07/19/47e7e98415e250b485839cedc5773fad.jpg" alt="woeid"></p>
 <p>保存，重启 HASS。</p>
-<p>恭喜你，接入了第一个 HASS 组件~ 现在你大概明白 HASS 是怎么个操作原理了，HASS 支持上千款智能家居设备，你可以<a href="https://home-assistant.io/components/" target="_blank" rel="external">到此</a>寻找你的设备按上述方法接入。</p>
-<p>如果你是果家用户，需要 Homekit 服务，那么我们还需要转到 Homebridge 进行相关设置。</p>
+<p>恭喜你，接入了第一个 HASS 组件~ 现在你大概明白 HASS 是怎么个操作原理了，HASS 支持上千款智能家居设备，你可以 <a href="https://home-assistant.cc/component/" target="_blank" rel="external">到此</a> 寻找你的设备按上述方法接入。</p>
+<p>如果你通过 <a href="http://cxlwill.cn/Home-Assistant/HomeAssistant-Installation/">前文</a> 安装了 homebridge 插件，那么现在你可以轻松地将接入 Hass 的设备对接到手机上的『家庭』应用，实现 Siri 的控制。一切都是自动进行的。</p>
 <hr>
-<h2 id="Homebridge-设置"><a href="#Homebridge-设置" class="headerlink" title="Homebridge 设置"></a>Homebridge 设置</h2><p>执行指令前，请先运行一次 Homebridge。<strong>注意：如果添加了开机自启任务，勿重复运行 Homebridge，否则会出现端口占用错误。</strong></p>
-<p><strong>Homebridge - homeassistant 插件版本为 2.3.0 以上的，特别注意添加最后一行配置，否则家庭 app 内设备为空。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /home/pi/.homebridge</div><div class="line">sudo nano config.json</div></pre></td></tr></table></figure>
-<p>复制粘贴</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">"bridge"</span>: &#123;</div><div class="line">		<span class="attr">"name"</span>: <span class="string">"Homebridge"</span>,</div><div class="line">		<span class="attr">"username"</span>: <span class="string">"CC:22:3D:E3:CE:30"</span>,</div><div class="line">		<span class="attr">"port"</span>: <span class="number">51826</span>,</div><div class="line">		<span class="attr">"pin"</span>: <span class="string">"123-45-678"</span></div><div class="line">	&#125;,</div><div class="line">	<span class="attr">"platforms"</span>: [&#123;</div><div class="line">		<span class="attr">"platform"</span>: <span class="string">"HomeAssistant"</span>,</div><div class="line">		<span class="attr">"name"</span>: <span class="string">"HomeAssistant"</span>,</div><div class="line">		<span class="attr">"host"</span>: <span class="string">"http://127.0.0.1:8123"</span>,</div><div class="line">		<span class="attr">"password"</span>: <span class="string">"yourapipassword"</span>,</div><div class="line">		<span class="attr">"supported_types"</span>: [<span class="string">"automation"</span>, <span class="string">"binary_sensor"</span>, <span class="string">"climate"</span>, <span class="string">"cover"</span>, <span class="string">"device_tracker"</span>, <span class="string">"fan"</span>, <span class="string">"group"</span>, <span class="string">"input_boolean"</span>, <span class="string">"light"</span>, <span class="string">"lock"</span>, <span class="string">"media_player"</span>, <span class="string">"remote"</span>, <span class="string">"scene"</span>, <span class="string">"script"</span>, <span class="string">"sensor"</span>, <span class="string">"switch"</span>, <span class="string">"vacuum"</span>],</div><div class="line">		<span class="attr">"default_visibility"</span>: <span class="string">"visible"</span>,</div><div class="line">		<span class="attr">"logging"</span>: <span class="literal">true</span>,</div><div class="line">		<span class="attr">"verify_ssl"</span>: <span class="literal">false</span></div><div class="line">	&#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>ctrl+x，y，回车。之后清除 Homebridge 的缓存：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">sudo rm -rf /home/pi/.homebridge/persist/</div></pre></td></tr></table></figure>
-<p><strong>请大家记住此步指令，今后若出现重新配置 HA、HB 导致 iOS 设备无法识别新设备或树莓派的，大部分情况均可以使用此指令解决。</strong></p>
-<p>这样我们就完成了 Homebridge 的设置，重启Homebridge：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">sudo systemctl restart homebridge</div></pre></td></tr></table></figure>
-<p>经过上述设置，我相信你的智能家居设备已经在 HA 和 HB 里稳定运转了，现在不妨尝试使用 Siri 操控你的设备。</p>
-<hr>
-<h2 id="鹬蚌相争？"><a href="#鹬蚌相争？" class="headerlink" title="鹬蚌相争？"></a>鹬蚌相争？</h2><p>在之前的 <a href="https://sspai.com/post/38849" target="_blank" rel="external">安装篇</a> 中我们知道 Homebridge 本身可以通过安装插件的方式将智能设备接入 Apple Home 平台，有的时候设备同时支持 HASS 和 Apple Home 2 个平台，这时我们就面临平台选择。</p>
-<p>首先，这个问题只存在 iOS 以及未来的 macOS 用户身上，因为只有你们可以使用 Siri，才可以痛并快乐着。 对于其他终端系统的用户而言，要么和设备厂家的 app 斗智斗勇，要么享受 HASS 网页操控的快感，至于语音控制，就还需等待了。</p>
-<p>其次，以米家设备为例，同是网关，HASS 可以控制夜灯功能，获取光感数据，Homekit 则不能；而针对扫地机器人，HASS 的接入方法十分复杂，且现阶段只能实现开关功能，HB 的插件安装配置更为容易，且可以控制吸力……可以说两个平台之间没有绝对的胜者，都需要具体情况具体分析。个人认为大多数情况下，HASS 对设备的支持更好，并且基于社群支持，跟进速度也更快。</p>
+<h2 id="鹬蚌相争？"><a href="#鹬蚌相争？" class="headerlink" title="鹬蚌相争？"></a>鹬蚌相争？</h2><p>在之前的 <a href="https://sspai.com/post/38849" target="_blank" rel="external">安装篇</a> 中我们知道 Homebridge 本身可以通过安装插件的方式将智能设备接入 Apple Home 平台，有的时候设备同时支持 HASS 和 Apple Homekit 2 个平台，这时我们就面临平台选择。</p>
+<p>首先，这个问题似乎只存在 iOS 以及未来的 macOS 用户身上，因为只有你们可以使用 Siri，才可以痛并快乐着。 对于其他终端系统的用户而言，要么和设备厂家的 app 斗智斗勇，要么享受 HASS 网页操控的快感，至于语音控制，就还需等待了。当然，Homebridge 现在也支持 Web UI 操作，详见 <a href="http://cxlwill.cn/Home-Assistant/HB-UI/">此文</a>，只是各方面还不完善。总体来说，HB 目前还是为 Apple 生态用户准备的。</p>
+<p>其次，Hass 和 HB 对设备的支持度不一，两个平台之间没有绝对的胜者，都需要具体情况具体分析。个人认为大多数情况下，Hass 对设备的支持更好，并且基于社群支持，跟进速度也更快。采用设备自动映射支持的方式，也避免了要安装一堆 HB 插件的麻烦。</p>
 <p>在这里再次提醒初学者：<strong>二者必取其一</strong>，同一设备请通过一个平台接入，否则将产生冲突。</p>
 <hr>
 <p>对于已经将设备通过 HB 接入，但想转入 HASS 平台的派友，这里提供如下兼容方案：</p>
@@ -481,11 +469,14 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">devicename: </div><div class="line">  name: Friendly Name #昵称</div><div class="line">  mac: EA:AA:55:E7:C6:94 #mac地址</div><div class="line">  picture: https://home-assistant.io/images/favicon-192x192.png #图片</div><div class="line">  icon: mdi:human-female #图标，和图片取一个设置</div><div class="line">  track: yes #是否追踪</div><div class="line">  hide_if_away: no #离开后是否自动隐藏</div></pre></td></tr></table></figure>
 <hr>
 <p>在接下来的教程中，我将指导大家如何进行自动化配置，真正实现人工智能，摆脱遥控的束缚、更换主题，展现个性、设置简洁大方的控制面板等等等等</p>
-<p><img src="https://cdn.sspai.com/2017/07/26/a03014830a2fb8e4341d130c87ad0171.jpeg" alt="HADashboard"></p>
-<p>敬请期待~</p>
+<p><img src="http://p5kkxbt8j.bkt.clouddn.com/2018-03-16-HADashboard.jpg" alt="HADashboard"></p>
+<p><strong>更多精彩 Home Assistant 入门视频教程，欢迎前往<a href="http://t.cn/RQv3NbT" target="_blank" rel="external">网易云课堂</a>学习。</strong></p>
 <hr>
 <h2 id="Changelog"><a href="#Changelog" class="headerlink" title="Changelog"></a>Changelog</h2><ul>
-<li>8.5 更改 config.json 设置路径，增加删除 HB 缓存方法。</li>
+<li><p>2018.3.21 大幅更改</p>
+</li>
+<li><p>2017.8.5 更改 config.json 设置路径，增加删除 HB 缓存方法。</p>
+</li>
 </ul>
 
       
@@ -788,7 +779,7 @@ tpwidget("show");</script>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HASS-配置框架"><span class="nav-number">1.</span> <span class="nav-text">HASS 配置框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主文件设置"><span class="nav-number">2.</span> <span class="nav-text">主文件设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Homebridge-设置"><span class="nav-number">3.</span> <span class="nav-text">Homebridge 设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#鹬蚌相争？"><span class="nav-number">4.</span> <span class="nav-text">鹬蚌相争？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设备追踪设置"><span class="nav-number">5.</span> <span class="nav-text">设备追踪设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Changelog"><span class="nav-number">6.</span> <span class="nav-text">Changelog</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HASS-配置框架"><span class="nav-number">1.</span> <span class="nav-text">HASS 配置框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主文件设置"><span class="nav-number">2.</span> <span class="nav-text">主文件设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#鹬蚌相争？"><span class="nav-number">3.</span> <span class="nav-text">鹬蚌相争？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设备追踪设置"><span class="nav-number">4.</span> <span class="nav-text">设备追踪设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Changelog"><span class="nav-number">5.</span> <span class="nav-text">Changelog</span></a></li></ol></div>
             
 
           </div>
@@ -822,7 +813,7 @@ tpwidget("show");</script>
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">30.5k</span>
+    <span title="Site words total count">29.8k</span>
   
 </div>
 
