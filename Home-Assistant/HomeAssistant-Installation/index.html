@@ -97,7 +97,7 @@
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1fp7r48e7coj31kw0n67a5.jpg">
 <meta property="og:image" content="https://cdn.sspai.com/2017/07/26/27f32112a6d6c5806761fe8587ef3f06.jpg">
 <meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2017-08-12-01.jpg">
-<meta property="og:updated_time" content="2018-03-21T02:15:10.667Z">
+<meta property="og:updated_time" content="2018-04-14T02:34:16.936Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 系列基础篇 - 系统安装">
 <meta name="twitter:description" content="本系列教程将介绍智能家居平台 Home Assistant 的安装及配置方法，由浅入深，欢迎大家持续关注。">
@@ -391,7 +391,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,704 字
+                  2,736 字
                 </span>
               
 
@@ -420,7 +420,7 @@
       
 
       
-        <p><strong>有关 Home Assistant 的一切问题，请优先参阅 <a href="https://home-assistant.cc" target="_blank" rel="external">Home Assistant 中文文档</a></strong></p>
+        <p><strong>有关 Home Assistant 的一切问题，请优先参阅 <a href="https://home-assistant.cc" target="_blank" rel="external">Home Assistant 中文文档</a> 以及<a href="https://home-assistant.io" target="_blank" rel="external">官方英文文档</a></strong> </p>
 <p><strong>欢迎加入 <a href="https://jq.qq.com/?_wv=1027&amp;k=5ZGk07E" target="_blank" rel="external">HA 技术讨论群：515348788</a></strong></p>
 <p>Home Assistant 是一个成熟完整的基于 Python 的智能家居系统，设备支持度高，支持自动化（Automation)、群组化（Group）、UI 客制化（Theme) 等等高度定制化设置。背后又有庞大的社群基础，且不断在更新。最重要的是我们可以通过 Homeassistant-homebridge 插件打通两个平台，同样实现设备的 Siri 控制。整套体系的框架如下：</p>
 <p><img src="http://oeoj44yho.bkt.clouddn.com/2017-08-12-%E6%A1%86%E6%9E%B6_meitu_3.jpg" alt="基本框架"></p>
@@ -511,14 +511,14 @@
 </li>
 <li><p>其他功能和官方 Raspbian 基本相同，现有树莓派项目攻略可任意参考套用。</p>
 </li>
-<li><p>最新 0.3.0 版 Mossbian 已配合 Raspbian 2018年3月更新，适用新出的树莓派 3B+。 </p>
+<li><p>最新 0.3.0 版 Mossbian 已配合 Raspbian 2018 年 3 月更新，适用新出的树莓派 3B+。 </p>
 </li>
 </ol>
 <hr>
 <h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><blockquote>
 <p>官方 Hassbian 镜像安装步骤与此相同，可类比参考。</p>
 </blockquote>
-<p>首先使用镜像刷写工具 Etcher 刷入最新<a href="https://pan.baidu.com/s/1jJ1Cp4i" target="_blank" rel="external">固件镜像</a>。</p>
+<p>首先使用镜像刷写工具 Etcher 刷入最新 <a href="https://pan.baidu.com/s/1jJ1Cp4i" target="_blank" rel="external">固件镜像</a>。</p>
 <p>要注意的是，Mossbian 初次启动时需要联网进行初始下载设置，因此请保证树莓派在有网（有线/无线）环境下。初始 WIFI 设置：</p>
 <ol>
 <li><p>将 TF 卡通过读卡器插入电脑；</p>
@@ -530,16 +530,16 @@
 </li>
 </ol>
 <p>镜像默认开机联网状态下将自动下载安装 Home Assistant。安装需要一定时间，安装成功后 Home Assistant 将自动启动。注意：初次启动后 HA 后台还将会下载大量依赖，<strong>因此上述所有步骤将耗时一定时间，请耐心等待。</strong></p>
-<p>正常情况下，等待约15-20分钟后，在局域网任意设备打开浏览器登陆 <a href="http://树莓派" target="_blank" rel="external">http://树莓派</a> IP:8123 则可进入 Home Assistant 页面，超过半小时仍未出现页面，请进行安装排错：</p>
+<p>正常情况下，等待约15-20分钟后，在局域网任意设备打开浏览器登陆 <code>http://树莓派 IP:8123</code> 则可进入 Home Assistant 页面，超过半小时仍未出现页面，请进行安装排错：</p>
 <ol>
 <li>确认 Home Assistant 自动安装服务是否启动：<code>sudo systemctl status install_homeassistant -l</code>,<code>active</code> 表示正在安装，<code>inactive(dead)</code>表示安装脚本已经执行完毕，具体成功或失败详见反馈的日志。如果安装失败，请尝试强制手动安装：<code>sudo hassbian-config install homeassistant -F</code> （旧版中 <code>-F</code> 为 <code>-f</code>）</li>
 <li>确认 Home Assistant 运行状态：<code>sudo systemctl status home-assistant@homeassistant.service</code>，<code>active</code>表示正在运行。出现类似下图日志表示正在安装依赖，请再等待：<img src="https://ws3.sinaimg.cn/large/006tNc79gy1fp7r48e7coj31kw0n67a5.jpg" alt=""></li>
 </ol>
 <hr>
-<p>注：官方 Hassbian 默认没有 GUI，但我们可以手动安装，最终实现和 Mossbian 一样的效果（但缺少大量软件包和本地化配置工具）。</p>
+<p>注：官方 Hassbian 默认没有 GUI，但我们可以手动安装，最终实现和 Mossbian 一样的效果（<strong>但缺少大量软件包和中文配置工具</strong>）。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install --no-install-recommends xserver-xorg</div><div class="line">sudo apt-get install --no-install-recommends xinit</div><div class="line">sudo apt-get install --no-install-recommends raspberrypi-ui-mods lxterminal gvfs</div></pre></td></tr></table></figure>
 <hr>
-<p>如果使用此方法，未来更新指令如下：</p>
+<p>Mossbian(Hassbian) 未来 HA 更新指令如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo hassbian-config upgrade homeassistant</div></pre></td></tr></table></figure>
 <hr>
 <h2 id="Hass-io"><a href="#Hass-io" class="headerlink" title="Hass.io"></a>Hass.io</h2><p>此方法目前只适用于全系列树莓派及 Intel NUC，关于 Hass.io 更深入的介绍详见『<a href="http://cxlwill.cn/Home-Assistant/HomeAssistant-Hass-io/">Hass.io 特别篇</a>』。</p>
@@ -555,7 +555,7 @@
 <p>更多可安装软件包请参阅 <a href="https://home-assistant.cc/installation/raspberrypi/mossbian/" target="_blank" rel="external">Home Assistant 中文文档 Mossbian 章节</a>。</p>
 <h3 id="SMB（建议）"><a href="#SMB（建议）" class="headerlink" title="SMB（建议）"></a>SMB（建议）</h3><p>SMB 可以帮助我们开启树莓派的网盘模式，方便未来文件传输。</p>
 <p>安装指令：<code>sudo hassbian-config install samba</code></p>
-<p>安装后默认打开 Home Assistant 配置文件的局域网共享</p>
+<p>安装后默认打开 Home Assistant 配置文件的局域网共享。</p>
 <hr>
 <h3 id="MQTT"><a href="#MQTT" class="headerlink" title="MQTT"></a>MQTT</h3><p>MQTT 是基于二进制消息的发布、订阅编程模式的消息协议，广泛用于物联网部署中。</p>
 <p>安装指令：<code>sudo hassbian-config install mosquitto</code></p>
@@ -566,20 +566,19 @@
 <p>这里我做一个说明：桥梁和平台分工不同，不可能产生冲突，也就是原有 HB 配置当然可以保留。但是仅使用 HB 就是将设备直接接入 Apple Home 这个平台，而如果设备同时接入了同样是平台的 HASS，那么平台之间就会产生冲突，导致设备被重复识别添加。当然，我们可以进行进一步的设置避免这一点，我将在未来的 <a href="http://cxlwill.cn/Home-Assistant/HomeAssistant-Device-Access/">『设备接入篇』</a> 中详细介绍。</p>
 <p>对于<strong>初学者</strong>，我建议一个设备仅连接一个平台使用，即要么单接入 HA，要么通过安装 HB 插件的方式单接入 Apple Homekit。</p>
 <hr>
-<p>Mossbian 中 HB 的安装非常简单：<code>sudo hassbian-config install homebridge</code>，安装完成后，<code>homebridge</code> 和 HA 联动插件均已安装并自动启动。</p>
+<p>Mossbian 中 HB 的安装非常简单：<code>sudo hassbian-config install homebridge</code>，安装完成后，<code>homebridge</code> 、HA 联动插件以及图形化  Web UI 均已安装并自动启动，在局域网任意设备打开浏览器登陆 <code>http://树莓派 IP:8120</code> 即可打开 <code>Homebridge</code> 页面。</p>
 <hr>
-<p>如果不想使用工具包，（自虐倾向）手动安装的方法是：</p>
-<p>一行安装指令：<code>sudo npm install -g --unsafe-perm homebridge</code>，请大家优先使用。如果安装不成功，再使用下面的手动安装指令。</p>
+<p>如果不想使用工具包，（<strong>自虐倾向</strong>）手动安装的方法是：<code>sudo npm install -g --unsafe-perm homebridge</code>。如果安装不成功，再使用下面的手动安装指令。</p>
 <p><strong>注意：以下指令树莓派 zero 用户无法使用。</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install git make</div><div class="line">sudo apt-get install g++</div><div class="line">curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -</div><div class="line">sudo apt-get install -y nodejs</div><div class="line">sudo apt-get install libavahi-compat-libdnssd-dev</div><div class="line">sudo npm install -g --unsafe-perm homebridge hap-nodejs node-gyp</div><div class="line">cd /usr/local/lib/node_modules/homebridge/</div><div class="line">（注意这里如果显示不存在文件夹，替换成 cd /usr/lib/node_modules/homebridge/)</div><div class="line">sudo npm install --unsafe-perm bignum</div><div class="line">cd /usr/local/lib/node_modules/hap-nodejs/node_modules/mdns</div><div class="line">（注意这里如果显示不存在文件夹，替换成 cd /usr/lib/node_modules/hap-nodejs/node_modules/mdns）</div><div class="line">sudo node-gyp BUILDTYPE=Release rebuild</div></pre></td></tr></table></figure>
 <p>手动安装之后输入 <code>homebridge</code> 运行一次 HB，以生成示例配置文件，然后 Ctrl + C 退出。</p>
 <p>接着，安装 <code>Homeassistant-homebridge</code> 插件，实现平台联动：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo npm install -g homebridge-homeassistant</div></pre></td></tr></table></figure>
-<p>日后插件更新，请使用下列指令：</p>
+<p>手动方法安装的，日后插件更新，请使用下列指令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo npm upgrade -g homebridge-homeassistant</div></pre></td></tr></table></figure>
 <hr>
 <p>到此为止基本大功告成，我将在下一篇「<a href="http://cxlwill.cn/Home-Assistant/HomeAssistant-Device-Access/">设备接入篇</a>」中继续介绍如何将智能家居设备接入 HASS。</p>
-<p><strong>更多精彩 Home Assistant 入门视频教程，欢迎前往<a href="http://t.cn/RQv3NbT" target="_blank" rel="external">网易云课堂</a>学习。</strong></p>
+<p><strong>更多精彩 Home Assistant 入门视频教程，欢迎前往 <a href="http://t.cn/RQv3NbT" target="_blank" rel="external">网易云课堂</a> 学习。</strong></p>
 
       
     </div>
