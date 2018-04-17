@@ -17,6 +17,14 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[Home Assistant 提高篇 - 数据库替换]]></title>
+    <url>%2FHome-Assistant%2FHomeAssistant-PostgreSQL%2F</url>
+    <content type="text"><![CDATA[Home Assistant 原生使用 SQLite 作为数据库，使用体验如何大家肯定都有感触了：加载数据慢 + 数据文件庞大，必须换。需要声明的是数据库的替换并不会转移之前的数据，因此尽量在初次安装后即进行数据库替换工作。原数据都存放在配置文件夹的 home-assistant_v2.db文件中。 既然 HA 数据库是 SQL 架构，意味着我们的选择面很广。DB-Engines 上排名靠前的几个关系型数据库都能使用，例如 MySQL、MariaDB、PostgreSQL 和 MS SQL Server。本教程将重点放在 PostgreSQL 上。 Mossbian(Hassbian) 用户只需要一行指令就可以安装软件包和相关依赖了：sudo hassbian-config install postgresql 但是数据库和用户都需要手动创建，请参考下文。 手动安装方法如下： 安装 PostgreSQL： 1sudo apt-get install postgresql-9.6 postgresql-server-dev-9.6 版本号随着更新变动，请自行查证。 然后安装 psycopg2，注意如果是在 Python 虚拟环境中运行的 HA，请进入虚拟环境后操作。当然，Mossbian 脚本安装的用户无须此步。 123sudo su -s /bin/bash homeassistantsource /srv/homeassistant/homeassistant_venv/bin/activatepip3 install psycopg2 接着创建数据库用户，这里就要留意一下运行 HA 环境的用户名了。如果是通过 All-in-one 或者 Hassbian 安装的用户，用户名为 homeassistant，密码也设为 homeassistant，好记： 1234sudo -u postgres createuser homeassistantsudo -u postgres psqlALTER USER homeassistant WITH PASSWORD &apos;homeassistant&apos;;\q 其他安装环境用户请自行修改。 之后创建数据库，统一命名为 homeassistant，好记： 1sudo -u postgres createdb -O homeassistant homeassistant 最后，在 HA 的配置文件 configuration.yaml 中添加以下字段： 12recorder: db_url: postgres://homeassistant:homeassistant@localhost/homeassistant 大功告成，重启 HA 后，新的数据库就正式启用了。初次启用需要一定时间生成数据，但是在之后的重启中你就能切实感受到 HA 迅速开启的快感了~~]]></content>
+      <categories>
+        <category>Home Assistant</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[Homebridge Web 管理界面]]></title>
     <url>%2FHome-Assistant%2FHB-UI%2F</url>
     <content type="text"><![CDATA[Homebridge 最近伴随着插件 homebridge-config-ui-x 更新到了回春之际。 最新版本的插件除了原有的 HB 概览页面以外竟然加入了设备管理界面，活生生把家庭应用搬到了网页上。为什么说这是创世之举？因为采用基于 Web 的页面就意味着全平台的通用性，现在除了 Siri 语音体验，安卓平台也可以享受到 Homebridge 带来的便利了。 乔布斯：………… 启用该页面的方法也很简单，安装插件之后以 Insecure 模式运行 Homebridge 即可 homebridge -I。大家也不要对这个不安全模式担心，只要不把端口转发到外网，走 Apple 的 iCloud 都是可以放心的。（云上贵州安不安全那我可说不准了……） 那已经将 HB 转为系统服务后台运行的用户怎么办呢？ 还不拖到篇末赞赏一下？ 编辑homebridge服务文件，我的文件路径是 /etc/systemd/system/homebridge.service，在 ExecStart=/usr/lib/node_modules/homebridge/bin/homebridge $HOMEBRIDGE_OPTS 的最后加一个 -I 即可。当然保存退出后不要忘记重载服务：sudo systemctl daemon-reload。重启 homebridge，web 管理页面就会出现了。 由于尚处于测试功能阶段，管理页面的各方面功能不是非常完善，例如名称的修改、全类型设备的支持等等。但是，不得不说已经是极具突破性的一步了！ 现在，没有 iOS 设备的你，一样可以享受 Apple Homekit 了~]]></content>
@@ -49,14 +57,6 @@
     <title><![CDATA[Home Assistant 基础篇 —— 使用 Docker for Mac 安装]]></title>
     <url>%2FHome-Assistant%2FHomeAssistant-docker%2F</url>
     <content type="text"><![CDATA[既然是操作系统，MacOS 当然也可以使用传统的 Python 安装路线，但是如果想尝鲜或求快的同学，也不妨试试 Docker。Docker 发展至今在 MacOS 上的表现已经进化不少，再无需 Docker Toolbox 或者 Boot2Docker 的工具搭桥了。 首先，前往 官网 下载并安装最新版应用。 打开应用，稍等一会，点击工具栏的小鲸鱼图标，显示『Docker is running』就表示 Docker 进程已经开始运行了。 我们开始拉取并加载 HA 的最新 Docker 镜像（Image），这步也可以理解为安装 HA。 命令很简单，就一行： 1docker run -d --name=&quot;home-assistant&quot; -v /Users/cxlwill/Hass/mac_config:/config -e &quot;TZ= Asia/Chongqing&quot; -p 8123:8123 homeassistant/home-assistant 解读一下： --name=&quot;&quot; 是你将要创建的容器名称，你就理解为名称就好了 -v /Users/cxlwill/Hass/mac_config:/config 表示的是 HA 配置文件所在的文件夹，这里特别注意文件夹的路径到 : 号为止，也就是我这里展示的配置文件存放在 /Users/cxlwill/Hass/mac_config 文件夹内，剩余的 :/config 部分请原样保留 -e 是时区，-p 是端口，很好理解 最后的 homeassistant/home-assistant 就是镜像源了 运行后，等待下载一段时间，HA 就运行在 mac 所在 IP 段的 8123 端口上了。在浏览器中输入 http://IP:8123，HA 的界面就会出现了。 然后，就没有然后了。该怎么配置文件就怎么配置。 速度真的是惊人。 这里顺便再提一下更新，更新的时候我们必须先重命名一下容器，比如我此处是 home-assistant，那么就运行：docker rename home-assistant hass-old。 之后，拉取最新的HA 镜像：docker pull homeassistant/home-assistant。 接着，再重新运行一次『安装』的指令： 1docker run -d --name=&quot;home-assistant&quot; -v /Users/cxlwill/Hass/mac_config:/config -e &quot;TZ= Asia/Chongqing&quot; -p 8123:8123 homeassistant/home-assistant 最后，把旧的容器删除：docker rm hass-old。当然，最好是顺便删了旧的镜像。先 docker images 看看现有的镜像，然后 docker rmi 镜像 ID 删除旧版本的 HA 镜像。 聪明的朋友不难发现，这哪里是更新，简直就是重新创建了。恭喜你，对 Docker 的容器机制有了一个初步的认识。 如果你误操作了，傻傻分不清楚现在到底有几个 HA，可以输入 docker ps 查看当前存在的容器。之后该删的删，该更新的更新~ 想要一个 GUI 环境的话，操作其实也和其他系统安装的 Docker 一样，推荐使用 portainer。直接运行： 1docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer 之后就有可视化的管理界面了。]]></content>
-      <categories>
-        <category>Home Assistant</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[Home Assistant 提高篇 - 数据库替换]]></title>
-    <url>%2FHome-Assistant%2FHomeAssistant-PostgreSQL%2F</url>
-    <content type="text"><![CDATA[Home Assistant 原生使用 SQLite 作为数据库，使用体验如何大家肯定都有感触了：加载数据慢 + 数据文件庞大，必须换。需要声明的是数据库的替换并不会转移之前的数据，因此尽量在初次安装后即进行数据库替换工作。原数据都存放在配置文件夹的 home-assistant_v2.db文件中。 既然 HA 数据库是 SQL 架构，意味着我们的选择面很广。DB-Engines 上排名靠前的几个关系型数据库都能使用，例如 MySQL、MariaDB、PostgreSQL 和 MS SQL Server。本教程将重点放在 PostgreSQL 上。 Mossbian(Hassbian) 用户只需要一行指令就可以安装软件包和相关依赖了：sudo hassbian-config install postgresql 但是数据库和用户都需要手动创建，请参考下文。 手动安装方法如下： 安装 PostgreSQL： 1sudo apt-get install postgresql-9.6 postgresql-server-dev-9.6 版本号随着更新变动，请自行查证。 然后安装 psycopg2，注意如果是在 Python 虚拟环境中运行的 HA，请进入虚拟环境后操作。例如，在 All-in-one 安装环境下： 123sudo su -s /bin/bash homeassistantsource /srv/homeassistant/homeassistant_venv/bin/activatepip3 install psycopg2 接着创建数据库用户，这里就要留意一下运行 HA 环境的用户名了。如果是通过 All-in-one 或者 Hassbian 安装的用户，用户名为 homeassistant： 1sudo -u postgres createuser homeassistant 其他安装环境用户请自行修改。 之后创建数据库，统一命名为 homeassistant，好记： 1sudo -u postgres createdb -O homeassistant homeassistant 最后，在 HA 的配置文件 configuration.yaml 中添加以下字段： 12recorder: db_url: postgres://@/homeassistant 大功告成，重启 HA 后，新的数据库就正式启用了。初次启用需要一定时间生成数据，但是在之后的重启中你就能切实感受到 HA 迅速开启的快感了~~]]></content>
       <categories>
         <category>Home Assistant</category>
       </categories>
