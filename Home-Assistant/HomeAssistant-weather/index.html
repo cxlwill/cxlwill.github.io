@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content=" 墨澜, 技术" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="替换天气组件 weather 的默认 UI，生成美观大方的气象卡片。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Home Assistant 系列美化篇 —— 替换天气 UI">
+<meta property="og:url" content="http://cxlwill.cn/Home-Assistant/HomeAssistant-weather/index.html">
+<meta property="og:site_name" content="墨澜技术站">
+<meta property="og:description" content="替换天气组件 weather 的默认 UI，生成美观大方的气象卡片。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oeoj44yho.bkt.clouddn.com/2018-04-18-weather.jpg">
+<meta property="og:updated_time" content="2018-04-18T13:08:53.020Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Home Assistant 系列美化篇 —— 替换天气 UI">
+<meta name="twitter:description" content="替换天气组件 weather 的默认 UI，生成美观大方的气象卡片。">
+<meta name="twitter:image" content="http://oeoj44yho.bkt.clouddn.com/2018-04-18-weather.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://cxlwill.cn/Home-Assistant/HomeAssistant-weather/"/>
+
+
+
+
+
+  <title>Home Assistant 系列美化篇 —— 替换天气 UI | 墨澜技术站</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-96172439-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c34717c16e439796d326594220d41d47";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">墨澜技术站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Female Geek</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://cxlwill.cn/Home-Assistant/HomeAssistant-weather/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cxlwill">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="墨澜技术站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Home Assistant 系列美化篇 —— 替换天气 UI</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-18T20:33:33+08:00">
+                2018-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Home-Assistant/" itemprop="url" rel="index">
+                    <span itemprop="name">Home Assistant</span>
+                  </a>
+                </span>
+
+                
+                
+              
+              <span class="post-meta-divider">|</span>
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,489 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  替换天气组件 weather 的默认 UI，生成美观大方的气象卡片。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Home Assistant 原生的天气平台不少，国内用户常用的有雅虎天气和 Darksky。其他论坛和社区也有分享自制的和风、彩云天气等。</p>
+<p>依托国内天气服务商的组件优点自然是数据比较丰富，但前提是找服务商获取了 API。不过 API 的获取现在越来越难了，少不了隐私信息的提供，当然也可以通过抓包获取公共 API，但是持续有效性存疑。其实原生的天气平台本身信息并不少，数据出入不大，基本无需 API，即使需要流程也很简单。</p>
+<p>原生天气组件生成的卡片 UI 实在是丑，雅虎的稍好一点懂得放大温度数字，但是同样没有完整的信息展示。而 Darksky 的 <code>weather</code> 组件信息丰富性远远比不上同款 <code>sensor</code> 组件。</p>
+<p>官方英文论坛的 <strong>Bram Kragten</strong> 开发了一套天气组件使用的 UI（论坛讨论 <a href="https://community.home-assistant.io/t/custom-ui-weather-state-card-with-a-question" target="_blank" rel="external">见此</a> )，赏心悦目，国内爱好者也有利用此套 UI 做了魔改的天气组件。当然别人魔改的作品不在此文讨论内，这里讲一下在接入 Home Assistant 原生的天气平台 <code>weather</code> 下 （推荐雅虎 yweather），如何使用这套 UI。</p>
+<p><img src="http://oeoj44yho.bkt.clouddn.com/2018-04-18-weather.jpg" alt=""></p>
+<p>首先，在 <code>/www/custom_ui/</code> 文件夹下创建名为 <code>custom-weather-card.html</code> 的文件，没有相关文件夹请自行新建，文件内容为：（部分值已由我人工汉化过了）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dom-module</span> <span class="attr">id</span>=<span class="string">'custom-weather-card'</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">template</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="undefined">      .clear &#123;</span></div><div class="line"><span class="undefined">        clear:both;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .card &#123;</span></div><div class="line"><span class="undefined">        margin:1em auto;</span></div><div class="line"><span class="undefined">        padding-left: 1em;</span></div><div class="line"><span class="undefined">        padding-right:1em;</span></div><div class="line"><span class="undefined">        position: relative;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .iron-icon &#123;</span></div><div class="line"><span class="undefined">        height: 18px;</span></div><div class="line"><span class="undefined">        color: #c8c8c8;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .temp &#123;</span></div><div class="line"><span class="undefined">        font-weight: 300;</span></div><div class="line"><span class="undefined">        font-size: 4em;</span></div><div class="line"><span class="undefined">        color:#5b5b5b;</span></div><div class="line"><span class="undefined">        position: absolute;</span></div><div class="line"><span class="undefined">        right: .5em;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .tempc &#123;</span></div><div class="line"><span class="undefined">        font-weight: 300;</span></div><div class="line"><span class="undefined">        font-size: 1.5em;</span></div><div class="line"><span class="undefined">        vertical-align: super;</span></div><div class="line"><span class="undefined">        color:#5b5b5b;</span></div><div class="line"><span class="undefined">        position: absolute;</span></div><div class="line"><span class="undefined">        right: 0em;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .variations &#123;</span></div><div class="line"><span class="undefined">        font-weight:300;</span></div><div class="line"><span class="undefined">        color:#8c8c8c;</span></div><div class="line"><span class="undefined">        list-style:none;</span></div><div class="line"><span class="undefined">        margin-left:-2em;</span></div><div class="line"><span class="undefined">        margin-top: 2.5em;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .variations.right &#123;</span></div><div class="line"><span class="undefined">        float: right;</span></div><div class="line"><span class="undefined">        margin-left: 0;</span></div><div class="line"><span class="undefined">        margin-right: 1em;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .unit &#123;</span></div><div class="line"><span class="undefined">        font-size:.8em;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .forecast &#123;</span></div><div class="line"><span class="undefined">        width:100%;</span></div><div class="line"><span class="undefined">        margin:0 auto;</span></div><div class="line"><span class="undefined">        height:9em;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .day &#123;</span></div><div class="line"><span class="undefined">        display:block;</span></div><div class="line"><span class="undefined">        width: 25%;</span></div><div class="line"><span class="undefined">        float:left;</span></div><div class="line"><span class="undefined">        text-align:center;</span></div><div class="line"><span class="undefined">        color: #5b5b5b;</span></div><div class="line"><span class="undefined">        border-right:.1em solid #d9d9d9;</span></div><div class="line"><span class="undefined">        line-height: 2;</span></div><div class="line"><span class="undefined">        box-sizing: border-box;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .dayname &#123;</span></div><div class="line"><span class="undefined">        text-transform: uppercase;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">      .forecast .day:first-child &#123;</span></div><div class="line"><span class="undefined">        margin-left: 0;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .forecast .day:nth-last-child(2) &#123;</span></div><div class="line"><span class="undefined">        border-right:none;</span></div><div class="line"><span class="undefined">        margin-right: 0;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .highTemp &#123;</span></div><div class="line"><span class="undefined">        font-weight:bold;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .lowTemp &#123;</span></div><div class="line"><span class="undefined">        color: #8c8c8c;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .icon.bigger &#123;</span></div><div class="line"><span class="undefined">        width: 10em;</span></div><div class="line"><span class="undefined">        height: 10em;</span></div><div class="line"><span class="undefined">        margin-top: -4em;</span></div><div class="line"><span class="undefined">        position: absolute;</span></div><div class="line"><span class="undefined">        left: 0em;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">      .icon &#123;</span></div><div class="line"><span class="undefined">          width: 50px;</span></div><div class="line"><span class="undefined">          height: 50px;</span></div><div class="line"><span class="undefined">          display: inline-block;</span></div><div class="line"><span class="undefined">          vertical-align: middle;</span></div><div class="line"><span class="undefined">          background-size: contain;</span></div><div class="line"><span class="undefined">          background-position: center center;</span></div><div class="line"><span class="undefined">          background-repeat: no-repeat;</span></div><div class="line"><span class="undefined">          text-indent: -9999px;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined">       .weather &#123;</span></div><div class="line"><span class="undefined">        font-weight: 300;</span></div><div class="line"><span class="undefined">        font-size: 1.5em;</span></div><div class="line"><span class="undefined">        color:#5b5b5b;</span></div><div class="line"><span class="undefined">        text-align:center;</span></div><div class="line"><span class="undefined">        position: absolute;</span></div><div class="line"><span class="undefined">        top: 0em;</span></div><div class="line"><span class="undefined">        left: 6em;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"card"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"icon bigger"</span> <span class="attr">style</span>=<span class="string">"background: none, url(/local/weather_icons/animated/[[nowCond]].svg) no-repeat; background-size: contain;"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"temp"</span>&gt;</span>[[roundedTemp]]<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"tempc"</span>&gt;</span>&amp;#176;C<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"weather"</span>&gt;</span>[[nowCondIT]]<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"variations right"</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">template</span> <span class="attr">is</span>=<span class="string">"dom-if"</span> <span class="attr">if</span>=<span class="string">"[[weatherObj.attributes.humidity]]"</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">icon</span>=<span class="string">"mdi:water-percent"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span> [[weatherObj.attributes.humidity]]<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"unit"</span>&gt;</span>%<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">template</span> <span class="attr">is</span>=<span class="string">"dom-if"</span> <span class="attr">if</span>=<span class="string">"[[weatherObj.attributes.pressure]]"</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">icon</span>=<span class="string">"mdi:gauge"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span> [[weatherObj.attributes.pressure]]<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"unit"</span>&gt;</span> hPa<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"variations"</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">template</span> <span class="attr">is</span>=<span class="string">"dom-if"</span> <span class="attr">if</span>=<span class="string">"[[weatherObj.attributes.wind_speed]]"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">icon</span>=<span class="string">"mdi:weather-windy"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span> [[windBearing]] [[weatherObj.attributes.wind_speed]]<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"unit"</span>&gt;</span> m/s<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">template</span> <span class="attr">is</span>=<span class="string">"dom-if"</span> <span class="attr">if</span>=<span class="string">"[[weatherObj.attributes.visibility]]"</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">icon</span>=<span class="string">"mdi:weather-fog"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span> [[weatherObj.attributes.visibility]]<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"unit"</span>&gt;</span>m<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"></div><div class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"forecast clear"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">template</span> <span class="attr">is</span>=<span class="string">"dom-repeat"</span> <span class="attr">items</span>=<span class="string">"[[forecast]]"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"day"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"dayname"</span>&gt;</span>[[item.dayIT]]<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">template</span> <span class="attr">is</span>=<span class="string">"dom-if"</span> <span class="attr">if</span>=<span class="string">"[[item.condIcon]]"</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">br</span>&gt;</span> <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"icon"</span> <span class="attr">style</span>=<span class="string">"background: none, url(/local/weather_icons/animated/[[item.condIcon]].svg) no-repeat; background-size: contain;"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">template</span> <span class="attr">is</span>=<span class="string">"dom-if"</span> <span class="attr">if</span>=<span class="string">"[[item.tempHigh]]"</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">br</span>&gt;</span> <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"highTemp"</span>&gt;</span>[[item.tempHigh]]&amp;#176;C<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">template</span> <span class="attr">is</span>=<span class="string">"dom-if"</span> <span class="attr">if</span>=<span class="string">"[[item.tempLow]]"</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">br</span>&gt;</span> <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"lowTemp"</span>&gt;</span>[[item.tempLow]]&amp;#176;C<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dom-module</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></div><div class="line"><span class="javascript"><span class="meta">  'use strict'</span>;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">  <span class="keyword">var</span> _WEATHER_TO_ICON = &#123;</span></div><div class="line"><span class="javascript">    cloudy: <span class="string">'cloudy'</span>,</span></div><div class="line"><span class="javascript">    fog: <span class="string">'cloudy'</span>,</span></div><div class="line"><span class="javascript">    hail: <span class="string">'rainy-7'</span>,</span></div><div class="line"><span class="javascript">    lightning: <span class="string">'thunder'</span>,</span></div><div class="line"><span class="javascript">    <span class="string">'lightning-rainy'</span>: <span class="string">'thunder'</span>,</span></div><div class="line"><span class="javascript">    partlycloudy: <span class="string">'cloudy-day-3'</span>,</span></div><div class="line"><span class="javascript">    pouring: <span class="string">'rainy-6'</span>,</span></div><div class="line"><span class="javascript">    rainy: <span class="string">'rainy-5'</span>,</span></div><div class="line"><span class="javascript">    snowy: <span class="string">'snowy-6'</span>,</span></div><div class="line"><span class="javascript">    <span class="string">'snowy-rainy'</span>: <span class="string">'rainy-7'</span>,</span></div><div class="line"><span class="javascript">    sunny: <span class="string">'day'</span>,</span></div><div class="line"><span class="javascript">    windy: <span class="string">'cloudy'</span>,</span></div><div class="line"><span class="javascript">    <span class="string">'windy-variant'</span>: <span class="string">'cloudy-day-3'</span>,</span></div><div class="line"><span class="javascript">    exceptional: <span class="string">'!!'</span>,</span></div><div class="line"><span class="undefined">  &#125;;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">  <span class="keyword">var</span> _WEATHER_TO_NAME = &#123;</span></div><div class="line"><span class="javascript">    cloudy: <span class="string">'多云'</span>,</span></div><div class="line"><span class="javascript">    fog: <span class="string">'雾'</span>,</span></div><div class="line"><span class="javascript">    hail: <span class="string">'冰雹'</span>,</span></div><div class="line"><span class="javascript">    lightning: <span class="string">'雷电'</span>,</span></div><div class="line"><span class="javascript">    <span class="string">'lightning-rainy'</span>: <span class="string">'雷雨'</span>,</span></div><div class="line"><span class="javascript">    partlycloudy: <span class="string">'局部多云'</span>,</span></div><div class="line"><span class="javascript">    pouring: <span class="string">'大雨'</span>,</span></div><div class="line"><span class="javascript">    rainy: <span class="string">'雨'</span>,</span></div><div class="line"><span class="javascript">    snowy: <span class="string">'雪'</span>,</span></div><div class="line"><span class="javascript">    <span class="string">'snowy-rainy'</span>: <span class="string">'雨夹雪'</span>,</span></div><div class="line"><span class="javascript">    sunny: <span class="string">'晴'</span>,</span></div><div class="line"><span class="javascript">    windy: <span class="string">'多风'</span>,</span></div><div class="line"><span class="javascript">    <span class="string">'windy-variant'</span>: <span class="string">'阵风'</span>,</span></div><div class="line"><span class="javascript">    exceptional: <span class="string">'!'</span>,</span></div><div class="line"><span class="undefined">  &#125;;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">  <span class="keyword">var</span> _DEGREE_TEXT = [</span></div><div class="line"><span class="javascript">    <span class="string">'北'</span>, <span class="string">'东北偏北'</span>, <span class="string">'东北'</span>, <span class="string">'东北偏东'</span>, <span class="string">'东'</span>, <span class="string">'东南偏东'</span>, <span class="string">'东南'</span>, <span class="string">'东南偏南'</span>,</span></div><div class="line"><span class="javascript">    <span class="string">'南'</span>, <span class="string">'西南偏南'</span>, <span class="string">'西南'</span>, <span class="string">'西南偏西'</span>, <span class="string">'西'</span>, <span class="string">'西北偏西'</span>, <span class="string">'西北'</span>, <span class="string">'西北偏北'</span></span></div><div class="line"><span class="undefined">  ];</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">  <span class="keyword">var</span> _DAY_TO_DAY = &#123;</span></div><div class="line"><span class="javascript">    Mon: <span class="string">'周一'</span>,</span></div><div class="line"><span class="javascript">    Tue: <span class="string">'周二'</span>,</span></div><div class="line"><span class="javascript">    Wed: <span class="string">'周三'</span>,</span></div><div class="line"><span class="javascript">    Thu: <span class="string">'周四'</span>,</span></div><div class="line"><span class="javascript">    Fri: <span class="string">'周五'</span>,</span></div><div class="line"><span class="javascript">    Sat: <span class="string">'周六'</span>,</span></div><div class="line"><span class="javascript">    Sun: <span class="string">'周日'</span>,</span></div><div class="line"><span class="undefined">  &#125;;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">  Polymer(&#123;</span></div><div class="line"><span class="javascript">    is: <span class="string">'custom-weather-card'</span>,</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">    properties: &#123;</span></div><div class="line"><span class="undefined">      hass: &#123;</span></div><div class="line"><span class="javascript">        type: <span class="built_in">Object</span>,</span></div><div class="line"><span class="undefined">      &#125;,</span></div><div class="line"><span class="undefined">      stateObj: &#123;</span></div><div class="line"><span class="javascript">        type: <span class="built_in">Object</span>,</span></div><div class="line"><span class="undefined">      &#125;,</span></div><div class="line"><span class="undefined">      weatherObj: &#123;</span></div><div class="line"><span class="javascript">        type: <span class="built_in">Object</span>,</span></div><div class="line"><span class="javascript">        observer: <span class="string">'checkRequirements'</span>,</span></div><div class="line"><span class="javascript">        computed: <span class="string">'computeWeatherObj(hass, stateObj)'</span>,</span></div><div class="line"><span class="undefined">      &#125;,</span></div><div class="line"><span class="undefined">    &#125;,</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">    computeWeatherObj: <span class="function"><span class="keyword">function</span> (<span class="params">hass, stateObj</span>) </span>&#123;</span></div><div class="line"><span class="javascript">      <span class="keyword">return</span> stateObj &amp;&amp; stateObj.attributes &amp;&amp; stateObj.attributes.config &amp;&amp; stateObj.attributes.config.weather ? hass.states[stateObj.attributes.config.weather] : <span class="literal">null</span>;</span></div><div class="line"><span class="undefined">    &#125;,</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">    getForecastArray: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></div><div class="line"><span class="javascript">      <span class="keyword">if</span> (!<span class="keyword">this</span>.weatherObj.attributes.forecast) &#123;</span></div><div class="line"><span class="javascript">        <span class="keyword">return</span> [];</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">      <span class="keyword">var</span> data = <span class="keyword">this</span>.weatherObj.attributes.forecast;</span></div><div class="line"><span class="javascript">      <span class="keyword">var</span> forecast = [];</span></div><div class="line"><span class="javascript">      <span class="keyword">var</span> prevDay = <span class="string">''</span>;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span></div><div class="line"><span class="javascript">        <span class="keyword">var</span> day = <span class="keyword">new</span> <span class="built_in">Date</span>(data[i].datetime).toString().split(<span class="string">' '</span>)[<span class="number">0</span>];</span></div><div class="line"><span class="javascript">        <span class="keyword">if</span> (day != prevDay) &#123;</span></div><div class="line"><span class="javascript">          <span class="keyword">if</span> (data[i].max_temp) &#123;</span></div><div class="line"><span class="javascript">            <span class="keyword">var</span> tempHigh = <span class="built_in">Math</span>.round(data[i].max_temp * <span class="number">10</span>) / <span class="number">10</span>;</span></div><div class="line"><span class="javascript">          &#125; <span class="keyword">else</span> &#123;</span></div><div class="line"><span class="javascript">            <span class="keyword">var</span> tempHigh = <span class="built_in">Math</span>.round(data[i].temperature * <span class="number">10</span>) / <span class="number">10</span>;</span></div><div class="line"><span class="undefined">          &#125;</span></div><div class="line"><span class="javascript">          <span class="keyword">if</span> (tempHigh == <span class="number">0</span>) &#123;</span></div><div class="line"><span class="javascript">            tempHigh = <span class="string">'0'</span>; <span class="comment">// otherwise the value 0 will not be shown on the weather card</span></span></div><div class="line"><span class="undefined">          &#125;</span></div><div class="line"><span class="javascript">          <span class="keyword">var</span> tempLow = <span class="built_in">Math</span>.round(data[i].templow * <span class="number">10</span>) / <span class="number">10</span>;</span></div><div class="line"><span class="javascript">          <span class="keyword">if</span> (tempLow == <span class="number">0</span>) &#123;</span></div><div class="line"><span class="javascript">            tempLow = <span class="string">'0'</span>; <span class="comment">// otherwise the value 0 will not be shown on the weather card</span></span></div><div class="line"><span class="undefined">          &#125;</span></div><div class="line"><span class="javascript">          <span class="keyword">var</span> condIcon = _WEATHER_TO_ICON[data[i].condition];</span></div><div class="line"><span class="javascript">          <span class="keyword">var</span> dayIT = _DAY_TO_DAY[day];</span></div><div class="line"><span class="undefined">          forecast.push(&#123;dayIT:dayIT, tempHigh:tempHigh, tempLow:tempLow, condIcon:condIcon&#125;);</span></div><div class="line"><span class="undefined">          prevDay = day;</span></div><div class="line"><span class="javascript">        &#125; <span class="keyword">else</span> &#123;</span></div><div class="line"><span class="javascript">          <span class="keyword">if</span> (data[i].max_temp) &#123;</span></div><div class="line"><span class="javascript">            <span class="keyword">var</span> tempHigh = <span class="built_in">Math</span>.round(data[i].max_temp * <span class="number">10</span>) / <span class="number">10</span>;</span></div><div class="line"><span class="javascript">          &#125; <span class="keyword">else</span> &#123;</span></div><div class="line"><span class="javascript">            <span class="keyword">var</span> tempHigh = <span class="built_in">Math</span>.round(data[i].temperature * <span class="number">10</span>) / <span class="number">10</span>;</span></div><div class="line"><span class="undefined">          &#125;</span></div><div class="line"><span class="javascript">          <span class="keyword">var</span> tempLow = <span class="built_in">Math</span>.round(data[i].tempLow * <span class="number">10</span>) / <span class="number">10</span>;</span></div><div class="line"><span class="javascript">          <span class="keyword">if</span> (tempLow &gt; forecast[forecast.length<span class="number">-1</span>].tempHigh) &#123;</span></div><div class="line"><span class="undefined">            forecast[forecast.length-1].tempHigh = tempLow;</span></div><div class="line"><span class="undefined">          &#125;</span></div><div class="line"><span class="javascript">          <span class="keyword">if</span> (tempHigh &gt; forecast[forecast.length<span class="number">-1</span>].tempHigh) &#123;</span></div><div class="line"><span class="undefined">            forecast[forecast.length-1].tempHigh = tempHigh;</span></div><div class="line"><span class="undefined">          &#125;</span></div><div class="line"><span class="javascript">          <span class="keyword">if</span> (!forecast[forecast.length<span class="number">-1</span>].tempLow) &#123;</span></div><div class="line"><span class="undefined">            forecast[forecast.length-1].tempLow = tempHigh;</span></div><div class="line"><span class="undefined">          &#125;</span></div><div class="line"><span class="javascript">          <span class="keyword">if</span> (tempHigh &lt; forecast[forecast.length<span class="number">-1</span>].tempLow) &#123;</span></div><div class="line"><span class="undefined">            forecast[forecast.length-1].tempLow = tempHigh;</span></div><div class="line"><span class="undefined">          &#125;</span></div><div class="line"><span class="javascript">          <span class="keyword">if</span> (tempLow &lt; forecast[forecast.length<span class="number">-1</span>].tempLow) &#123;</span></div><div class="line"><span class="undefined">            forecast[forecast.length-1].tempLow = tempLow;</span></div><div class="line"><span class="undefined">          &#125;</span></div><div class="line"><span class="undefined">        &#125;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">      <span class="keyword">return</span> forecast;</span></div><div class="line"><span class="undefined">    &#125;,</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">    checkRequirements: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></div><div class="line"><span class="javascript">      <span class="keyword">if</span> (!<span class="keyword">this</span>.weatherObj) &#123;</span></div><div class="line"><span class="javascript">        <span class="keyword">return</span>;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">      <span class="keyword">this</span>.nowCond = _WEATHER_TO_ICON[<span class="keyword">this</span>.weatherObj.state];</span></div><div class="line"><span class="javascript">      <span class="keyword">this</span>.nowCondIT = _WEATHER_TO_NAME[<span class="keyword">this</span>.weatherObj.state];</span></div><div class="line"><span class="javascript">      <span class="keyword">if</span> (<span class="keyword">this</span>.weatherObj.attributes.temperature) &#123;</span></div><div class="line"><span class="javascript">      <span class="keyword">this</span>.roundedTemp = <span class="built_in">Math</span>.round( <span class="keyword">this</span>.weatherObj.attributes.temperature * <span class="number">10</span>) / <span class="number">10</span>;</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="javascript">      <span class="keyword">if</span> (<span class="keyword">this</span>.weatherObj.attributes.wind_bearing) &#123;</span></div><div class="line"><span class="javascript">      <span class="keyword">this</span>.windBearing = <span class="keyword">this</span>.windBearingToText(<span class="keyword">this</span>.weatherObj.attributes.wind_bearing);</span></div><div class="line"><span class="undefined">      &#125;</span></div><div class="line"><span class="javascript">        <span class="keyword">this</span>.forecast = <span class="keyword">this</span>.getForecastArray().slice(<span class="number">0</span>, <span class="number">4</span>);</span></div><div class="line"><span class="undefined">    &#125;,</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">    windBearingToText: <span class="function"><span class="keyword">function</span> (<span class="params">degree</span>) </span>&#123;</span></div><div class="line"><span class="javascript">      <span class="comment">// return _DEGREE_TEXT[((parseInt(degree) + 5.63) / 11.25) | 0];</span></span></div><div class="line"><span class="javascript">      <span class="keyword">return</span> _DEGREE_TEXT[(<span class="built_in">parseInt</span>((degree + <span class="number">11.25</span>) / <span class="number">22.5</span>))];</span></div><div class="line"><span class="undefined">    &#125;,</span></div><div class="line"><span class="undefined">  &#125;);</span></div><div class="line"><span class="undefined">&#125;());</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>接着，<a href="https://www.amcharts.com/dl/svg-weather-icons/" target="_blank" rel="external">下载全套天气图标</a>，解压后的 <code>svg</code> 文件放入 <code>\www\weather_icons\animated\</code> 文件夹内。</p>
+<p>最后，在配置文件 <code>configuration.yaml</code> 中添加相关设置（文档分离用户请自行判断）：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#接入雅虎天气</span></div><div class="line"><span class="attr">weather:</span>	</div><div class="line"><span class="attr">  - platform:</span> <span class="string">yweather</span></div><div class="line"><span class="attr">    woeid:</span> </div><div class="line"></div><div class="line"><span class="comment">#引入引导组件</span></div><div class="line"><span class="attr">input_boolean:</span>  </div><div class="line"><span class="attr">  weather:</span></div><div class="line">  </div><div class="line"><span class="comment">#前端接入自定义UI</span></div><div class="line"><span class="attr">frontend:</span></div><div class="line"><span class="attr">  extra_html_url:</span></div><div class="line"><span class="bullet">    -</span> <span class="string">/local/custom_ui/custom-weather-card.html</span></div><div class="line"><span class="attr">  extra_html_url_es5:</span></div><div class="line"><span class="bullet">    -</span> <span class="string">/local/custom_ui/custom-weather-card.html</span></div><div class="line"></div><div class="line"><span class="comment">#调用 UI</span></div><div class="line"><span class="attr">customize:</span></div><div class="line">  <span class="string">input_boolean.weather:</span></div><div class="line"><span class="attr">    custom_ui_state_card:</span> <span class="string">custom-weather-card</span></div><div class="line"><span class="attr">    config:</span></div><div class="line"><span class="attr">      weather:</span> <span class="string">weather.yweather</span></div><div class="line">  <span class="string">weather.yweather:</span>    <span class="comment">#隐藏原 UI 组件</span></div><div class="line"><span class="attr">    hidden:</span> <span class="literal">true</span></div><div class="line">    </div><div class="line"><span class="comment">#合成群组</span></div><div class="line"><span class="attr">group:</span></div><div class="line"><span class="attr">  weather:</span></div><div class="line"><span class="attr">    view:</span> <span class="literal">no</span></div><div class="line"><span class="attr">    name:</span> <span class="string">天气</span></div><div class="line"><span class="attr">    entities:</span></div><div class="line"><span class="bullet">      -</span> <span class="string">input_boolean.weather</span></div></pre></td></tr></table></figure>
+<p>上述操作完成后，重启 Home Assistant，你的天气卡片就焕然一新了~~</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <hr style="margin: 10px">
+    <img id="wechat_subscriber_qcode" src="/images/wechatpublic.jpg" alt="cxlwill wechat" style="width: 160px; max-width: 100%;"/>
+    <div id="special-comment" style="font-size: 12px">欢迎扫码订阅“墨澜工作室”公众号，获取最新文章推送。</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>捐赠</span>
+  </button>
+  <div id="QR" style="display: none;">
+  <div id="special-comment" style="font-size: 12px">始终坚持原创，您的支持是我的最大动力，谢谢各位老板！</div>
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="cxlwill WeChat Pay"/>
+        <p>微信</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="cxlwill Alipay"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Home-Assistant/HomeAssistant-PostgreSQL/" rel="next" title="Home Assistant 提高篇 - 数据库替换">
+                <i class="fa fa-chevron-left"></i> Home Assistant 提高篇 - 数据库替换
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/other/Welcome/" rel="prev" title="Welcome">
+                Welcome <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTk3Ni82NTQx"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="cxlwill" />
+            
+              <p class="site-author-name" itemprop="name">cxlwill</p>
+              <p class="site-description motion-element" itemprop="description">From rookie to master</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://sspai.com/user/721317/posts" target="_blank" title="少数派">
+                    
+                      <i class="fa fa-fw fa-skype"></i>少数派</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://zhuanlan.zhihu.com/homeassistant" target="_blank" title="知乎专栏">
+                    
+                      <i class="fa fa-fw fa-columns"></i>知乎专栏</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://join.slack.com/t/magicmirror-cn/shared_invite/enQtMjExNjg5MzY0NTQ1LTYxNzA5NzA1NTcwMWU5MjdkYWU3MTVjYzNlYWQ1Yjg4ZmQ5MWY1MTI5NjE2ZDI2Yzc2OTdkYWEwZTliODVkMDE" target="_blank" title="Slack">
+                    
+                      <i class="fa fa-fw fa-slack"></i>Slack</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://study.163.com/course/courseMain.htm?courseId=1004598001&utm_campaign=commission&utm_source=cp-400000000272034&utm_medium=share" title="网易云课堂视频教程" target="_blank">网易云课堂视频教程</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://cxlwill.com/" title="墨澜生活站" target="_blank">墨澜生活站</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://home-assistant.cc" title="Home Assistant 中文文档" target="_blank">Home Assistant 中文文档</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://jq.qq.com/?_wv=1027&k=5ZGk07E" title="HA QQ 群 515348788" target="_blank">HA QQ 群 515348788</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://shang.qq.com/wpa/qunwpa?idkey=8b9566598f40dd68412065ada24184ef72c6bddaa11525ca26c4e1536a8f2a3d" title="HB QQ 群 107927710" target="_blank">HB QQ 群 107927710</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          <script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.seniverse.com/widget/chameleon.js"))</script>
+<script>tpwidget("init", {
+    "flavor": "bubble",
+    "location": "",
+    "geolocation": "enabled",
+    "position": "top-right",
+    "margin": "10px 10px",
+    "language": "zh-chs",
+    "unit": "c",
+    "theme": "white",
+    "uid": "U67E28EBB1",
+    "hash": "a7b086f9457d6e0dc8894e7748b4590c"
+});
+tpwidget("show");</script>
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cxlwill</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">31.3k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1263484509&web_id=1263484509" language="JavaScript"></script>
+  </div>
+
+
+
+        
+        <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="150" alpha="0.6"  zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
