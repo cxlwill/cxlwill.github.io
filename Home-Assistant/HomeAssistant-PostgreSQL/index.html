@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="墨澜技术站">
 <meta property="og:description" content="使用 PostgreSQL 替换原生数据库，显著提高 HA 开启速度。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-17T06:13:40.751Z">
+<meta property="og:updated_time" content="2018-05-14T10:32:50.122Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Assistant 提高篇 - 数据库替换">
 <meta name="twitter:description" content="使用 PostgreSQL 替换原生数据库，显著提高 HA 开启速度。">
@@ -386,7 +386,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  501 字
+                  541 字
                 </span>
               
 
@@ -415,7 +415,8 @@
       
 
       
-        <p>Home Assistant 原生使用 SQLite 作为数据库，使用体验如何大家肯定都有感触了：加载数据慢 + 数据文件庞大，必须换。需要声明的是数据库的替换并不会转移之前的数据，因此尽量在初次安装后即进行数据库替换工作。原数据都存放在配置文件夹的 <code>home-assistant_v2.db</code>文件中。</p>
+        <p><strong>注意：新版 Home Assistant 已经加入数据库定时清理机制，因此非高级玩家没有任何必要更换数据库，望周知！</strong></p>
+<p>Home Assistant 原生使用 SQLite 作为数据库，使用体验如何大家肯定都有感触了：加载数据慢 + 数据文件庞大，必须换。需要声明的是数据库的替换并不会转移之前的数据，因此尽量在初次安装后即进行数据库替换工作。原数据都存放在配置文件夹的 <code>home-assistant_v2.db</code>文件中。</p>
 <p>既然 HA 数据库是 SQL 架构，意味着我们的选择面很广。<a href="https://db-engines.com/en/ranking/relational+dbms" target="_blank" rel="external">DB-Engines</a> 上排名靠前的几个关系型数据库都能使用，例如 MySQL、MariaDB、PostgreSQL 和 MS SQL Server。本教程将重点放在 PostgreSQL 上。</p>
 <p>Mossbian(Hassbian) 用户只需要一行指令就可以安装软件包和相关依赖了：<code>sudo hassbian-config install postgresql</code> 但是数据库和用户都需要手动创建，请参考下文。</p>
 <hr>
@@ -744,7 +745,7 @@ tpwidget("show");</script>
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">31.3k</span>
+    <span title="Site words total count">31.4k</span>
   
 </div>
 
