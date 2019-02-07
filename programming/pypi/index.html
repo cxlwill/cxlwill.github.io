@@ -2,15 +2,25 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
 
 
 
@@ -19,16 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -45,9 +46,6 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -55,27 +53,21 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+<link rel="stylesheet" href="/css/main.css?v=7.0.0"/>
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.0.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.3">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.0.0">
 
 
-
-
-
-  <meta name="keywords" content=" 墨澜, 技术" />
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
 
 
 
@@ -83,37 +75,18 @@
 
 
 
-
-
-
-<meta name="description" content="人在天朝，身不由己。无论是 Pypi 还是 npm，都需要换源才可以愉快代码。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="镜像源的那些事">
-<meta property="og:url" content="http://cxlwill.cn/programming/pypi/index.html">
-<meta property="og:site_name" content="墨澜技术站">
-<meta property="og:description" content="人在天朝，身不由己。无论是 Pypi 还是 npm，都需要换源才可以愉快代码。">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-17T06:23:40.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="镜像源的那些事">
-<meta name="twitter:description" content="人在天朝，身不由己。无论是 Pypi 还是 npm，都需要换源才可以愉快代码。">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    version: '5.1.3',
+    version: '7.0.0',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -125,12 +98,37 @@
 </script>
 
 
+  
+
+
+
+
+  <meta name="description" content="人在天朝，身不由己。无论是 Pypi 还是 npm，都需要换源才可以愉快代码。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="镜像源的那些事">
+<meta property="og:url" content="http://cxlwill.cn/programming/pypi/index.html">
+<meta property="og:site_name" content="墨澜技术站">
+<meta property="og:description" content="人在天朝，身不由己。无论是 Pypi 还是 npm，都需要换源才可以愉快代码。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-17T06:23:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="镜像源的那些事">
+<meta name="twitter:description" content="人在天朝，身不由己。无论是 Pypi 还是 npm，都需要换源才可以愉快代码。">
+
+
+
+
+
 
   <link rel="canonical" href="http://cxlwill.cn/programming/pypi/"/>
 
 
 
-
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>镜像源的那些事 | 墨澜技术站</title>
   
@@ -138,17 +136,9 @@
 
 
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-96172439-2', 'auto');
-  ga('send', 'pageview');
-</script>
 
 
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -161,9 +151,37 @@
 
 
 
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -175,23 +193,26 @@
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">墨澜技术站</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <p class="site-subtitle">Female Geek</p>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -199,56 +220,77 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-home">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -277,14 +319,25 @@
   
 </nav>
 
-<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 
- </div>
+
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -297,21 +350,23 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://cxlwill.cn/programming/pypi/">
+    <link itemprop="mainEntityOfPage" href="http://cxlwill.cn/programming/pypi/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cxlwill">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="cxlwill"/>
+      <meta itemprop="description" content="From rookie to master"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="墨澜技术站">
+      <meta itemprop="name" content="墨澜技术站"/>
     </span>
 
     
@@ -319,11 +374,20 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">镜像源的那些事</h1>
+          <h1 class="post-title" itemprop="name headline">镜像源的那些事
+
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -331,18 +395,23 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-17T10:05:17+08:00">
-                2017-08-17
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-17 10:05:17 / 修改时间：14:23:40" itemprop="dateCreated datePublished" datetime="2017-08-17T10:05:17+08:00">2017-08-17</time>
             
 
             
+              
 
+              
             
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -353,20 +422,16 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
 
                 
                 
               
-              <span class="post-meta-divider">|</span>
             </span>
           
 
           
+            
             
           
 
@@ -376,30 +441,9 @@
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  536 字
-                </span>
-              
-
-              
-
-              
-            </div>
-          
 
           
-              <div class="post-description">
-                  人在天朝，身不由己。无论是 Pypi 还是 npm，都需要换源才可以愉快代码。
-              </div>
+            <div class="post-description">人在天朝，身不由己。无论是 Pypi 还是 npm，都需要换源才可以愉快代码。</div>
           
 
         </div>
@@ -442,6 +486,9 @@
 
       
     </div>
+
+    
+
     
     
     
@@ -449,42 +496,16 @@
     
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <hr style="margin: 10px">
-    <img id="wechat_subscriber_qcode" src="/images/wechatpublic.jpg" alt="cxlwill wechat" style="width: 160px; max-width: 100%;"/>
-    <div id="special-comment" style="font-size: 12px">欢迎扫码订阅“墨澜工作室”公众号，获取最新文章推送。</div>
+  <img id="wechat_subscriber_qcode" src="/images/wechatpublic.jpg" alt="cxlwill wechat" style="width: 200px; max-width: 100%;"/>
+  <div>欢迎扫码订阅“墨澜工作室”公众号，获取最新文章推送。</div>
 </div>
 
       </div>
     
 
     
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>捐赠</span>
-  </button>
-  <div id="QR" style="display: none;">
-  <div id="special-comment" style="font-size: 12px">始终坚持原创，您的支持是我的最大动力，谢谢各位老板！</div>
+      
     
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="cxlwill WeChat Pay"/>
-        <p>微信</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.jpg" alt="cxlwill Alipay"/>
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
     
 
     
@@ -528,43 +549,10 @@
   </article>
 
 
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
   </div>
 
 
           </div>
-          
-
-
           
 
   
@@ -605,79 +593,112 @@ var jiathis_config={
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
                 src="/images/avatar.jpg"
-                alt="cxlwill" />
+                alt="cxlwill"/>
             
               <p class="site-author-name" itemprop="name">cxlwill</p>
               <p class="site-description motion-element" itemprop="description">From rookie to master</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives/">
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
               
-                  <span class="site-state-item-count">37</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
 
-            
               
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
               
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
 
-            
-
-          </nav>
+              
+            </nav>
+          
 
           
 
-          <div class="links-of-author motion-element">
-            
-              
-                <span class="links-of-author-item">
-                  <a href="https://github.com/yourname" target="_blank" title="GitHub">
-                    
-                      <i class="fa fa-fw fa-github"></i>GitHub</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="https://sspai.com/user/721317/posts" target="_blank" title="少数派">
-                    
-                      <i class="fa fa-fw fa-skype"></i>少数派</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="https://zhuanlan.zhihu.com/homeassistant" target="_blank" title="知乎专栏">
-                    
-                      <i class="fa fa-fw fa-columns"></i>知乎专栏</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="https://join.slack.com/t/magicmirror-cn/shared_invite/enQtMjExNjg5MzY0NTQ1LTYxNzA5NzA1NTcwMWU5MjdkYWU3MTVjYzNlYWQ1Yjg4ZmQ5MWY1MTI5NjE2ZDI2Yzc2OTdkYWEwZTliODVkMDE" target="_blank" title="Slack">
-                    
-                      <i class="fa fa-fw fa-slack"></i>Slack</a>
-                </span>
-              
-            
-          </div>
-
           
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/cxlwill" title="GitHub &rarr; https://github.com/cxlwill" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://sspai.com/user/721317/posts" title="少数派 &rarr; https://sspai.com/user/721317/posts" rel="noopener" target="_blank"><i class="fa fa-fw fa-skype"></i>少数派</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://zhuanlan.zhihu.com/homeassistant" title="知乎专栏 &rarr; https://zhuanlan.zhihu.com/homeassistant" rel="noopener" target="_blank"><i class="fa fa-fw fa-columns"></i>知乎专栏</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://join.slack.com/t/magicmirror-cn/shared_invite/enQtMjExNjg5MzY0NTQ1LTYxNzA5NzA1NTcwMWU5MjdkYWU3MTVjYzNlYWQ1Yjg4ZmQ5MWY1MTI5NjE2ZDI2Yzc2OTdkYWEwZTliODVkMDE" title="Slack &rarr; https://join.slack.com/t/magicmirror-cn/shared_invite/enQtMjExNjg5MzY0NTQ1LTYxNzA5NzA1NTcwMWU5MjdkYWU3MTVjYzNlYWQ1Yjg4ZmQ5MWY1MTI5NjE2ZDI2Yzc2OTdkYWEwZTliODVkMDE" rel="noopener" target="_blank"><i class="fa fa-fw fa-slack"></i>Slack</a>
+                </span>
+              
+            </div>
+          
+
           
 
           
@@ -690,57 +711,49 @@ var jiathis_config={
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://home-assistant.cc" title="Home Assistant 中文文档" target="_blank">Home Assistant 中文文档</a>
+                    <a href="https://home-assistant.cc" title="https://home-assistant.cc" rel="noopener" target="_blank">Home Assistant 中文文档</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://www.mossbian.com" title="Home Assistant 问答站" target="_blank">Home Assistant 问答站</a>
+                    <a href="https://www.mossbian.com" title="https://www.mossbian.com" rel="noopener" target="_blank">Home Assistant 问答站</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="http://study.163.com/course/courseMain.htm?courseId=1004598001&utm_campaign=commission&utm_source=cp-400000000272034&utm_medium=share" title="网易云课堂视频教程" target="_blank">网易云课堂视频教程</a>
+                    <a href="http://study.163.com/course/courseMain.htm?courseId=1004598001&utm_campaign=commission&utm_source=cp-400000000272034&utm_medium=share" title="http://study.163.com/course/courseMain.htm?courseId=1004598001&utm_campaign=commission&utm_source=cp-400000000272034&utm_medium=share" rel="noopener" target="_blank">网易云课堂视频教程</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="http://cxlwill.com/" title="墨澜生活站" target="_blank">墨澜生活站</a>
+                    <a href="http://cxlwill.com/" title="http://cxlwill.com/" rel="noopener" target="_blank">墨澜生活站</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://jq.qq.com/?_wv=1027&k=5ZGk07E" title="HA QQ 群 515348788" target="_blank">HA QQ 群 515348788</a>
+                    <a href="https://jq.qq.com/?_wv=1027&k=5ZGk07E" title="https://jq.qq.com/?_wv=1027&k=5ZGk07E" rel="noopener" target="_blank">HA QQ 群 515348788</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://shang.qq.com/wpa/qunwpa?idkey=8b9566598f40dd68412065ada24184ef72c6bddaa11525ca26c4e1536a8f2a3d" title="HB QQ 群 107927710" target="_blank">HB QQ 群 107927710</a>
+                    <a href="https://shang.qq.com/wpa/qunwpa?idkey=8b9566598f40dd68412065ada24184ef72c6bddaa11525ca26c4e1536a8f2a3d" title="https://shang.qq.com/wpa/qunwpa?idkey=8b9566598f40dd68412065ada24184ef72c6bddaa11525ca26c4e1536a8f2a3d" rel="noopener" target="_blank">HB QQ 群 107927710</a>
                   </li>
                 
               </ul>
             </div>
           
 
-          <script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.seniverse.com/widget/chameleon.js"))</script>
-<script>tpwidget("init", {
-    "flavor": "bubble",
-    "location": "",
-    "geolocation": "enabled",
-    "position": "top-right",
-    "margin": "10px 10px",
-    "language": "zh-chs",
-    "unit": "c",
-    "theme": "white",
-    "uid": "U67E28EBB1",
-    "hash": "a7b086f9457d6e0dc8894e7748b4590c"
-});
-tpwidget("show");</script>
+          
+            
+          
+          
+
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
@@ -748,7 +761,7 @@ tpwidget("show");</script>
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
@@ -764,21 +777,14 @@ tpwidget("show");</script>
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">cxlwill</span>
 
   
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">31.4k</span>
+
   
 </div>
 
@@ -798,14 +804,8 @@ tpwidget("show");</script>
 
 
 
-  <div style="display: none;">
-    <script src="//s95.cnzz.com/z_stat.php?id=1263484509&web_id=1263484509" language="JavaScript"></script>
-  </div>
-
-
 
         
-        <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
       </div>
     </footer>
 
@@ -818,11 +818,14 @@ tpwidget("show");</script>
 
     
 
+    
+
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -836,7 +839,6 @@ tpwidget("show");</script>
 
 
 
-  
 
 
 
@@ -847,52 +849,33 @@ tpwidget("show");</script>
 
 
 
-  
 
 
 
   
   
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
+  <script id="ribbon" size="150" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
 
   
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
 
   
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script id="ribbon" type="text/javascript" size="150" alpha="0.6"  zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
-  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+  <script src="/js/src/utils.js?v=7.0.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+  <script src="/js/src/motion.js?v=7.0.0"></script>
 
 
 
@@ -900,72 +883,48 @@ tpwidget("show");</script>
   
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+  <script src="/js/src/affix.js?v=7.0.0"></script>
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
 
 
 
   
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
 
 
 
   
 
 
-  
-
-
-
-
-	
-
-
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
 
 
 
   
 
 
-
-
-
   
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
-  
-
-
-
-
-
-
-
-
-
-
-
+    <script>
+  window.livereOptions = {
+    refer: 'programming/pypi/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
 
   
 
-  <script type="text/javascript">
+
+  
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -1014,6 +973,8 @@ tpwidget("show");</script>
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -1047,8 +1008,9 @@ tpwidget("show");</script>
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -1217,9 +1179,9 @@ tpwidget("show");</script>
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -1293,6 +1255,17 @@ tpwidget("show");</script>
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
   
 
   
